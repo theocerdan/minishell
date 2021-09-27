@@ -4,7 +4,6 @@ int process_export(t_shell *shell, char *cmd)
 {
     (void)(shell);
     (void)(cmd);
-    printf("youhou\n");
-    //exit(0);
+    printf("process_export\n");
     return (1);
 }

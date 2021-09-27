@@ -4,7 +4,6 @@ int process_unset(t_shell *shell, char *cmd)
 {
     (void)(shell);
     (void)(cmd);
-    printf("youhou\n");
-    //exit(0);
+    printf("process_unset\n");
     return (1);
 }

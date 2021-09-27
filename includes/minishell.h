@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <signal.h>
+#include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 #include "libft.h"
 
 #define CD 0
@@ -49,6 +52,8 @@ void 	setup_default_env(char **envp, t_shell *shell);
 void	ft_clean(void *ptr);
 void	*ft_create_var(char *key, char *value, t_shell *s);
 void	*get_env_value(char *name, t_shell *s);
+
+void    ft_error(char *str);
 
 int 	process_exit(t_shell *shell, char* cmd);
 int 	process_cd(t_shell *shell, char* cmd);

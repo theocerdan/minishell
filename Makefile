@@ -33,8 +33,11 @@ SRC_BLTIN = ft_pwd.c \
 				ft_export.c \
 				ft_unset.c
 
+SRC_ERR = ft_error.c
+
 SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(BLTIN_DIR),$(SRC_BLTIN))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(ERR_DIR),$(SRC_ERR))) \
 
 INC	= -I ./includes/ -I ./libft/includes
 
@@ -57,7 +60,7 @@ all: $(LIBFT) $(NAME)
 
 # Project file rule
 $(NAME): $(OBJS)
-	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ #-fsanitize=address
+	@$(CC) $(INC) $(OBJS) $(LIBFT) -lreadline -lncurses -o $@ #-fsanitize=address
 	@printf "\e[92mminishell compiled\e[0m\e[?25h\n"
 
 # Libft rule
@@ -65,7 +68,6 @@ $(LIBFT):
 	@make -C $(LIBDIR)
 	@printf "\e[92mlibft compiled\e[0m\e[?25h\n"
 	
-
 # Cleaning up the build files
 clean:
 	@rm -rf $(OBJS)
