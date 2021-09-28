@@ -30,7 +30,7 @@ char	*create_prompt(void)
 	char	*result;
 
 	pwd = get_pwd();
-	name = ft_strdup("Minishell");
+	name = ft_strdup("minishell: ");
 	end = ft_strdup("$ ");
 	result = join_prompt_element(name, pwd, end);
 	return (result);

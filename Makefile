@@ -25,6 +25,7 @@ SRCS_FILES = main.c \
 				ft_memory_cleaner2000.c \
 				get_absolute_path.c \
 				get_next_word.c \
+				utils.c 
 
 SRC_BLTIN = ft_pwd.c \
 				ft_echo.c \

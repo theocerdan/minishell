@@ -28,18 +28,19 @@ typedef struct	s_env
 	int			visible;
 }				t_env;
 
-typedef struct	s_shell
-{
-	t_list		*ptrs;
-	t_list		*env_vars;
-}				t_shell;
-
 typedef struct	s_built
 {
     int			id;
     char 		*cmd[10];
 	int 		(*process_ft)(t_shell *shell, char* cmd);
 } 				t_built;
+
+typedef struct	s_shell
+{
+	t_list		*ptrs;
+	t_list		*env_vars;
+	t_built		*queue;
+}				t_shell;
 
 void	*ft_safe_malloc(unsigned int size, t_shell *s);
 void	ft_add_to_garbage(void *ptr, t_shell *s);
@@ -52,6 +53,7 @@ void 	setup_default_env(char **envp, t_shell *shell);
 void	ft_clean(void *ptr);
 void	*ft_create_var(char *key, char *value, t_shell *s);
 void	*get_env_value(char *name, t_shell *s);
+int 	get_size(char **array);
 
 char	*start_prompt(char *cmd);
 
