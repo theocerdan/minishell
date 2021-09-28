@@ -9,6 +9,7 @@ NONE = \033[0m
 
 MAIN_DIR = srcs/
 ERR_DIR = error/
+PRMPT_DIR = prompt/
 PARSE_DIR = parser/
 EXEC_DIR = execute/
 BLTIN_DIR = builtins/
@@ -35,9 +36,12 @@ SRC_BLTIN = ft_pwd.c \
 
 SRC_ERR = ft_error.c
 
+SRC_PRMPT = ft_prompt.c
+
 SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(BLTIN_DIR),$(SRC_BLTIN))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(ERR_DIR),$(SRC_ERR))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(PRMPT_DIR),$(SRC_PRMPT))) \
 
 INC	= -I ./includes/ -I ./libft/includes
 
@@ -70,14 +74,14 @@ $(LIBFT):
 	
 # Cleaning up the build files
 clean:
-	@rm -rf $(OBJS)
 	@make -C $(LIBDIR) clean
+	@rm -rf $(OBJS)
 	@printf "\033[0;31mfolder cleaned\e[0m\n"
 
 # Getting rid of the project file
 fclean:	clean
-	@rm -rf $(NAME)
 	@make -C $(LIBDIR) fclean
+	@rm -rf $(NAME)
 	@printf "\033[0;31mfolder fcleaned\e[0m\n"
 
 # Do both of the above

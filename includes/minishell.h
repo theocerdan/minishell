@@ -53,6 +53,8 @@ void	ft_clean(void *ptr);
 void	*ft_create_var(char *key, char *value, t_shell *s);
 void	*get_env_value(char *name, t_shell *s);
 
+char	*start_prompt(char *cmd);
+
 void    ft_error(char *str);
 
 int 	process_exit(t_shell *shell, char* cmd);

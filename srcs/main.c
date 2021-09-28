@@ -1,51 +1,5 @@
 #include "../includes/minishell.h"
 
-static char	*join_prompt_element(char *name, char *pwd, char *end)
-{
-	char	*tmp;
-	char	*prompt;
-
-	tmp = ft_strjoin(name, pwd);
-	prompt = ft_strjoin(tmp, end);
-	free(name);
-	free(tmp);
-	free(pwd);
-	free(end);
-	return (prompt);
-}
-
-
-char	*get_pwd(void)
-{
-	char	*buffer;
-
-	buffer = NULL;
-	return (getcwd(buffer, 0));
-}
-
-char	*create_prompt(void)
-{
-	char	*pwd;
-	char	*name;
-	char	*end;
-	char	*result;
-
-	pwd = get_pwd();
-	name = ft_strdup("Minishell");
-	end = ft_strdup("$ ");
-	result = join_prompt_element(name, pwd, end);
-	return (result);
-}
-
-void	start_prompt()
-{
-	char	*prompt;
-
-	prompt = create_prompt();
-	readline(prompt);
-	free(prompt);
-}
-
 void	prompt(void)
 {
 	//char	*buffer = NULL;
@@ -61,12 +15,18 @@ void	prompt(void)
 	// alloc buffer qui stockera la commande entree par l'user
 	//buffer = ft_safe_malloc(sizeof(char) * buf_size, shell);
 	//setup_default_env(envp, shell);
-	// ecriture d'un prompt
-	char	*input;
+	// écriture d'un prompt
+	char	*cmd;
+
+	cmd = NULL;
 	while (1)
 	{
-		input = NULL;
-		start_prompt();
+		cmd = start_prompt(cmd); // écriture d'un prompt avec path + récup commande taper
+		if (cmd)
+			add_history(cmd); // création historique pour avoir acceder aux commandes précédentes
+		printf("command: %s\n", cmd);
+		if (cmd)
+			free(cmd);
 	}
 	/*write(1, "$> ", 3);
 	// lecture de STDIN en boucle
