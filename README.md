@@ -6,7 +6,7 @@ Your shell should: <br />
 • Not interpret unclosed quotes or unspecified special characters like \ or ;. <br />
 • Not use more than one global variable, think about it and be ready to explain why you do it. <br />
 • Show a prompt when waiting for a new command. <br />
-• Have a working History. <br />
+• Have a working History. 🔵 <br /> 
 • Search and launch the right executable (based on the PATH variable or by using relative or absolute path) <br />
    • It must implement the builtins: <br />
      ◦ echo with option -n <br />
