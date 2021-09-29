@@ -5,15 +5,17 @@ https://segfault42.github.io/posts/minishell/
 Your shell should: <br />
 • Not interpret unclosed quotes or unspecified special characters like \ or ;. <br />
 • Not use more than one global variable, think about it and be ready to explain why you do it. <br />
-• Show a prompt when waiting for a new command. <br />
-• Have a working History. 🔵 <br /> 
+• Show a prompt when waiting for a new command. ✅ <br />
+• Have a working History. ✅ <br /> 
 • Search and launch the right executable (based on the PATH variable or by using relative or absolute path) <br />
    • It must implement the builtins: <br />
      ◦ echo with option -n <br />
-     ◦ cd with only a relative or absolute path ◦ pwd with no options <br />
+     ◦ cd with only a relative or absolute path  <br />
+     ◦ pwd with no options <br />
      ◦ export with no options <br />
      ◦ unset with no options <br />
-     ◦ env with no options or arguments ◦ exit with no options <br />
+     ◦ env with no options or arguments  <br />
+     ◦ exit with no options <br />
 • ’ inhibit all interpretation of a sequence of characters. <br />
 • " inhibit all interpretation of a sequence of characters except for $. <br />
   • Redirections: <br />
