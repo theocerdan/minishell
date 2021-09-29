@@ -20,7 +20,7 @@ LIBFT_DIR = libft/
 SRCS_FILES = main.c \
 				built_process.c \
 				env_manager.c \
-				equals_ignore_case.c \
+				str_equals_ignore_case.c \
 				exec.c \
 				ft_memory_cleaner2000.c \
 				get_absolute_path.c \
@@ -33,6 +33,7 @@ SRC_BLTIN = ft_pwd.c \
 				ft_exit.c \
 				ft_cd.c \
 				ft_export.c \
+				ft_exec.c \
 				ft_unset.c
 
 SRC_ERR = ft_error.c

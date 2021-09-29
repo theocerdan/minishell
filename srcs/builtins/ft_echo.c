@@ -14,9 +14,8 @@ int	is_remove_eol_flag(char *str)
 	return (1);
 }
 
-int process_echo(t_shell *shell, char *cmd)
+int process_echo(char *cmd)
 {
-	(void)(shell);
     cmd = cmd + 5;
     if (is_remove_eol_flag("salut -n"))
         printf("eol flag\n");

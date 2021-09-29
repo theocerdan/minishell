@@ -1,8 +1,8 @@
 #include "../includes/minishell.h"
 
-int process_cd(char *cmd)
+int process_exec(char *cmd)
 {
     (void)(cmd);
-    printf("process_cd\n");
+    printf("process_exec\n");
     return (1);
 }

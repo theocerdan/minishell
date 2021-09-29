@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int equals_ignore_case(char *text_1, char *text_2)
+int str_equals_ignore_case(char *text_1, char *text_2)
 {
 	int e;
 
