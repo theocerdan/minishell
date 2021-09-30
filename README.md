@@ -29,5 +29,6 @@ input of the next command. <br />
 • $? should expand to the exit status of the most recently executed foreground pipeline. <br />
 • ctrl-C ctrl-D ctrl-\ should work like in bash. <br />
   • When interactive: <br />
-    ◦ ctrl-C print a new prompt on a newline. ◦ ctrl-D exit the shell. <br />
+    ◦ ctrl-C print a new prompt on a newline. <br />
+    ◦ ctrl-D exit the shell.<br />
     ◦ ctrl-\ do nothing. <br />
