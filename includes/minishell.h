@@ -68,7 +68,7 @@ void	print_env(t_shell *s);
 void	*ft_create_var(char *key, char *value, t_shell *s);
 
 char	*start_prompt(char *cmd);
-
+void    signal_listeners(void);
 void    ft_error(char *str);
 
 int 	process_exit(char* cmd);

@@ -28,6 +28,7 @@ void	prompt(t_shell *shell)
 
 	while (1)
 	{
+		signal_listeners();
 		cmd = start_prompt(cmd); // écriture d'un prompt avec path + récup commande
 		if (cmd)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
@@ -44,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell *shell = NULL;
 
+	(void)(envp);
 	shell = ft_safe_malloc(sizeof(shell), shell);
 	shell->env_vars = NULL;
 	if (argc > 1 && argv)
