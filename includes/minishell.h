@@ -61,13 +61,14 @@ char	*get_absolute_path(char *cmd);
 void	exec_cmd(char *path, char **cmd, char **envp);
 void 	setup_default_env(char **envp, t_shell *shell);
 void	ft_clean(void *ptr);
-void	*ft_create_var(char *key, char *value, t_shell *s);
-void	*get_env_value(char *name, t_shell *s);
 int 	get_size(char **array);
-void	print_env(t_shell *s);
-void	*ft_create_var(char *key, char *value, t_shell *s);
-
+void	ft_create_var(char *key, char *value, t_shell *shell);
+void	print_all_env(t_shell *shell);
+void	ft_delete_var(char *target_key, t_shell *shell);
+int		ft_strcmp(char *s1, char *s2);
+int		env_key_exist(char *target_key, t_shell *shell);
 char	*start_prompt(char *cmd);
+t_env	*get_env_object(char *target_key, t_shell *shell);
 
 void    ft_error(char *str);
 
@@ -79,8 +80,6 @@ int 	process_pwd(char* cmd);
 int 	process_export(char* cmd);
 int 	process_env(char* cmd);
 int 	process_exec(char* cmd);
-
-void	*get_env_value(char *name, t_shell *s);
 
 void	ft_total_clean(t_shell *m);
 

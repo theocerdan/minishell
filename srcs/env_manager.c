@@ -1,48 +1,83 @@
 #include "../includes/minishell.h"
 
-void	ft_total_clean_env(t_shell *m)
-{
-	ft_lstclear(&(m->env_vars), &ft_clean);
-	ft_clean(m->env_vars);
-	ft_clean(m);
+void print_env(void *ptr){
+	t_env *env = (t_env*)ptr;
+	if (env->visible == 1){
+		printf("%s=%s %d\n", env->key, env->value, env->visible);
+	}
 }
 
-/*void	change_visibility(char *name, int visible, t_shell *s)
+void	print_all_env(t_shell *shell)
 {
-	
-}*/
+	ft_lstiter((shell->env_vars), &print_env);
+}
 
-void	print_env(t_shell *s)
-{
-	t_list	*lst;
-	t_env *obj;
+t_env	*get_env_object(char *target_key, t_shell *shell){
+	t_list *lst = shell->env_vars;
+	t_env *env;
 
-	lst = s->env_vars;
+	if (!lst)
+		return NULL;
+	while (lst)
+	{
+		env = (t_env*)lst->content;
+		if (env->visible == 1 && ft_strcmp(env->key, target_key) == 0){
+			return env;
+		}
+		lst = lst->next;
+	}
+	return NULL;
+}
+
+int	env_key_exist(char *target_key, t_shell *shell){
+	t_list *lst = shell->env_vars;
+	t_env *env;
+
+	if (!lst)
+		return 0;
+	while (lst)
+	{
+		env = (t_env*)lst->content;
+		if (env->visible == 1 && ft_strcmp(env->key, target_key) == 0){
+			return 1;
+		}
+		lst = lst->next;
+	}
+	return 0;
+}
+
+void	ft_delete_var(char *target_key, t_shell *shell){
+	t_list *lst = shell->env_vars;
+	t_env *env;
+	//t_env *deleted;
+
 	if (!lst)
 		return ;
 	while (lst)
 	{
-		obj = (t_env*)lst->content;
-		printf("contenu: %s\n", obj->key);
+		env = (t_env*)lst->content;
+		if (ft_strcmp(env->key, target_key) == 0){
+			env->visible = 0;
+		}
 		lst = lst->next;
 	}
 }
 
-/*void	*get_env_value(char *name, t_shell *s)
+void	ft_create_var(char *key, char *value, t_shell *shell)
 {
-	
-}*/
+	t_env *env;
 
-void	*ft_create_var(char *key, char *value, t_shell *s)
-{
-	t_env	*ptr;
+	env = get_env_object(key, shell);
+	if (env != NULL){
+		env->value = value;
+		env->visible = 1;
+		return ;
+	}
+	env = ft_safe_malloc(sizeof(t_env), shell);
 
-	ptr = ft_safe_malloc(sizeof(t_env), s);
-	ptr->key = key;
-	ptr->value = value;
-	ptr->visible = 1;
-	printf("created var %s %s %d\n", ptr->key, ptr->value, ptr->visible);
-	ft_lstadd_front(&(s->env_vars), ft_lstnew(ptr));
-	//print_env(s);
-	return (ptr);
+	env->key = key;
+	env->value = value;
+	env->visible = 1;
+
+	ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
 }
