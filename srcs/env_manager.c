@@ -79,5 +79,5 @@ void	ft_create_var(char *key, char *value, t_shell *shell)
 	env->value = value;
 	env->visible = 1;
 
-	ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
+	ft_lstadd_back(&(shell->env_vars), ft_lstnew(env));
 }

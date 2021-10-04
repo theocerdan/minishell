@@ -21,13 +21,25 @@ void	init_queue(t_shell *shell, char *command)
 	}
 }
 
+void    init_env(t_shell *shell, char **envp)
+{
+    int i = 0;
+    while (envp[i]){
+        char **split = ft_split(envp[i], '=');
+        char *key = split[0];
+        char *value = split[1];
+        ft_create_var(key, value, shell);
+        i++;
+    }
+}
+
 void	prompt(t_shell *shell)
 {
 	char 	*cmd = NULL;
 
 	while (1)
 	{
-		signal_listeners();
+		//signal_listeners();
 		cmd = start_prompt(cmd); // écriture d'un prompt avec path + récup commande
 		if (cmd)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
@@ -37,7 +49,7 @@ void	prompt(t_shell *shell)
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	t_shell *shell = NULL;
 
@@ -45,17 +57,7 @@ int	main(int argc, char **argv)
 	shell = ft_safe_malloc(sizeof(shell), shell);
 	shell->env_vars = NULL;
 
-	ft_create_var("test", "valuee", shell);
-	ft_create_var("shit", "caca", shell);
-	ft_create_var("pipi", "merde", shell);
-	ft_create_var("colon", "kristof", shell);
-	ft_create_var("michel", "deniro", shell);
-	ft_delete_var("test", shell);
-	ft_create_var("test", "deniro", shell);
-	ft_create_var("test", "deniro2", shell);
-	printf("\nValeur de shit: %s\n", get_env_object("shit", shell)->value);
-	printf("\nExist shit: %d\n", env_key_exist("shit", shell));
-	printf("\nExist test: %d\n", env_key_exist("test", shell));
+	init_env(shell, envp);
 	print_all_env(shell);
 
 	if (argc > 1 && argv)
