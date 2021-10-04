@@ -67,7 +67,7 @@ void	print_all_env(t_shell *shell);
 void	ft_delete_var(char *target_key, t_shell *shell);
 int		ft_strcmp(char *s1, char *s2);
 int		env_key_exist(char *target_key, t_shell *shell);
-char	*start_prompt(char *cmd);
+char	*start_prompt(t_shell *shell, char *cmd);
 t_env	*get_env_object(char *target_key, t_shell *shell);
 void    signal_listeners(void);
 void    ft_error(char *str);

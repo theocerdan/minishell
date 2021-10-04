@@ -1,46 +1,38 @@
 #include "../includes/minishell.h"
 
-char	*join_prompt_element(char *name, char *pwd, char *end)
+char	*join_prompt_element(char *begin, char *pwd, char *end)
 {
 	char	*tmp;
 	char	*prompt;
 
-	tmp = ft_strjoin(name, pwd);
+	tmp = ft_strjoin(begin, pwd);
 	prompt = ft_strjoin(tmp, end);
 	free(tmp);
-	free(name);
+	free(begin);
 	free(pwd);
 	free(end);
 	return (prompt);
 }
 
-char	*get_pwd(void)
-{
-	char	*buffer;
-
-	buffer = NULL;
-	return (getcwd(buffer, 0));
-}
-
-char	*create_prompt(void)
+char	*create_prompt(t_shell *shell)
 {
 	char	*pwd;
-	char	*name;
-	char	*end;
 	char	*result;
+	char	*buffer;
+	char	*home_path;
 
-	pwd = get_pwd();
-	name = ft_strdup("minishell: ");
-	end = ft_strdup("$ ");
-	result = join_prompt_element(name, pwd, end);
+	buffer = NULL;
+	home_path = get_env_object("HOME", shell)->value;
+	pwd = getcwd(buffer, 0);
+	result = join_prompt_element(ft_strdup("~"), ft_strdup(pwd + ft_strlen(home_path)), ft_strdup("$ "));
 	return (result);
 }
 
-char	*start_prompt(char *cmd)
+char	*start_prompt(t_shell *shell, char *cmd)
 {
 	char	*prompt;
 
-	prompt = create_prompt();
+	prompt = create_prompt(shell);
 	cmd = readline(prompt);
 	free(prompt);
 	return (cmd);

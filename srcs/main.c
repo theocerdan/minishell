@@ -23,11 +23,17 @@ void	init_queue(t_shell *shell, char *command)
 
 void    init_env(t_shell *shell, char **envp)
 {
-    int i = 0;
-    while (envp[i]){
-        char **split = ft_split(envp[i], '=');
-        char *key = split[0];
-        char *value = split[1];
+    int		i;
+	char	**split;
+	char	*key;
+	char	*value;
+
+	i = 0;
+    while (envp[i])
+	{
+        split = ft_split(envp[i], '=');
+        key = split[0];
+        value = split[1];
         ft_create_var(key, value, shell);
         i++;
     }
@@ -40,10 +46,9 @@ void	prompt(t_shell *shell)
 	while (1)
 	{
 		//signal_listeners();
-		cmd = start_prompt(cmd); // écriture d'un prompt avec path + récup commande
+		cmd = start_prompt(shell, cmd); // écriture d'un prompt avec path + récup commande
 		if (cmd)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
-		print_all_env(shell);
 		if (cmd)
 			free(cmd);
 	}
@@ -56,10 +61,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)(envp);
 	shell = ft_safe_malloc(sizeof(shell), shell);
 	shell->env_vars = NULL;
-
 	init_env(shell, envp);
-	print_all_env(shell);
-
+	//print_all_env(shell);
 	if (argc > 1 && argv)
 		ft_error("too many arguments\n");
 	prompt(shell);
