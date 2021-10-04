@@ -82,5 +82,7 @@ int 	process_env(char* cmd);
 int 	process_exec(char* cmd);
 
 void	ft_total_clean(t_shell *m);
+void	signal_handler(int sig);
+char	*create_prompt(t_shell *shell);
 
 #endif
