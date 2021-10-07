@@ -26,7 +26,8 @@ SRCS_FILES = main.c \
 				get_absolute_path.c \
 				get_next_word.c \
 				utils.c \
-				signal.c
+				signal.c \
+				tokenizer.c
 
 SRC_BLTIN = ft_pwd.c \
 				ft_echo.c \

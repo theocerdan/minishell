@@ -20,6 +20,13 @@
 #define ECHO 6
 #define EXEC 7
 
+# define T_BUILTIN 42
+# define T_LITERAL 43
+# define T_PIPE 44
+# define T_REDIRECT 45
+# define T_HERE_DOC 46
+# define T_FILE 47
+
 //commande -> (built, exec) "cd .."
 
 // https://github.com/AzodFR/minishell
@@ -30,6 +37,12 @@ typedef struct	s_env
 	char		*value;
 	int			visible;
 }				t_env;
+
+typedef struct	s_token
+{
+	int			type;
+	char		*value;
+}				t_token;
 
 typedef struct	s_cmd
 {
@@ -50,6 +63,7 @@ typedef struct	s_shell
 	t_list		*ptrs;
 	t_list		*env_vars;
 	t_cmd		**queue;
+	t_list 		*token_list;
 }				t_shell;
 
 void	*ft_safe_malloc(unsigned int size, t_shell *s);
@@ -72,6 +86,8 @@ t_env	*get_env_object(char *target_key, t_shell *shell);
 void    signal_listeners(void);
 void    ft_error(char *str);
 
+void	print_all_token(t_shell *shell);
+
 int 	process_exit(char* cmd);
 int 	process_cd(char* cmd);
 int 	process_echo(char* cmd);
@@ -84,5 +100,7 @@ int 	process_exec(char* cmd);
 void	ft_total_clean(t_shell *m);
 void	signal_handler(int sig);
 char	*create_prompt(t_shell *shell);
+
+void	tokenization(t_shell *shell, char *cmd);
 
 #endif
