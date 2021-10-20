@@ -1,24 +1,36 @@
 #include "../includes/minishell.h"
 
-int	is_remove_eol_flag(char *str)
+int		process_echo(char *cmd)
 {
-	if (ft_strncmp(str, "-n", 2))
-		return (0);
-	str = str + 2;
-	while (*str)
-	{
-		if (*str != 'n')
-			return (0);
-		str++;
-	}
+	(void)(cmd);
+	printf("ECHO!!!\n");
 	return (1);
 }
 
-int process_echo(char *cmd)
+//////////////////////////////////////////////////////////
+
+int		get_flag(char *each_cmd)
 {
-    cmd = cmd + 5;
-    if (is_remove_eol_flag("salut -n"))
-        printf("eol flag\n");
-    printf("-> %s", cmd);
-    return (1);
+	int		n_flag;
+
+	n_flag = 0;
+	if (each_cmd[5] == '-' && each_cmd[6] == 'n')
+		n_flag = 1;
+	return (n_flag);
+}
+
+void	echo(char *each_cmd)
+{
+	int		n_flag;
+	int		i;
+
+	n_flag = get_flag(each_cmd);
+	if (n_flag)
+		i = 8;
+	else
+		i = 5;
+	while (each_cmd[i])
+		printf("%c", each_cmd[i++]);
+	if (n_flag == 0)
+		printf("\n");
 }

@@ -7,6 +7,7 @@
 #include <string.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <stdarg.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 #include "libft.h"
@@ -20,16 +21,12 @@
 #define ECHO 6
 #define EXEC 7
 
-# define T_BUILTIN 42
-# define T_LITERAL 43
-# define T_PIPE 44
-# define T_REDIRECT 45
-# define T_HERE_DOC 46
-# define T_FILE 47
-
-//commande -> (built, exec) "cd .."
-
-// https://github.com/AzodFR/minishell
+# define BUILTIN 42
+# define LITERAL 43
+# define PIPE 44
+# define REDIRECT 45
+# define FLAG 46
+# define ENV_TOKEN 47
 
 typedef struct	s_env
 {
@@ -37,12 +34,6 @@ typedef struct	s_env
 	char		*value;
 	int			visible;
 }				t_env;
-
-typedef struct	s_token
-{
-	int			type;
-	char		*value;
-}				t_token;
 
 typedef struct	s_cmd
 {
@@ -58,20 +49,30 @@ typedef struct	s_built
 	int 		(*process_ft)(char* cmd);
 } 				t_built;
 
+typedef struct s_token
+{
+	int			type;
+	char		*value;
+}				t_token;
+
 typedef struct	s_shell
 {
 	t_list		*ptrs;
 	t_list		*env_vars;
 	t_cmd		**queue;
-	t_list 		*token_list;
+	t_list		*token_list;
+	
+	int			fd;
+	int			error_return;
+	int			nbr_cmd;
+	char		*command_line_clean;
+	char		**tab_cmd;
 }				t_shell;
 
 void	*ft_safe_malloc(unsigned int size, t_shell *s);
 void	ft_add_to_garbage(void *ptr, t_shell *s);
 int		get_command_type(t_cmd *cmd);
 int 	str_equals_ignore_case(char *text_1, char *text_2);
-char 	*get_next_word(char *text, t_shell *shell);
-char	*get_absolute_path(char *cmd);
 void	exec_cmd(char *path, char **cmd, char **envp);
 void 	setup_default_env(char **envp, t_shell *shell);
 void	ft_clean(void *ptr);
@@ -86,21 +87,36 @@ t_env	*get_env_object(char *target_key, t_shell *shell);
 void    signal_listeners(void);
 void    ft_error(char *str);
 
-void	print_all_token(t_shell *shell);
-
 int 	process_exit(char* cmd);
 int 	process_cd(char* cmd);
-int 	process_echo(char* cmd);
 int 	process_unset(char* cmd);
 int 	process_pwd(char* cmd);
 int 	process_export(char* cmd);
 int 	process_env(char* cmd);
 int 	process_exec(char* cmd);
+int		process_echo(char *cmd);
 
 void	ft_total_clean(t_shell *m);
 void	signal_handler(int sig);
 char	*create_prompt(t_shell *shell);
-
+void	ft_clear_token(t_shell *shell);
+int		define_type(char *value);
+void	print_all_token(t_shell *shell);
 void	tokenization(t_shell *shell, char *cmd);
+void	parser(t_shell *shell);
+
+int		is_builtin(char *value);
+
+void	echo(char *each_cmd);
+void	pwd(void);
+void	export(t_shell *shell, char *each_cmd);
+void	ft_exit(t_shell *shell, char *each_cmd);
+void    unset(t_shell *shell, char *each_cmd);
+
+void    init_env(t_shell *shell, char **envp);
+
+int		get_argc(char *str);
+char	*get_first_arg(char *each_cmd);
+int		ft_isnumber(char *s);
 
 #endif

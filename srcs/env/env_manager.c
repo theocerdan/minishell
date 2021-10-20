@@ -1,23 +1,11 @@
 #include "../includes/minishell.h"
 
-void	print_env(void *ptr)
-{
-	t_env *env = (t_env*)ptr;
-
-	if (env->visible == 1)
-		printf("%s=%s %d\n", env->key, env->value, env->visible);
-}
-
-void	print_all_env(t_shell *shell)
-{
-	ft_lstiter((shell->env_vars), &print_env);
-}
-
 t_env	*get_env_object(char *target_key, t_shell *shell)
 {
-	t_list *lst = shell->env_vars;
+	t_list *lst;
 	t_env *env;
 
+	lst = shell->env_vars;
 	if (!lst)
 		return (NULL);
 	while (lst)
@@ -32,9 +20,10 @@ t_env	*get_env_object(char *target_key, t_shell *shell)
 
 int	env_key_exist(char *target_key, t_shell *shell)
 {
-	t_list *lst = shell->env_vars;
+	t_list *lst;
 	t_env *env;
 
+	lst = shell->env_vars;
 	if (!lst)
 		return (0);
 	while (lst)
@@ -49,10 +38,10 @@ int	env_key_exist(char *target_key, t_shell *shell)
 
 void	ft_delete_var(char *target_key, t_shell *shell)
 {
-	t_list *lst = shell->env_vars;
+	t_list *lst;
 	t_env *env;
-	//t_env *deleted;
 
+	lst = shell->env_vars;
 	if (!lst)
 		return ;
 	while (lst)

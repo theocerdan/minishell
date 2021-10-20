@@ -9,6 +9,7 @@ NONE = \033[0m
 
 MAIN_DIR = srcs/
 ERR_DIR = error/
+ENV_DIR = env/
 PRMPT_DIR = prompt/
 PARSE_DIR = parser/
 EXEC_DIR = execute/
@@ -19,15 +20,14 @@ LIBFT_DIR = libft/
 
 SRCS_FILES = main.c \
 				built_process.c \
-				env_manager.c \
 				str_equals_ignore_case.c \
 				exec.c \
 				ft_memory_cleaner2000.c \
-				get_absolute_path.c \
-				get_next_word.c \
 				utils.c \
 				signal.c \
-				tokenizer.c
+				tokenizer.c \
+				parser.c \
+				init.c
 
 SRC_BLTIN = ft_pwd.c \
 				ft_echo.c \
@@ -36,16 +36,21 @@ SRC_BLTIN = ft_pwd.c \
 				ft_cd.c \
 				ft_export.c \
 				ft_exec.c \
-				ft_unset.c
+				ft_unset.c \
+				utils_builtins.c
 
 SRC_ERR = ft_error.c
 
 SRC_PRMPT = ft_prompt.c
 
+SRC_ENV = env_manager.c \
+			env_utils.c
+
 SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(BLTIN_DIR),$(SRC_BLTIN))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(ERR_DIR),$(SRC_ERR))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(PRMPT_DIR),$(SRC_PRMPT))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(ENV_DIR),$(SRC_ENV))) \
 
 INC	= -I ./includes/ -I ./libft/includes
 

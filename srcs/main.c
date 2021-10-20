@@ -1,44 +1,5 @@
 #include "../includes/minishell.h"
 
-void	init_queue(t_shell *shell, char *command)
-{
-	int		i;
-	char 	**splited_cmd;
-	int		number_of_element;
-	
-	splited_cmd = ft_split(command, '|');
-	number_of_element = get_size(splited_cmd);
-	shell->queue = ft_safe_malloc(sizeof(t_built) * number_of_element, shell);
-	i = 0;
-	while (i < number_of_element)
-	{
-		t_cmd *cmd = ft_safe_malloc(sizeof(t_cmd), shell);
-		cmd->id = i;
-		cmd->full_cmd = splited_cmd[i];
-		cmd->type = get_command_type(cmd);
-		shell->queue[i] = cmd;
-		i++;
-	}
-}
-
-void    init_env(t_shell *shell, char **envp)
-{
-    int		i;
-	char	**split;
-	char	*key;
-	char	*value;
-
-	i = 0;
-    while (envp[i])
-	{
-        split = ft_split(envp[i], '=');
-        key = split[0];
-        value = split[1];
-        ft_create_var(key, value, shell);
-        i++;
-    }
-}
-
 void	prompt(t_shell *shell)
 {
 	char 	*cmd = NULL;
@@ -50,8 +11,8 @@ void	prompt(t_shell *shell)
 		if (cmd)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
 		tokenization(shell, cmd);
-		print_all_token(shell);
-		ft_lstclear(&(shell->token_list), &free);
+		parser(shell);
+		//ft_lstclear(&(shell->token_list), &free);
 		if (cmd)
 			free(cmd);
 	}
@@ -64,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	shell = ft_safe_malloc(sizeof(shell), shell);
 	shell->env_vars = NULL;
 	shell->token_list = NULL;
+	shell->error_return = 0;
 	if (argc > 1 && argv)
 		ft_error("too many arguments\n");
 	init_env(shell, envp);
