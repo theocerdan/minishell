@@ -89,6 +89,8 @@ void	execute_builtin(t_shell *shell, char *command_to_execute, char *each_cmd)
 		echo(each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "pwd")))
 		pwd();
+	//else if (!(ft_strcmp(command_to_execute, "cd")))
+	//	cd();
 	else if (!(ft_strcmp(command_to_execute, "export")))
 		export(shell, each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "unset")))
@@ -96,7 +98,7 @@ void	execute_builtin(t_shell *shell, char *command_to_execute, char *each_cmd)
 	else if (!(ft_strcmp(command_to_execute, "exit")))
 		ft_exit(shell, each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "env")))
-		print_all_env(shell);
+		print_all_env(shell->env_vars);
 }
 
 void	execute(t_shell *shell)
@@ -110,7 +112,7 @@ void	execute(t_shell *shell)
 			set_local_variable(shell->tab_cmd[i], &i);
 	}*/
 	i = 0;
-	while (i < shell->nbr_cmd - 1)
+	while (i < shell->nbr_cmd)
 	{
 		command_to_execute = get_executable(shell->tab_cmd[i]);
 		if (is_builtin(command_to_execute))

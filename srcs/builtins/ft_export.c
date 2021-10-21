@@ -25,9 +25,9 @@ void		ft_swap_env(t_env *a, t_env *b)
 	b->visible = visible;
 }
 
-void	ft_sort_export_env(t_shell *shell)
+void	ft_sort_export_env(t_list *new)
 {
-    t_list  *lst = shell->env_vars;
+    t_list  *lst = new;
 	t_env	*env;
 	t_env	*next_env;
 
@@ -38,16 +38,38 @@ void	ft_sort_export_env(t_shell *shell)
 		if (ft_strcmp(env->key, next_env->key) > 0)
         {
             ft_swap_env(env, next_env);
-            lst = shell->env_vars;
+            lst = new;
         }
         else
 		    lst = lst->next;
 	}
 }
 
+t_list	*clone_env(t_shell *shell)
+{
+	t_list  *lst = shell->env_vars;
+	t_list	*new_lst;
+	t_env	*new;
+	t_env	*old;
+
+	new_lst = NULL;
+    while (lst && lst->next)
+	{
+		old = (t_env*)lst->content;
+		new = ft_safe_malloc(sizeof(t_env), shell);
+		new->key = old->key;
+		new->value = old->value;
+		new->visible = old->visible;
+		ft_lstadd_front(&(new_lst), ft_lstnew(new));
+		lst = lst->next;
+	}
+	return (new_lst);
+}
+
 void	export(t_shell *shell, char *each_cmd)
 {
 	t_env 	*env;
+	t_list 	*new;
     char	*first_arg;
 	int		i;
 
@@ -70,7 +92,8 @@ void	export(t_shell *shell, char *each_cmd)
 	}
 	else
 	{
-		ft_sort_export_env(shell);
-		print_all_env(shell);
+		new = clone_env(shell);
+		ft_sort_export_env(new);
+		print_all_env(new);
 	}
 }

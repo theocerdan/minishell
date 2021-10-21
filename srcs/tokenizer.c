@@ -239,7 +239,6 @@ void	tokenization(t_shell *shell, char *cmd)
 {
 	if (no_need_to_tokenization(cmd))
 		return ;
-	printf("hey :=)\n");
 	cmd = resolve_space_issue(cmd);
 	shell->command_line_clean = cmd;
 	//printf("after:%s|\n", cmd);

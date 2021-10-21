@@ -78,7 +78,7 @@ void 	setup_default_env(char **envp, t_shell *shell);
 void	ft_clean(void *ptr);
 int 	get_size(char **array);
 void	ft_create_var(char *key, char *value, t_shell *shell);
-void	print_all_env(t_shell *shell);
+void	print_all_env(t_list *lst);
 void	ft_delete_var(char *target_key, t_shell *shell);
 int		ft_strcmp(char *s1, char *s2);
 int		env_key_exist(char *target_key, t_shell *shell);
