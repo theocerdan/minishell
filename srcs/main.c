@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell *shell = NULL;
 
-	shell = ft_safe_malloc(sizeof(shell), shell);
+	shell = ft_safe_malloc(sizeof(t_shell), shell);
 	shell->env_vars = NULL;
 	shell->token_list = NULL;
 	shell->error_return = 0;

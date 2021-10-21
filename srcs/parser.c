@@ -12,6 +12,7 @@ int		get_number_of_commands(t_shell *shell)
 	while (shell->token_list)
 	{
 		cmd = (t_token*)shell->token_list->content;
+		//printf("cmd->type: %d\n", cmd->type);
 		if (cmd->type == PIPE)
 			nbr_cmd++;
 		shell->token_list = shell->token_list->next;
@@ -109,7 +110,7 @@ void	execute(t_shell *shell)
 			set_local_variable(shell->tab_cmd[i], &i);
 	}*/
 	i = 0;
-	while (i < shell->nbr_cmd)
+	while (i < shell->nbr_cmd - 1)
 	{
 		command_to_execute = get_executable(shell->tab_cmd[i]);
 		if (is_builtin(command_to_execute))

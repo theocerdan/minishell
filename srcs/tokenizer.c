@@ -98,7 +98,7 @@ void	ft_create_token(int type, char *value, t_shell *shell)
 	token = ft_safe_malloc(sizeof(t_token), shell);
 	token->type = type;
 	token->value = value;
-	ft_lstadd_back(&(shell->token_list), ft_lstnew(token));
+	ft_lstadd_front(&(shell->token_list), ft_lstnew(token));
 }
 
 void    init_token(t_shell *shell, char *cmd)
@@ -194,9 +194,9 @@ char	*check_and_insert_spaces(char *cmd)
 	current = cmd;
 	tmp = cmd;
 	result = " ";
-	while (current && current[i])
+	while (current != NULL && current[i])
 	{
-		if (no_blanks_around_operator(current[i], current[i + 1], current[i - 1]))
+		if (i > 0 && no_blanks_around_operator(current[i], current[i + 1], current[i - 1]))
 		{
 			tmp = insert_spaces(cmd, current[i], i);
 			result = ft_strjoin(result, tmp);

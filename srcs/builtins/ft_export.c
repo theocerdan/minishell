@@ -66,7 +66,7 @@ void	export(t_shell *shell, char *each_cmd)
 		env->key = ft_substr(first_arg, 0, i);
 		env->value = ft_substr(first_arg, i + 1, ft_strlen(first_arg) - ft_strlen(env->key));
 		env->visible = 1;
-		ft_lstadd_back(&(shell->env_vars), ft_lstnew(env));
+		ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
 	}
 	else
 	{
