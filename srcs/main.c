@@ -12,7 +12,7 @@ void	prompt(t_shell *shell)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
 		tokenization(shell, cmd);
 		parser(shell);
-		//ft_lstclear(&(shell->token_list), &free);
+		ft_lstclear(&(shell->token_list), &free);
 		if (cmd)
 			free(cmd);
 	}

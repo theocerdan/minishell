@@ -2,6 +2,7 @@
 
 int		get_number_of_commands(t_shell *shell)
 {
+	printf("no :=)\n");
 	t_token *cmd;
 	t_list 	*start;
 	int		nbr_cmd;
