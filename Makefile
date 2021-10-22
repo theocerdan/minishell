@@ -77,7 +77,7 @@ LIBFT = ./libft/libft.a
 
 # Optimization and Compiler flags and commands
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 # Main rule
 all: $(LIBFT) $(NAME)
@@ -88,7 +88,7 @@ all: $(LIBFT) $(NAME)
 
 # Project file rule
 $(NAME): $(OBJS)
-	@$(CC) $(INC) $(OBJS) $(LIBFT) -lreadline -lncurses -o $@ #-fsanitize=address
+	@$(CC) $(INC) $(OBJS) $(LIBFT) -lreadline -lncurses -o $@ -fsanitize=address
 	@printf "\e[92mminishell compiled\e[0m\e[?25h\n"
 
 # Libft rule

@@ -11,7 +11,8 @@ void	prompt(t_shell *shell)
 		if (cmd)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
 		tokenization(shell, cmd);
-		parser(shell);
+		if (shell->command_line_clean)
+			parser(shell);
 		ft_lstclear(&(shell->token_list), &free);
 		if (cmd)
 			free(cmd);
@@ -23,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell *shell = NULL;
 
 	shell = ft_safe_malloc(sizeof(t_shell), shell);
+	shell->command_line_clean = NULL;
 	shell->env_vars = NULL;
 	shell->token_list = NULL;
 	shell->error_return = 0;

@@ -26,10 +26,7 @@ void	exit_value(t_shell *shell, int ret, char *each_cmd)
 		exit(256 + ret);
 	}
 	else
-	{
-		ft_total_clean(shell);
 		exit(ret);
-	}
 }
 
 void	ft_exit(t_shell *shell, char *each_cmd)
