@@ -23,7 +23,7 @@ Your shell should: <br />
 ◦ “>>” should redirect output with append mode. <br />
 • Pipes | The output of each command in the pipeline is connected via a pipe to the input of the next command. <br />
 • Environment variables ($ followed by characters) should expand to their values. <br />
-• $? should expand to the exit status of the most recently executed foreground pipeline. <br /> <br />
+• $? should expand to the exit status of the most recently executed foreground pipeline. <br />
 ◦ ctrl-C print a new prompt on a newline. <br />
 ◦ ctrl-D exit the shell.<br />
 ◦ ctrl-\ do nothing. <br />
