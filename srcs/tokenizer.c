@@ -4,6 +4,8 @@ int     no_need_to_tokenization(char *cmd)
 {
 	int		i;
 
+	if (!cmd)
+		return (0);
 	if (cmd[0] == '\0')
 		return (1);
 	i = 0;
@@ -239,6 +241,7 @@ void	tokenization(t_shell *shell, char *cmd)
 {
 	if (no_need_to_tokenization(cmd))
 		return ;
+	//printf("before:%s|\n", cmd);
 	cmd = resolve_space_issue(cmd);
 	shell->command_line_clean = cmd;
 	//printf("after:%s|\n", cmd);

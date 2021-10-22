@@ -45,6 +45,22 @@ char	*get_first_arg(char *each_cmd)
 	return (tmp);
 }
 
+char	*get_first_word_cmd(char *each_cmd)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (each_cmd[i])
+	{
+		if (each_cmd[i] == ' ')
+			break;
+		i++;
+	}
+	tmp = ft_substr(each_cmd, 0, i);
+	return (tmp);
+}
+
 int		ft_isnumber(char *s)
 {
 	int i;

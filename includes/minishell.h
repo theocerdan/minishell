@@ -8,8 +8,9 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <stdarg.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <sys/stat.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include "libft.h"
 
 #define CD 0
@@ -59,6 +60,7 @@ typedef struct	s_shell
 {
 	t_list		*ptrs;
 	t_list		*env_vars;
+	char		**env_tab;
 	t_cmd		**queue;
 	t_list		*token_list;
 	
@@ -113,10 +115,15 @@ void	export(t_shell *shell, char *each_cmd);
 void	ft_exit(t_shell *shell, char *each_cmd);
 void    unset(t_shell *shell, char *each_cmd);
 
-void    init_env(t_shell *shell, char **envp);
+void	init_env(t_shell *shell, char **envp);
+void    init_env_lst(t_shell *shell, char **envp);
+void    init_env_tab(t_shell *shell, char **envp);
 
 int		get_argc(char *str);
 char	*get_first_arg(char *each_cmd);
+char	*get_first_word_cmd(char *each_cmd);
 int		ft_isnumber(char *s);
+
+void	define_exec_signals(void);
 
 #endif

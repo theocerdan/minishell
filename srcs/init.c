@@ -21,7 +21,13 @@ void	init_queue(t_shell *shell, char *command)
 	}
 }
 
-void    init_env(t_shell *shell, char **envp)
+void	init_env(t_shell *shell, char **envp)
+{
+	init_env_lst(shell, envp);
+	init_env_tab(shell, envp);
+}
+
+void    init_env_lst(t_shell *shell, char **envp)
 {
     int		i;
 	char	**split;
@@ -37,4 +43,23 @@ void    init_env(t_shell *shell, char **envp)
         ft_create_var(key, value, shell);
         i++;
     }
+}
+
+void    init_env_tab(t_shell *shell, char **envp)
+{
+    int		i;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	if (!(shell->env_tab = ft_safe_malloc(sizeof(char *) * (i + 2), shell)))
+		exit(0);
+	i = -1;
+	while (envp[++i])
+	{
+		if (!(shell->env_tab[i] = ft_safe_malloc(ft_strlen(envp[i]) + 100, shell)))
+			exit(0);
+		shell->env_tab[i] = envp[i];
+	}
+	shell->env_tab[i] = NULL;
 }
