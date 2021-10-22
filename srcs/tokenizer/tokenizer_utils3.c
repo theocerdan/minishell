@@ -34,6 +34,9 @@ void    init_token(t_shell *shell, char *cmd)
 	each_cmd = ft_split(cmd, ' ');
     while (each_cmd[i])
 	{
+		//if (ft_strchr(each_cmd[i], '\'') || ft_strchr(each_cmd[i], '\"'))
+		//	each_cmd[i] = check_if_quotes(each_cmd[i]);
+		//printf("each_cmd[%d]:%s\n", i, each_cmd[i]);
         type = define_type(each_cmd[i]);
         value = each_cmd[i];
         ft_create_token(type, value, shell);

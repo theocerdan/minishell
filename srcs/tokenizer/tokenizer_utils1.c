@@ -31,13 +31,6 @@ int		is_env(char *value)
 	return (1);
 }
 
-int		is_flag(char *value)
-{
-	if (value[0] == '-' && value[1] == 'n')
-		return (1);
-	return (0);
-}
-
 int	ft_isblank(int c)
 {
 	if (c == ' ' || c == '\t')

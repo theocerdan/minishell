@@ -27,7 +27,8 @@ SRCS_FILES = main.c \
 				ft_memory_cleaner2000.c \
 				utils.c \
 				parser.c \
-				init.c
+				init.c \
+				quotes.c
 
 SRC_BLTIN = ft_pwd.c \
 				ft_echo.c \

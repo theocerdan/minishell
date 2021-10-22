@@ -195,4 +195,8 @@ void	ft_add_to_garbage(void *ptr, t_shell *s);
 void	ft_total_clean(t_shell *m);
 void	*ft_safe_malloc(unsigned int size, t_shell *s);
 
+/* quotes.c */
+
+char    *check_if_quotes(char *each_cmd);
+
 #endif

@@ -35,8 +35,6 @@ int		define_type(char *value)
 		return (define_operator(value));
 	else if (is_env(value))
 		return (ENV_TOKEN);
-	else if (is_flag(value))
-		return (FLAG);
 	else
 		return (LITERAL);
 	return (0);
