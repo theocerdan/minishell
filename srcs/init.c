@@ -21,12 +21,6 @@ void	init_queue(t_shell *shell, char *command)
 	}
 }
 
-void	init_env(t_shell *shell, char **envp)
-{
-	init_env_lst(shell, envp);
-	init_env_tab(shell, envp);
-}
-
 void    init_env_lst(t_shell *shell, char **envp)
 {
     int		i;
@@ -62,4 +56,10 @@ void    init_env_tab(t_shell *shell, char **envp)
 		shell->env_tab[i] = envp[i];
 	}
 	shell->env_tab[i] = NULL;
+}
+
+void	init_env(t_shell *shell, char **envp)
+{
+	init_env_lst(shell, envp);
+	init_env_tab(shell, envp);
 }

@@ -14,6 +14,8 @@ PRMPT_DIR = prompt/
 PARSE_DIR = parser/
 EXEC_DIR = execute/
 BLTIN_DIR = builtins/
+TKN_DIR = tokenizer/
+SIG_DIR = signal/
 LIBFT_DIR = libft/
 
 #Source files:
@@ -24,8 +26,6 @@ SRCS_FILES = main.c \
 				exec.c \
 				ft_memory_cleaner2000.c \
 				utils.c \
-				signal.c \
-				tokenizer.c \
 				parser.c \
 				init.c
 
@@ -46,11 +46,26 @@ SRC_PRMPT = ft_prompt.c
 SRC_ENV = env_manager.c \
 			env_utils.c
 
+SRC_EXEC = execute.c \
+			execute_utils1.c \
+			execute_utils2.c
+
+SRC_TKN = tokenizer.c \
+			tokenizer_utils1.c \
+			tokenizer_utils2.c \
+			tokenizer_utils3.c \
+			tokenizer_utils4.c \
+
+SRC_SIG = signal.c \
+
 SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(BLTIN_DIR),$(SRC_BLTIN))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(ERR_DIR),$(SRC_ERR))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(PRMPT_DIR),$(SRC_PRMPT))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(ENV_DIR),$(SRC_ENV))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(EXEC_DIR),$(SRC_EXEC))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(TKN_DIR),$(SRC_TKN))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(SIG_DIR),$(SRC_SIG))) \
 
 INC	= -I ./includes/ -I ./libft/includes
 

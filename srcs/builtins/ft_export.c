@@ -9,7 +9,7 @@ int process_export(char *cmd)
 
 //////////////////////////////////////////////////////////
 
-void		ft_swap_env(t_env *a, t_env *b)
+void	ft_swap_env(t_env *a, t_env *b)
 {
 	char	*tmp;
 	int		visible;
@@ -66,7 +66,7 @@ t_list	*clone_env(t_shell *shell)
 	return (new_lst);
 }
 
-void	export(t_shell *shell, char *each_cmd)
+void	ft_export(t_shell *shell, char *each_cmd)
 {
 	t_env 	*env;
 	t_list 	*new;

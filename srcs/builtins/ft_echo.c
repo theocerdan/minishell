@@ -19,7 +19,7 @@ int		get_flag(char *each_cmd)
 	return (n_flag);
 }
 
-void	echo(char *each_cmd)
+void	ft_echo(char *each_cmd)
 {
 	int		n_flag;
 	int		i;

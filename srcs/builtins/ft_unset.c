@@ -9,7 +9,7 @@ int process_unset(char *cmd)
 
 ////////////////////////////////////////////////////////
 
-void    unset(t_shell *shell, char *each_cmd)
+void    ft_unset(t_shell *shell, char *each_cmd)
 {
     char	*first_arg;
 

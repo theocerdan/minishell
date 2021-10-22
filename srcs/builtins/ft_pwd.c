@@ -10,7 +10,7 @@ int process_pwd(char *cmd)
 
 //////////////////////////////////////////////////////////
 
-void	pwd(void)
+void	ft_pwd(void)
 {
 	char	*cwd;
 	char	*buffer;
