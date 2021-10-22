@@ -11,11 +11,22 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	exec_arg = ft_split(each_cmd, ' ');
 	pid = fork();
 	define_exec_signals();
-	if (pid == 0)
-		execve(path, exec_arg, shell->env_tab);
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		shell->error_return = WEXITSTATUS(status);
+	if (pid == -1)
+		perror("fork");
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		kill(pid, SIGTERM);
+	}
+	else
+	{
+		if (execve(path, exec_arg, shell->env_tab) == -1)
+		{
+			printf("execve: %s\n", path);
+			perror("shell");
+		}
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	execute_builtin(t_shell *shell, char *command_to_execute, char *each_cmd)
