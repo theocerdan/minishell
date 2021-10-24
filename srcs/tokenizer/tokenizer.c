@@ -97,11 +97,8 @@ void	tokenization(t_shell *shell, char *cmd)
 {
 	if (no_need_to_tokenization(cmd))
 		return ;
-	//printf("before:%s|\n", cmd);
 	cmd = resolve_space_issue(cmd);
-	cmd = check_if_quotes(cmd);
 	shell->command_line_clean = cmd;
-	//printf("after:%s|\n", cmd);
 	init_token(shell, cmd);
 	//print_all_token(shell);
 }

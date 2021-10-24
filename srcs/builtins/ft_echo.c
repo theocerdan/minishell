@@ -24,6 +24,11 @@ void	ft_echo(char *each_cmd)
 	int		n_flag;
 	int		i;
 
+	if (ft_strcmp(each_cmd, "echo") == 0)
+	{
+		printf("\n");
+		return ;
+	}
 	n_flag = get_flag(each_cmd);
 	if (n_flag)
 		i = 8;

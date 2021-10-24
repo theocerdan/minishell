@@ -71,6 +71,9 @@ void	parse_command(t_shell *shell)
 {
 	int		*each_cmd_lenght;
 
+	shell->command_line_clean = check_if_quotes(shell->command_line_clean);
+	if (shell->command_line_clean == NULL)
+		return ;
 	shell->nbr_cmd = get_number_of_commands(shell);
 	each_cmd_lenght = get_each_cmd_lenght(shell, shell->nbr_cmd);
 	shell->tab_cmd = (char **)malloc((shell->nbr_cmd + 1) * sizeof(char *));
