@@ -19,3 +19,10 @@ int get_size(char **array)
         i++;
     return i;
 }
+
+int	ft_is_uppercase(char c)
+{
+	if (c >= 65 && c <= 90)
+		return (1);
+	return (0);
+}

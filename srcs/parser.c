@@ -67,13 +67,6 @@ void	fill_cmd_array(t_shell *shell, int *each_cmd_lenght)
 	}
 }
 
-int		ft_is_uppercase(char c)
-{
-	if (c >= 65 && c <= 90)
-		return (1);
-	return (0);
-}
-
 char	*get_env_key(t_shell *shell)
 {
 	int		i;
@@ -178,7 +171,7 @@ char	*replace_key_to_value_env(t_shell *shell)
 	i = 0;
 	while (shell->command_line_clean[i])
 	{
-		if (ft_is_uppercase(shell->command_line_clean[i]) && shell->command_line_clean[i + 1] == ' ')
+		if (ft_is_uppercase(shell->command_line_clean[i]) && !ft_isalpha(shell->command_line_clean[i + 1]))
 			break ;
 		i++;
 	}
@@ -206,9 +199,9 @@ void	parse_command(t_shell *shell)
 {
 	int		*each_cmd_lenght;
 
+	shell->command_line_clean = check_if_quotes(shell->command_line_clean);
 	if (have_env_variables(shell))
 		resolve_replace_key_to_value_env(shell);
-	shell->command_line_clean = check_if_quotes(shell->command_line_clean);
 	if (shell->command_line_clean == NULL)
 		return ;
 	shell->nbr_cmd = get_number_of_commands(shell);
