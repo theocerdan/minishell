@@ -4,7 +4,33 @@ int		is_builtin(char *value)
 {
 	if (!value)
 		return (0);
-	if (!(ft_strcmp(value, "echo\0")) || !(ft_strcmp(value, "cd\0")) || !(ft_strcmp(value, "pwd")) || !(ft_strcmp(value, "export")) || !(ft_strcmp(value, "unset")) || !(ft_strcmp(value, "env")) || !(ft_strcmp(value, "exit")))
+
+		// || !(ft_strcmp(value, "exit")))
+	if (get_command_type(value).id != EXEC)
+		return (1);
+	return (0);
+}
+
+int		is_double_quote(char *value)
+{
+	int last_i;
+
+	last_i = ft_strlen(value);
+	if (!value)
+		return (0);
+	if (value[last_i - 1] == '"' && value[0] == '"')
+		return (1);
+	return (0);
+}
+
+int		is_single_quote(char *value)
+{
+	int last_i;
+
+	last_i = ft_strlen(value);
+	if (!value)
+		return (0);
+	if (value[last_i - 1] == '\'' && value[0] == '\'')
 		return (1);
 	return (0);
 }

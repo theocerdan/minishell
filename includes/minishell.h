@@ -28,6 +28,8 @@
 #define REDIRECT 45
 #define FLAG 46
 #define ENV_TOKEN 47
+#define DOUBLE_QUOTE 48
+#define SINGLE_QUOTE 49
 
 typedef struct	s_env
 {
@@ -162,6 +164,8 @@ int		ft_isblank(int c);
 
 /* tokenizer_utils2.c */
 
+int		is_double_quote(char *value);
+int		is_single_quote(char *value);
 int     no_need_to_tokenization(char *cmd);
 int		define_type(char *value);
 int		is_between_blanks(char after_char, char before_char);

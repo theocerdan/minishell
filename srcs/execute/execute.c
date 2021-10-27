@@ -65,9 +65,9 @@ void	execute(t_shell *shell)
 		cmd = get_command_type(command_to_execute);
 
 		if (cmd.id != EXEC) {
-			cmd.process_ft(shell, command_to_execute);
+			//cmd.process_ft(shell, command_to_execute);
 		} else {
-			execute_cmd(shell, shell->tab_cmd[i]);
+			//execute_cmd(shell, shell->tab_cmd[i]);
 		}
 		i++;
 	}

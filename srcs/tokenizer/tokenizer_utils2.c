@@ -31,6 +31,10 @@ int		define_type(char *value)
 {
 	if (is_builtin(value))
 		return (BUILTIN);
+	else if (is_double_quote(value))
+		return (DOUBLE_QUOTE);
+	else if (is_single_quote(value))
+		return (SINGLE_QUOTE);
 	else if (is_operator(value))
 		return (define_operator(value));
 	else if (is_env(value))
