@@ -15,7 +15,7 @@ void	init_queue(t_shell *shell, char *command)
 		t_cmd *cmd = ft_safe_malloc(sizeof(t_cmd), shell);
 		cmd->id = i;
 		cmd->full_cmd = splited_cmd[i];
-		cmd->type = get_command_type(cmd);
+		//cmd->type = get_command_type(cmd).id;
 		shell->queue[i] = cmd;
 		i++;
 	}

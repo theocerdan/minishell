@@ -43,13 +43,6 @@ typedef struct	s_cmd
 	char		*full_cmd;
 } 				t_cmd;
 
-typedef struct	s_built
-{
-    int			id;
-    char 		*cmd;
-	int 		(*process_ft)(char* cmd);
-} 				t_built;
-
 typedef struct s_token
 {
 	int			type;
@@ -71,15 +64,14 @@ typedef struct	s_shell
 	char		**tab_cmd;
 }				t_shell;
 
-int 	process_exit(char* cmd);
-int 	process_cd(char* cmd);
-int 	process_unset(char* cmd);
-int 	process_pwd(char* cmd);
-int 	process_export(char* cmd);
-int 	process_env(char* cmd);
-int 	process_exec(char* cmd);
-int		process_echo(char *cmd);
-int		get_command_type(t_cmd *cmd);
+typedef struct	s_built
+{
+    int			id;
+    char 		*cmd;
+	void 		(*process_ft)(t_shell *shell, char *cmd);
+} 				t_built;
+
+t_built	get_command_type(char *cmd);
 int 	str_equals_ignore_case(char *text_1, char *text_2);
 void	exec_cmd(char *path, char **cmd, char **envp);
 
@@ -96,6 +88,7 @@ char	*start_prompt(t_shell *shell, char *cmd);
 
 /* env_utils.c */
 
+void	ft_env(t_shell *shell, char *cmd);
 void	print_all_env(t_list *lst);
 
 /* parser.c */
@@ -104,23 +97,27 @@ void	parser(t_shell *shell);
 
 /* ft_echo.c */
 
-void	ft_echo(char *each_cmd);
+void	ft_echo(t_shell *shell, char *cmd);
 
 /* ft_pwd.c */
 
-void	ft_pwd(void);
+void	ft_pwd(t_shell *shell, char *cmd);
 
 /* ft_export.c */
 
-void	ft_export(t_shell *shell, char *each_cmd);
+void	ft_export(t_shell *shell, char *cmd);
+
+/* ft_cd.c */
+
+void	ft_cd(t_shell *shell, char *cmd);
 
 /* ft_exit.c */
 
-void	ft_exit(t_shell *shell, char *each_cmd);
+void	ft_exit(t_shell *shell, char *cmd);
 
 /* ft_unset.c */
 
-void    ft_unset(t_shell *shell, char *each_cmd);
+void    ft_unset(t_shell *shell, char *cmd);
 
 /* init.c */
 

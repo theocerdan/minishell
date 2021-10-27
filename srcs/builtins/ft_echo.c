@@ -1,14 +1,5 @@
 #include "../includes/minishell.h"
 
-int		process_echo(char *cmd)
-{
-	(void)(cmd);
-	printf("ECHO!!!\n");
-	return (1);
-}
-
-//////////////////////////////////////////////////////////
-
 int		get_flag(char *each_cmd)
 {
 	int		n_flag;
@@ -19,23 +10,25 @@ int		get_flag(char *each_cmd)
 	return (n_flag);
 }
 
-void	ft_echo(char *each_cmd)
+void	ft_echo(t_shell *shell, char *cmd)
 {
 	int		n_flag;
 	int		i;
 
-	if (ft_strcmp(each_cmd, "echo") == 0)
+	(void)(shell);
+
+	if (ft_strcmp(cmd, "echo") == 0)
 	{
 		printf("\n");
 		return ;
 	}
-	n_flag = get_flag(each_cmd);
+	n_flag = get_flag(cmd);
 	if (n_flag)
 		i = 8;
 	else
 		i = 5;
-	while (each_cmd[i])
-		printf("%c", each_cmd[i++]);
+	while (cmd[i])
+		printf("%c", cmd[i++]);
 	if (n_flag == 0)
 		printf("\n");
 }

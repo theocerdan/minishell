@@ -1,10 +1,7 @@
 #include "../includes/minishell.h"
 
-int process_env(char *cmd)
+void ft_env(t_shell *shell, char *cmd)
 {
     (void)(cmd);
-    printf("process_env\n");
-    return (1);
+    print_all_env(shell->env_vars);
 }
-
-//////////////////////////////////////////////////////////

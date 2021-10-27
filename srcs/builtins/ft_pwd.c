@@ -1,19 +1,12 @@
 #include "../includes/minishell.h"
 
-int process_pwd(char *cmd)
-{
-    (void)(cmd);
-    printf("process_pwd\n");
-    //printf("%s\n", get_env_value("PWD", shell), shell);
-    return (1);
-}
-
-//////////////////////////////////////////////////////////
-
-void	ft_pwd(void)
+void	ft_pwd(t_shell *shell, char *cmd)
 {
 	char	*cwd;
 	char	*buffer;
+
+	(void)(shell);
+	(void)(cmd);
 
 	buffer = NULL;
 	cwd = getcwd(buffer, 0);

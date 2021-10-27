@@ -1,8 +1,9 @@
 #include "../includes/minishell.h"
 
-int process_cd(char *cmd)
+void ft_cd(t_shell *shell, char *each_cmd)
 {
-    (void)(cmd);
+    (void)(each_cmd);
+    (void)(shell);
     printf("process_cd\n");
-    return (1);
 }
+

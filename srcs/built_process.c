@@ -1,25 +1,29 @@
 #include "../includes/minishell.h"
 
 t_built	built[] = {
-	{CD, "cd", &process_cd},
-	{ENV, "env", &process_env},
-	{PWD, "pwd", &process_pwd},
-	{EXPORT, "export", &process_export},
-	{UNSET, "unset", &process_unset},
-	{EXIT, "exit", &process_exit},
-	{ECHO, "echo", &process_echo}
+	{CD, "cd", &ft_cd},
+	{ENV, "env", &ft_env},
+	{PWD, "pwd", &ft_pwd},
+	{EXPORT, "export", &ft_export},
+	{UNSET, "unset", &ft_unset},
+	{EXIT, "exit", &ft_exit},
+	{ECHO, "echo", &ft_echo},
+	{EXEC, "exec", NULL}
 };
 
-int	get_command_type(t_cmd *cmd)
+t_built	get_command_type(char *cmd)
 {
+
 	int i;
 
 	i = 0;
-	while (i < 7)
+	while (i < 8)
 	{
-		if (str_equals_ignore_case(built[i].cmd, cmd->full_cmd))
-			return (built[i].id);
+		if (str_equals_ignore_case(built[i].cmd, cmd)){
+			printf("trouvé %s\n", built[i].cmd);
+			return (built[i]);
+		}
 		i++;
 	}
-	return (EXEC);
+	return (built[7]);
 }

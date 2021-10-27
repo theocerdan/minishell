@@ -31,12 +31,16 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 
 void	execute_builtin(t_shell *shell, char *command_to_execute, char *each_cmd)
 {
+	(void)(shell);
+	(void)(command_to_execute);
+	(void)(each_cmd);
+	/*
 	if (!(ft_strcmp(command_to_execute, "echo\0")))
 		ft_echo(each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "pwd")))
 		ft_pwd();
-	//else if (!(ft_strcmp(command_to_execute, "cd")))
-	//	cd();
+	else if (!(ft_strcmp(command_to_execute, "cd")))
+		ft_cd(shell, each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "export")))
 		ft_export(shell, each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "unset")))
@@ -45,26 +49,26 @@ void	execute_builtin(t_shell *shell, char *command_to_execute, char *each_cmd)
 		ft_exit(shell, each_cmd);
 	else if (!(ft_strcmp(command_to_execute, "env")))
 		print_all_env(shell->env_vars);
+	*/
 }
 
 void	execute(t_shell *shell)
 {
 	int		i;
 	char	*command_to_execute;
+	t_built cmd;
 
-	/*if (shell->tab_cmd[i])
-	{
-		if (ft_strchr(shell->tab_cmd[i], '='))
-			set_local_variable(shell->tab_cmd[i], &i);
-	}*/
 	i = 0;
 	while (i < shell->nbr_cmd)
 	{
 		command_to_execute = get_executable(shell->tab_cmd[i]);
-		if (is_builtin(command_to_execute))
-			execute_builtin(shell, command_to_execute, shell->tab_cmd[i]);
-		else
+		cmd = get_command_type(command_to_execute);
+
+		if (cmd.id != EXEC) {
+			cmd.process_ft(shell, command_to_execute);
+		} else {
 			execute_cmd(shell, shell->tab_cmd[i]);
+		}
 		i++;
 	}
 }
