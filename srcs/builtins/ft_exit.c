@@ -1,17 +1,8 @@
 #include "../includes/minishell.h"
 
-int process_exit(char *cmd)
-{
-    (void)(cmd);
-    exit(0);
-    return (1);
-}
-
-//////////////////////////////////////////////////////////
-
 void	exit_value(t_shell *shell, int ret, char *each_cmd)
 {
-	int		error;
+	int	error;
 
 	error = 0;
 	ret = ft_atoi(each_cmd);

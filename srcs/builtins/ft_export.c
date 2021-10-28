@@ -1,14 +1,5 @@
 #include "../includes/minishell.h"
 
-int process_export(char *cmd)
-{
-    (void)(cmd);
-    printf("process_export\n");
-    return (1);
-}
-
-//////////////////////////////////////////////////////////
-
 void	ft_swap_env(t_env *a, t_env *b)
 {
 	char	*tmp;
@@ -27,21 +18,21 @@ void	ft_swap_env(t_env *a, t_env *b)
 
 void	ft_sort_export_env(t_list *new)
 {
-    t_list  *lst = new;
+	t_list  *lst = new;
 	t_env	*env;
 	t_env	*next_env;
 
-    while (lst && lst->next)
+	while (lst && lst->next)
 	{
 		env = (t_env*)lst->content;
 		next_env = (t_env*)lst->next->content;
 		if (ft_strcmp(env->key, next_env->key) > 0)
-        {
-            ft_swap_env(env, next_env);
-            lst = new;
-        }
-        else
-		    lst = lst->next;
+		{
+			ft_swap_env(env, next_env);
+			lst = new;
+		}
+		else
+			lst = lst->next;
 	}
 }
 
@@ -53,7 +44,7 @@ t_list	*clone_env(t_shell *shell)
 	t_env	*old;
 
 	new_lst = NULL;
-    while (lst && lst->next)
+	while (lst && lst->next)
 	{
 		old = (t_env*)lst->content;
 		new = ft_safe_malloc(sizeof(t_env), shell);
@@ -70,10 +61,10 @@ void	ft_export(t_shell *shell, char *each_cmd)
 {
 	t_env 	*env;
 	t_list 	*new;
-    char	*first_arg;
+	char	*first_arg;
 	int		i;
 
-    first_arg = get_first_arg(each_cmd);
+	first_arg = get_first_arg(each_cmd);
 	env = NULL;
 	if (ft_strlen(first_arg) > 0)
 	{

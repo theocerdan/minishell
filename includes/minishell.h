@@ -73,10 +73,6 @@ typedef struct	s_built
 	void 		(*process_ft)(t_shell *shell, char *cmd);
 } 				t_built;
 
-t_built	get_command_type(char *cmd);
-int 	str_equals_ignore_case(char *text_1, char *text_2);
-void	exec_cmd(char *path, char **cmd, char **envp);
-
 /* env_manager.c */
 
 t_env	*get_env_object(char *target_key, t_shell *shell);
@@ -144,6 +140,7 @@ void	execute(t_shell *shell);
 
 /* execute_utils1.c */
 
+t_built	get_command_type(char *cmd);
 char	*get_executable(char *str);
 
 /* execute_utils2.c */
@@ -201,5 +198,25 @@ void	*ft_safe_malloc(unsigned int size, t_shell *s);
 
 int		is_quote(char c);
 char    *check_if_quotes(char *each_cmd);
+
+/* vaguellette.c */
+
+int		have_vaguellette(t_shell *shell);
+void	resolve_vaguellette(t_shell *shell);
+
+/* parse_env_key_utils1.c */
+
+int		have_env_variables(t_shell *shell);
+
+/* parse_env_key.c */
+
+int		next_word_env_key(t_shell *shell);
+void	resolve_replace_key_to_value_env(t_shell *shell);
+
+/* parser_utils1.c */
+
+int		get_number_of_commands(t_shell *shell);
+int		*get_each_cmd_lenght(t_shell *shell, int nbr_cmd);
+void	fill_cmd_array(t_shell *shell, int *each_cmd_lenght);
 
 #endif

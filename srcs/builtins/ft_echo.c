@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int		get_flag(char *each_cmd)
+int	get_flag(char *each_cmd)
 {
 	int		n_flag;
 

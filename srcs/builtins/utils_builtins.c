@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int		get_argc(char *str)
+int	get_argc(char *str)
 {
 	int		i;
 	int		count;
@@ -61,7 +61,7 @@ char	*get_first_word_cmd(char *each_cmd)
 	return (tmp);
 }
 
-int		ft_isnumber(char *s)
+int	ft_isnumber(char *s)
 {
 	int i;
 

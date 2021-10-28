@@ -1,17 +1,8 @@
 #include "../includes/minishell.h"
 
-int process_unset(char *cmd)
+void	ft_unset(t_shell *shell, char *each_cmd)
 {
-    (void)(cmd);
-    printf("process_unset\n");
-    return (1);
-}
-
-////////////////////////////////////////////////////////
-
-void    ft_unset(t_shell *shell, char *each_cmd)
-{
-    char	*first_arg;
+	char	*first_arg;
 
 	first_arg = get_first_arg(each_cmd);
 	if (ft_strlen(first_arg) > 0)

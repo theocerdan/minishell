@@ -16,18 +16,13 @@ EXEC_DIR = execute/
 BLTIN_DIR = builtins/
 TKN_DIR = tokenizer/
 SIG_DIR = signal/
+UTLS_DIR = utils/
+PRS_DIR = parser/
 LIBFT_DIR = libft/
 
 #Source files:
 
 SRCS_FILES = main.c \
-				built_process.c \
-				str_equals_ignore_case.c \
-				ft_memory_cleaner2000.c \
-				utils.c \
-				parser.c \
-				init.c \
-				quotes.c
 
 SRC_BLTIN = ft_pwd.c \
 				ft_echo.c \
@@ -35,7 +30,6 @@ SRC_BLTIN = ft_pwd.c \
 				ft_exit.c \
 				ft_cd.c \
 				ft_export.c \
-				ft_exec.c \
 				ft_unset.c \
 				utils_builtins.c
 
@@ -58,6 +52,17 @@ SRC_TKN = tokenizer.c \
 
 SRC_SIG = signal.c \
 
+SRC_UTLS = init.c \
+			ft_memory_cleaner2000.c \
+			utils.c \
+
+SRC_PRS = parser.c \
+			quotes.c \
+			vaguellette.c \
+			parser_utils1.c \
+			parse_env_key.c \
+			parse_env_key_utils1.c \
+
 SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(BLTIN_DIR),$(SRC_BLTIN))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(ERR_DIR),$(SRC_ERR))) \
@@ -66,6 +71,8 @@ SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(EXEC_DIR),$(SRC_EXEC))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(TKN_DIR),$(SRC_TKN))) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(SIG_DIR),$(SRC_SIG))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(UTLS_DIR),$(SRC_UTLS))) \
+		$(addprefix $(MAIN_DIR),$(addprefix $(PRS_DIR),$(SRC_PRS))) \
 
 INC	= -I ./includes/ -I ./libft/includes
 

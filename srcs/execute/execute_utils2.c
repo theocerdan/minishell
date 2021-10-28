@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int		is_executable(char *cmd_path)
+int	is_executable(char *cmd_path)
 {
 	struct stat	buffer;
 

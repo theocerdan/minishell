@@ -7,7 +7,6 @@ void	ft_pwd(t_shell *shell, char *cmd)
 
 	(void)(shell);
 	(void)(cmd);
-
 	buffer = NULL;
 	cwd = getcwd(buffer, 0);
 	if (cwd)

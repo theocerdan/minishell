@@ -13,11 +13,8 @@ int     match(char *str, int i, char c)
 
 	count = 0;
 	while (str[i])
-	{
-		if (str[i] == c)
+		if (str[i++] == c)
 			count++;
-		i++;
-	}
 	if (count % 2 == 0)
 		return (1);
 	return (0);
@@ -156,14 +153,14 @@ char	get_quote_to_remove(char *str)
 char	*special_case_quotes(char *str)
 {
 	char	*tmp;
-	char	*result;
-	char	to_remove;
-	int		lenght_rest;
-	int		pos;
 	char	*tmp1;
 	char	*tmp2;
 	char	*tmp3;
 	char	*tmp4;
+	char	*result;
+	char	to_remove;
+	int		lenght_rest;
+	int		pos;
 	int		i;
 	int		j;
 
@@ -191,11 +188,8 @@ char	*special_case_quotes(char *str)
 	tmp3 = ft_strjoin(tmp1, tmp2);
 	pos = i + 1;
 	lenght_rest = 0;
-	while (tmp[i])
-	{
+	while (tmp[i++])
 		lenght_rest++;
-		i++;
-	}
 	tmp4 = ft_substr(tmp, pos, lenght_rest);
 	result = ft_strjoin(tmp3, tmp4);
 	return (result);
@@ -218,14 +212,14 @@ char    *check_if_quotes(char *each_cmd)
 	int     i;
 	char    *str;
 
-	str = each_cmd;
 	i = 0;
+	str = each_cmd;
 	while (str[i])
 	{
 		if (quote_hole(str, str[i]))
 		{
 			printf("Error : need a quote to finish the line.\n");
-			return (NULL);
+			exit(0);
 		}
 		else if (is_between_quotes(str, i, str[i]))
 			str = resolve_quote_issue(str);
