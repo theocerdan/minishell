@@ -17,7 +17,7 @@ char	*get_env_key(t_shell *shell)
 		{
 			j = i + 1;
 			milestone = i + 1;
-			while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_')
+			while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_' || shell->command_line_clean[j] == '?')
 			{
 				count++;
 				j++;
@@ -55,6 +55,8 @@ char	*get_replacement_env_key(t_shell *shell)
 	t_env	*env;
 
 	tmp = get_env_key(shell);
+	if (ft_strcmp(tmp, "?") == 0)
+		return ("0");
 	lst = shell->env_vars;
     while (lst)
 	{

@@ -6,7 +6,6 @@ void	prompt(t_shell *shell)
 
 	while (1)
 	{
-		//signal(SIGINT, signal_handler);
 		cmd = start_prompt(shell, cmd); // écriture d'un prompt avec path + récup commande
 		if (cmd)
 			add_history(cmd); // création historique pour avoir accéder aux commandes précédentes
