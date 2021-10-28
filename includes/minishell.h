@@ -199,6 +199,17 @@ void	*ft_safe_malloc(unsigned int size, t_shell *s);
 int		is_quote(char c);
 char    *check_if_quotes(char *each_cmd);
 
+/* quotes_utils1.c */
+
+int     is_between_quotes(char *str, int i, char c);
+int		still_has_quote(char *str);
+int		quote_hole(char *str, char c);
+
+/* quotes_utils2.c */
+
+char	*operate_quotes(char *str);
+char	*special_case_quotes(char *str);
+
 /* vaguellette.c */
 
 int		have_vaguellette(t_shell *shell);
