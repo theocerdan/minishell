@@ -19,10 +19,8 @@ t_built	get_command_type(char *cmd)
 	i = 0;
 	while (i < 8)
 	{
-		if (str_equals_ignore_case(built[i].cmd, cmd)){
-			printf("trouvé %s\n", built[i].cmd);
+		if (str_equals_ignore_case(built[i].cmd, cmd))
 			return (built[i]);
-		}
 		i++;
 	}
 	return (built[7]);

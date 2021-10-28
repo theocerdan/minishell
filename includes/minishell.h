@@ -199,6 +199,7 @@ void	*ft_safe_malloc(unsigned int size, t_shell *s);
 
 /* quotes.c */
 
+int		is_quote(char c);
 char    *check_if_quotes(char *each_cmd);
 
 #endif

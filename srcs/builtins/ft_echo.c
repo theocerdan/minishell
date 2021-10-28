@@ -15,20 +15,19 @@ void	ft_echo(t_shell *shell, char *cmd)
 	int		n_flag;
 	int		i;
 
-	(void)(shell);
-
-	if (ft_strcmp(cmd, "echo") == 0)
+	(void)(cmd);
+	if (ft_strcmp(shell->command_line_clean, "echo") == 0)
 	{
 		printf("\n");
 		return ;
 	}
-	n_flag = get_flag(cmd);
+	n_flag = get_flag(shell->command_line_clean);
 	if (n_flag)
 		i = 8;
 	else
 		i = 5;
-	while (cmd[i])
-		printf("%c", cmd[i++]);
+	while (shell->command_line_clean[i])
+		printf("%c", shell->command_line_clean[i++]);
 	if (n_flag == 0)
 		printf("\n");
 }

@@ -100,5 +100,5 @@ void	tokenization(t_shell *shell, char *cmd)
 	cmd = resolve_space_issue(cmd);
 	shell->command_line_clean = cmd;
 	init_token(shell, cmd);
-	print_all_token(shell);
+	//print_all_token(shell);
 }
