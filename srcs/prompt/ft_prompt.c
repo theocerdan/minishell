@@ -33,6 +33,7 @@ char	*start_prompt(t_shell *shell, char *cmd)
 	char	*prompt;
 
 	prompt = create_prompt(shell);
+	define_input_signals();
 	cmd = readline(prompt);
 	free(prompt);
 	return (cmd);

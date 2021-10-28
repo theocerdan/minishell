@@ -130,9 +130,8 @@ int		ft_isnumber(char *s);
 
 /* signal.c */
 
-void	signal_handler(int sig);
-void    signal_listeners(void);
 void	define_exec_signals(void);
+void	define_input_signals(void);
 
 /* execute.c */
 

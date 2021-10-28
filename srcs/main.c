@@ -21,9 +21,9 @@ void	prompt(t_shell *shell)
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_shell *shell;
 
-	t_shell *shell = NULL;
-
+	shell = NULL;
 	shell = ft_safe_malloc(sizeof(t_shell), shell);
 	shell->command_line_clean = NULL;
 	shell->env_vars = NULL;
