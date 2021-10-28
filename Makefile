@@ -23,7 +23,6 @@ LIBFT_DIR = libft/
 SRCS_FILES = main.c \
 				built_process.c \
 				str_equals_ignore_case.c \
-				exec.c \
 				ft_memory_cleaner2000.c \
 				utils.c \
 				parser.c \

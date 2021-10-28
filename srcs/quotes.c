@@ -34,6 +34,7 @@ char    *operate_quotes(char *str)
 {
 	char    *tmp1;
 	char    *tmp2;
+	char	*tmp3;
 	int		pos;
 	int     j;
 	int     i;
@@ -43,7 +44,7 @@ char    *operate_quotes(char *str)
 	pos = 0;
 	while (str[i])
 	{
-		if (is_between_quotes(str, i, str[i]))
+		if (is_quote(str[i]))
 			break ;
 		i++;
 	}
@@ -51,15 +52,15 @@ char    *operate_quotes(char *str)
 	i = pos + 1;
 	while (str[i])
 	{
-		if (is_quote(str[i]) && str[i + 1] == '\0')
+		if (is_quote(str[i]) && (str[i + 1] == '\0'))
 			break ;
 		j++;
 		i++;
 	}
 	tmp1 = ft_substr(str, 0, pos);
 	tmp2 = ft_substr(str, pos + 1, j);
-	str = ft_strjoin(tmp1, tmp2);
-	return (str);
+	tmp3 = ft_strjoin(tmp1, tmp2);
+	return (tmp3);
 }
 
 int		still_has_quote(char *str)
@@ -157,9 +158,12 @@ char	*special_case_quotes(char *str)
 	char	*tmp;
 	char	*result;
 	char	to_remove;
+	int		lenght_rest;
 	int		pos;
 	char	*tmp1;
 	char	*tmp2;
+	char	*tmp3;
+	char	*tmp4;
 	int		i;
 	int		j;
 
@@ -184,7 +188,16 @@ char	*special_case_quotes(char *str)
 		j++;
 	}
 	tmp2 = ft_substr(str, pos, j);
-	result = ft_strjoin(tmp1, tmp2);
+	tmp3 = ft_strjoin(tmp1, tmp2);
+	pos = i + 1;
+	lenght_rest = 0;
+	while (tmp[i])
+	{
+		lenght_rest++;
+		i++;
+	}
+	tmp4 = ft_substr(tmp, pos, lenght_rest);
+	result = ft_strjoin(tmp3, tmp4);
 	return (result);
 }
 
@@ -214,13 +227,13 @@ char    *check_if_quotes(char *each_cmd)
 			printf("Error : need a quote to finish the line.\n");
 			return (NULL);
 		}
+		else if (is_between_quotes(str, i, str[i]))
+			str = resolve_quote_issue(str);
 		else if (has_two_type_quotes(str))
 		{
 			str = resolve_special_case_quotes(str);
 			break ;
 		}
-		else if (is_between_quotes(str, i, str[i]))
-			str = resolve_quote_issue(str);
 		i++;
 	}
 	return (str);
