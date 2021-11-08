@@ -2,8 +2,10 @@
 
 void	prompt(t_shell *shell)
 {
-	char 	*cmd = NULL;
+	char 	*cmd;
 
+	cmd = NULL;
+	define_input_signals();
 	while (1)
 	{
 		cmd = start_prompt(shell, cmd); // écriture d'un prompt avec path + récup commande

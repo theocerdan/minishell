@@ -10,7 +10,6 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	path = get_path(shell, each_cmd);
 	exec_arg = ft_split(each_cmd, ' ');
 	pid = fork();
-	define_exec_signals();
 	if (pid == -1)
 		perror("fork");
 	else if (pid > 0)
