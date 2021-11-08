@@ -84,6 +84,9 @@ OBJS = $(patsubst %.c,%.o,$(SRCS))
 LIBDIR = ./libft/
 LIBFT = ./libft/libft.a
 
+READLINE_LIB = -lreadline -L/usr/local/opt/readline/lib
+READLINE_INC= -I/usr/local/opt/readline/include
+
 # Optimization and Compiler flags and commands
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
@@ -93,11 +96,11 @@ all: $(LIBFT) $(NAME)
 
 # Objects rule
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC) $(READLINE_INC)
 
 # Project file rule
 $(NAME): $(OBJS)
-	@$(CC) $(INC) $(OBJS) $(LIBFT) -lreadline -lncurses -o $@ -fsanitize=address
+	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ -fsanitize=address $(READLINE_LIB) $(READLINE_INC)
 	@printf "\e[92mminishell compiled\e[0m\e[?25h\n"
 
 # Libft rule
