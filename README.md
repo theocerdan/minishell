@@ -15,8 +15,8 @@ Your shell should: <br />
 ◦ unset with no options 🟢 <br />
 ◦ env with no options or arguments 🟢 <br />
 ◦ exit with no options 🟢 <br />
-• ’ inhibit all interpretation of a sequence of characters. <br />
-• " inhibit all interpretation of a sequence of characters except for $. <br />
+• ’ inhibit all interpretation of a sequence of characters 🟢 <br />
+• " inhibit all interpretation of a sequence of characters except for $ 🟢<br />
 ◦ < should redirect input. <br />
 ◦ > should redirect output. <br />
 ◦ “<<” read input from the current source until a line containing only the de- limiter is seen. it doesn’t need to update history! <br />
