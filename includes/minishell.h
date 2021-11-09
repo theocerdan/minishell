@@ -135,6 +135,7 @@ void	define_input_signals(void);
 
 /* execute.c */
 
+void	execute_cmd(t_shell *shell, char *each_cmd);
 void	execute(t_shell *shell);
 
 /* execute_utils1.c */

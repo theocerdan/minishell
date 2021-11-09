@@ -21,8 +21,7 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	{
 		if (execve(path, exec_arg, shell->env_tab) == -1)
 		{
-			printf("execve: %s\n", path);
-			perror("shell");
+			printf("minishell: %s: command not found\n", each_cmd);
 		}
 		exit(EXIT_FAILURE);
 	}
@@ -31,8 +30,8 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 void	execute(t_shell *shell)
 {
 	int		i;
-	char	*command_to_execute;
 	t_built cmd;
+	char	*command_to_execute;
 
 	i = 0;
 	while (i < shell->nbr_cmd)
