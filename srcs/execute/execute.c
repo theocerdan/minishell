@@ -20,9 +20,7 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	else
 	{
 		if (execve(path, exec_arg, shell->env_tab) == -1)
-		{
 			printf("minishell: %s: command not found\n", each_cmd);
-		}
 		exit(EXIT_FAILURE);
 	}
 }
