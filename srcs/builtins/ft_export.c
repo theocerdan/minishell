@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 13:49:05 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 13:49:06 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ft_swap_env(t_env *a, t_env *b)
@@ -18,14 +30,15 @@ void	ft_swap_env(t_env *a, t_env *b)
 
 void	ft_sort_export_env(t_list *new)
 {
-	t_list  *lst = new;
+	t_list	*lst;
 	t_env	*env;
 	t_env	*next_env;
 
+	lst = new;
 	while (lst && lst->next)
 	{
-		env = (t_env*)lst->content;
-		next_env = (t_env*)lst->next->content;
+		env = (t_env *)lst->content;
+		next_env = (t_env *)lst->next->content;
 		if (ft_strcmp(env->key, next_env->key) > 0)
 		{
 			ft_swap_env(env, next_env);
@@ -38,15 +51,16 @@ void	ft_sort_export_env(t_list *new)
 
 t_list	*clone_env(t_shell *shell)
 {
-	t_list  *lst = shell->env_vars;
+	t_list	*lst;
 	t_list	*new_lst;
 	t_env	*new;
 	t_env	*old;
 
 	new_lst = NULL;
+	lst = shell->env_vars;
 	while (lst && lst->next)
 	{
-		old = (t_env*)lst->content;
+		old = (t_env *)lst->content;
 		new = ft_safe_malloc(sizeof(t_env), shell);
 		new->key = old->key;
 		new->value = old->value;
@@ -57,27 +71,37 @@ t_list	*clone_env(t_shell *shell)
 	return (new_lst);
 }
 
+static int	get_i(char *first_arg)
+{
+	int	i;
+
+	i = 0;
+	while (first_arg[i])
+	{
+		if (first_arg[i] == '=')
+			break ;
+		i++;
+	}
+	return (i);
+}
+
 void	ft_export(t_shell *shell, char *each_cmd)
 {
-	t_env 	*env;
-	t_list 	*new;
+	t_env	*env;
+	t_list	*new;
 	char	*first_arg;
 	int		i;
 
-	first_arg = get_first_arg(each_cmd);
+	(void)(each_cmd);
+	first_arg = get_first_arg(shell->command_line_clean);
 	env = NULL;
 	if (ft_strlen(first_arg) > 0)
 	{
-		i = 0;
-		while (first_arg[i])
-		{
-			if (first_arg[i] == '=')
-				break ;
-			i++;
-		}
+		i = get_i(first_arg);
 		env = ft_safe_malloc(sizeof(t_env), shell);
 		env->key = ft_substr(first_arg, 0, i);
-		env->value = ft_substr(first_arg, i + 1, ft_strlen(first_arg) - ft_strlen(env->key));
+		env->value = ft_substr(first_arg, i + 1,
+				ft_strlen(first_arg) - ft_strlen(env->key));
 		env->visible = 1;
 		ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
 	}

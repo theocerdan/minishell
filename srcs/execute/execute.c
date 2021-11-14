@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:18:14 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:18:15 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	execute_cmd(t_shell *shell, char *each_cmd)
@@ -28,7 +40,7 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 void	execute(t_shell *shell)
 {
 	int		i;
-	t_built cmd;
+	t_built	cmd;
 	char	*command_to_execute;
 
 	i = 0;

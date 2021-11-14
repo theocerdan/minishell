@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:43:39 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:43:41 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int     no_need_to_tokenization(char *cmd)
+int	no_need_to_tokenization(char *cmd)
 {
 	int		i;
 
@@ -18,16 +30,17 @@ int     no_need_to_tokenization(char *cmd)
 	return (0);
 }
 
-int		define_operator(char *value)
+int	define_operator(char *value)
 {
 	if (!(ft_strcmp(value, "|")))
 		return (PIPE);
-	if (!ft_strcmp(value, ">") || !ft_strcmp(value, "<") || !ft_strcmp(value, ">>") || !ft_strcmp(value, "<<"))
+	if (!ft_strcmp(value, ">") || !ft_strcmp(value, "<")
+		|| !ft_strcmp(value, ">>") || !ft_strcmp(value, "<<"))
 		return (REDIRECT);
 	return (0);
 }
 
-int		define_type(char *value)
+int	define_type(char *value)
 {
 	if (is_builtin(value))
 		return (BUILTIN);
@@ -51,7 +64,8 @@ int	is_between_blanks(char after_char, char before_char)
 	return (0);
 }
 
-int	no_blanks_around_operator(char current_char, char after_char, char before_char)
+int	no_blanks_around_operator(char current_char,
+	char after_char, char before_char)
 {
 	if ((current_char == '|') && !(is_between_blanks(after_char, before_char)))
 		return (1);

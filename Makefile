@@ -60,6 +60,7 @@ SRC_PRS = parser.c \
 			quotes.c \
 			quotes_utils1.c \
 			quotes_utils2.c \
+			quotes_utils3.c \
 			vaguellette.c \
 			parser_utils1.c \
 			parse_env_key.c \

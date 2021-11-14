@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_utils2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:22:50 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:22:51 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	is_executable(char *cmd_path)
@@ -64,7 +76,7 @@ char	*get_path_variable(t_shell *shell)
 	start = shell->env_vars;
 	while (shell->env_vars)
 	{
-		env = (t_env*)shell->env_vars->content;
+		env = (t_env *)shell->env_vars->content;
 		if (ft_strcmp(env->key, "PATH") == 0)
 			path_variable = env->value;
 		shell->env_vars = shell->env_vars->next;
