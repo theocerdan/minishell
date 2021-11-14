@@ -1,7 +1,5 @@
 # minishell
 
-https://segfault42.github.io/posts/minishell/
-
 Your shell should: <br />
 • Not interpret unclosed quotes or unspecified special characters like \ or ; 🟢<br />
 • Not use more than one global variable, think about it and be ready to explain why you do it 🟢<br />
