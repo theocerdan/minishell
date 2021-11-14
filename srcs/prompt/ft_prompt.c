@@ -34,6 +34,9 @@ char	*start_prompt(t_shell *shell, char *cmd)
 
 	prompt = create_prompt(shell);
 	cmd = readline(prompt);
+	if (cmd == NULL){
+		exit(EXIT_SUCCESS);
+	}
 	free(prompt);
 	return (cmd);
 }
