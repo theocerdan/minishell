@@ -31,6 +31,28 @@ char	get_quote_to_remove(char *str)
 			to_remove = '\"';
 			break ;
 		}
+		else if (str[i] == '\'' && str[i + 1] == ' ')
+		{
+			while (str[i + 1] == ' ')
+				i++;
+			i++;
+			if (str[i] == '\"')
+			{
+				to_remove = '\'';
+				break ;
+			}
+		}
+		else if (str[i] == '\"' && str[i + 1] == ' ')
+		{
+			while (str[i + 1] == ' ')
+				i++;
+			i++;
+			if (str[i] == '\'')
+			{
+				to_remove = '\"';
+				break ;
+			}
+		}
 		i++;
 	}
 	return (to_remove);

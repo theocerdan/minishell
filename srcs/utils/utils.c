@@ -38,3 +38,17 @@ int	ft_is_uppercase(char c)
 		return (1);
 	return (0);
 }
+
+char	*lower_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_uppercase(str[i]))
+			str[i] = str[i] + 32;
+		i++;
+	}
+	return (str);
+}

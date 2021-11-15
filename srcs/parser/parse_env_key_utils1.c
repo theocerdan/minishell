@@ -12,6 +12,34 @@
 
 #include "../includes/minishell.h"
 
+int	env_between_simple_quotes(t_shell *shell)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (shell->command_line_clean[i])
+	{
+		if (shell->command_line_clean[i] == '$' && next_word_env_key(shell))
+		{
+			if (shell->command_line_clean[i - 1] == '\'')
+				return (1);
+			else if (shell->command_line_clean[i - 1] == ' ')
+			{
+				j = i;
+				while (shell->command_line_clean[j - 1] == ' ')
+					j--;
+				j--;
+				if (shell->command_line_clean[j] == '\'')
+					return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	have_env_variables(t_shell *shell)
 {
 	int	i;
@@ -19,6 +47,8 @@ int	have_env_variables(t_shell *shell)
 	i = 0;
 	while (shell->command_line_clean[i])
 	{
+		//if (env_between_simple_quotes(shell))
+		//	return (0);
 		if (shell->command_line_clean[i] == '$' && next_word_env_key(shell))
 			return (1);
 		else if (shell->command_line_clean[i] == '$'
