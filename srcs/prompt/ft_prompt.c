@@ -36,8 +36,12 @@ char	*create_prompt(t_shell *shell)
 	buffer = NULL;
 	home_path = get_env_object("HOME", shell)->value;
 	pwd = getcwd(buffer, 0);
+	if (ft_strlen(pwd) >= ft_strlen(home_path))
+	{
+		pwd += ft_strlen(home_path);
+	}
 	result = join_prompt_element(ft_strdup("~"),
-			ft_strdup(pwd + ft_strlen(home_path)), ft_strdup("$ "));
+			ft_strdup(pwd), ft_strdup("$ "));
 	return (result);
 }
 
