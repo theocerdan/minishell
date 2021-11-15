@@ -52,3 +52,13 @@ char	*lower_str(char *str)
 	}
 	return (str);
 }
+
+int 	count_spacing(char c, char *text)
+{
+	char** malaga = ft_split(text, c);
+	int i = 0;
+	while (malaga[i])
+		i++;
+
+	return (i);
+}

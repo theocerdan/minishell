@@ -195,6 +195,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		get_size(char **array);
 int		ft_is_uppercase(char c);
 char	*lower_str(char *str);
+int 	count_spacing(char c, char *text);
 
 /* ft_error.c */
 
