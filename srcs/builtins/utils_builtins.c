@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:04:31 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:04:32 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	get_argc(char *str)
@@ -26,7 +38,7 @@ char	*get_first_arg(char *each_cmd)
 	while (each_cmd[i])
 	{
 		if (each_cmd[i] == ' ')
-			break;
+			break ;
 		i++;
 	}
 	i++;
@@ -54,7 +66,7 @@ char	*get_first_word_cmd(char *each_cmd)
 	while (each_cmd[i])
 	{
 		if (each_cmd[i] == ' ')
-			break;
+			break ;
 		i++;
 	}
 	tmp = ft_substr(each_cmd, 0, i);
@@ -63,7 +75,7 @@ char	*get_first_word_cmd(char *each_cmd)
 
 int	ft_isnumber(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (s[i] == '-' || s[i] == '+')

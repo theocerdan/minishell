@@ -1,49 +1,61 @@
-#ifndef MINISHELL
-#define MINISHELL
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 16:45:45 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 16:45:47 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <signal.h>
-#include <stdbool.h>
-#include <stdarg.h>
-#include <sys/stat.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-#define CD 0
-#define ENV 1
-#define PWD 2
-#define EXPORT 3
-#define UNSET 4
-#define EXIT 5
-#define ECHO 6
-#define EXEC 7
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <signal.h>
+# include <stdbool.h>
+# include <stdarg.h>
+# include <sys/stat.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "libft.h"
 
-#define BUILTIN 42
-#define LITERAL 43
-#define PIPE 44
-#define REDIRECT 45
-#define FLAG 46
-#define ENV_TOKEN 47
-#define DOUBLE_QUOTE 48
-#define SINGLE_QUOTE 49
+# define CD 0
+# define ENV 1
+# define PWD 2
+# define EXPORT 3
+# define UNSET 4
+# define EXIT 5
+# define ECHO 6
+# define EXEC 7
 
-typedef struct	s_env
+# define BUILTIN 42
+# define LITERAL 43
+# define PIPE 44
+# define REDIRECT 45
+# define FLAG 46
+# define ENV_TOKEN 47
+# define DOUBLE_QUOTE 48
+# define SINGLE_QUOTE 49
+
+typedef struct s_env
 {
 	char		*key;
 	char		*value;
 	int			visible;
 }				t_env;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
-    int			id;
+	int			id;
 	int			type;
 	char		*full_cmd;
-} 				t_cmd;
+}				t_cmd;
 
 typedef struct s_token
 {
@@ -51,14 +63,13 @@ typedef struct s_token
 	char		*value;
 }				t_token;
 
-typedef struct	s_shell
+typedef struct s_shell
 {
 	t_list		*ptrs;
 	t_list		*env_vars;
 	char		**env_tab;
 	t_cmd		**queue;
 	t_list		*token_list;
-	
 	int			fd;
 	int			error_return;
 	int			nbr_cmd;
@@ -66,12 +77,12 @@ typedef struct	s_shell
 	char		**tab_cmd;
 }				t_shell;
 
-typedef struct	s_built
+typedef struct s_built
 {
-    int			id;
-    char 		*cmd;
-	void 		(*process_ft)(t_shell *shell, char *cmd);
-} 				t_built;
+	int			id;
+	char		*cmd;
+	void		(*process_ft)(t_shell *shell, char *cmd);
+}				t_built;
 
 /* env_manager.c */
 
@@ -115,7 +126,7 @@ void	ft_exit(t_shell *shell, char *cmd);
 
 /* ft_unset.c */
 
-void    ft_unset(t_shell *shell, char *cmd);
+void	ft_unset(t_shell *shell, char *cmd);
 
 /* init.c */
 
@@ -157,35 +168,38 @@ int		is_builtin(char *value);
 int		is_operator(char *value);
 int		is_env(char *value);
 int		is_flag(char *value);
-int		ft_isblank(int c);
 
 /* tokenizer_utils2.c */
 
 int		is_double_quote(char *value);
 int		is_single_quote(char *value);
-int     no_need_to_tokenization(char *cmd);
+int		no_need_to_tokenization(char *cmd);
 int		define_type(char *value);
 int		is_between_blanks(char after_char, char before_char);
-int		no_blanks_around_operator(char current_char, char after_char, char before_char);
+int		no_blanks_around_operator(char current_char,
+			char after_char, char before_char);
 
 /* tokenizer_utils3.c */
 
 void	print_all_token(t_shell *shell);
-void    init_token(t_shell *shell, char *cmd);
+void	init_token(t_shell *shell, char *cmd);
 
 /* tokenizer_utils4.c */
 
+int		ft_isblank(int c);
 char	*insert_spaces(char *line, char operator_pointer, int off_set);
 
 /* utils.c */
 
-int	ft_strcmp(char *s1, char *s2);
-int	get_size(char **array);
-int	ft_is_uppercase(char c);
+int		ft_strcmp(char *s1, char *s2);
+int		get_size(char **array);
+int		ft_is_uppercase(char c);
+char	*lower_str(char *str);
+int 	count_spacing(char c, char *text);
 
 /* ft_error.c */
 
-void    ft_error(char *str);
+void	ft_error(char *str);
 
 /* ft_memory_cleaner2000.c */
 
@@ -197,11 +211,11 @@ void	*ft_safe_malloc(unsigned int size, t_shell *s);
 /* quotes.c */
 
 int		is_quote(char c);
-char    *check_if_quotes(char *each_cmd);
+char	*check_if_quotes(char *each_cmd);
 
 /* quotes_utils1.c */
 
-int     is_between_quotes(char *str, int i, char c);
+int		is_between_quotes(char *str, int i, char c);
 int		still_has_quote(char *str);
 int		quote_hole(char *str, char c);
 
@@ -209,6 +223,10 @@ int		quote_hole(char *str, char c);
 
 char	*operate_quotes(char *str);
 char	*special_case_quotes(char *str);
+
+/* quotes_utils3.c */
+
+char	get_quote_to_remove(char *str);
 
 /* vaguellette.c */
 
@@ -218,10 +236,11 @@ void	resolve_vaguellette(t_shell *shell);
 /* parse_env_key_utils1.c */
 
 int		have_env_variables(t_shell *shell);
+int		next_word_env_key(t_shell *shell);
+char	*get_replacement_env_key(t_shell *shell);
 
 /* parse_env_key.c */
 
-int		next_word_env_key(t_shell *shell);
 void	resolve_replace_key_to_value_env(t_shell *shell);
 
 /* parser_utils1.c */

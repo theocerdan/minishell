@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vaguellette.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:34:14 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:34:16 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int		have_vaguellette(t_shell *shell)
+int	have_vaguellette(t_shell *shell)
 {
 	int		i;
 	char	*str;
@@ -9,7 +21,9 @@ int		have_vaguellette(t_shell *shell)
 	str = shell->command_line_clean;
 	while (str[i])
 	{
-		if (str[i] == '~' && !is_quote(str[i - 1]) && !is_quote(str[i + 1]) && !ft_isdigit(str[i - 1]) && !ft_isdigit(str[i + 1]))
+		if (str[i] == '~' && !is_quote(str[i - 1])
+			&& !is_quote(str[i + 1]) && !ft_isdigit(str[i - 1])
+			&& !ft_isdigit(str[i + 1]))
 			return (1);
 		i++;
 	}
@@ -18,15 +32,15 @@ int		have_vaguellette(t_shell *shell)
 
 char	*get_home(t_shell *shell)
 {
-	t_list  *lst;
+	t_list	*lst;
 	t_env	*env;
 
 	lst = shell->env_vars;
-    while (lst)
+	while (lst)
 	{
-		env = (t_env*)lst->content;
+		env = (t_env *)lst->content;
 		if (ft_strcmp(env->key, "HOME") == 0)
-            return (env->value);
+			return (env->value);
 		lst = lst->next;
 	}
 	return (NULL);
@@ -34,37 +48,34 @@ char	*get_home(t_shell *shell)
 
 char	*treat_each_vaguellette(t_shell *shell)
 {
-	char	*pwd;
-	char	*str;
-	char	*tmp1;
-	char	*tmp2;
-	char	*tmp3;
-	char	*result;
 	int		lenght_rest;
 	int		pos;
 	int		i;
+	char	*tmp1;
+	char	*tmp2;
 
-	str = shell->command_line_clean;
-	pwd = get_home(shell);
 	i = 0;
-	while (str[i] != '~')
+	while (shell->command_line_clean[i] != '~')
 		i++;
-	tmp1 = ft_substr(str, 0, i);
-	tmp2 = ft_strjoin(tmp1, pwd);
+	tmp1 = ft_strjoin(ft_substr(shell->command_line_clean, 0, i),
+			get_home(shell));
 	i++;
 	pos = i;
 	lenght_rest = 0;
-	while (str[i++])
+	while (shell->command_line_clean[i++])
 		lenght_rest++;
-	tmp3 = ft_substr(str, pos, lenght_rest);
-	result = ft_strjoin(tmp2, tmp3);
-	return (result);
+	tmp2 = ft_substr(shell->command_line_clean, pos, lenght_rest);
+	return (ft_strjoin(tmp1, tmp2));
 }
 
 void	resolve_vaguellette(t_shell *shell)
 {
-	do
+	int	b;
+
+	b = 1;
+	while (b)
 	{
 		shell->command_line_clean = treat_each_vaguellette(shell);
-	} while (have_vaguellette(shell));
+		b = have_vaguellette(shell);
+	}
 }

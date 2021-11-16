@@ -21,15 +21,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (start > ft_strlen(s))
 	{
-		if (!(str = malloc(sizeof(char))))
+		str = malloc(sizeof(char));
+		if (!(str))
 			return (NULL);
 		str[0] = '\0';
 		return (str);
 	}
 	if (len > ft_strlen(s))
 		len = ft_strlen(s) - start;
-	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
-		return (NULL);
+	str = (char *)malloc(sizeof(char) * len + 1);
 	i = 0;
 	while (s[start + i] && i < len)
 	{

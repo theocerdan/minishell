@@ -61,7 +61,7 @@ static char	*ft_strndup(const char *s, size_t len)
 	return (str);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -72,7 +72,8 @@ char		**ft_split(char const *s, char c)
 		return (NULL);
 	i = 0;
 	k = 0;
-	if (!(tab = malloc(sizeof(char *) * (ft_countword(s, c) + 1))))
+	tab = malloc(sizeof(char *) * (ft_countword(s, c) + 1));
+	if (!(tab))
 		return (NULL);
 	while (s[i])
 	{

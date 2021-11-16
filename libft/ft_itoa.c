@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static void			conversion(char *str, long nbr, unsigned int nbrdigit,
+static void	conversion(char *str, long nbr, unsigned int nbrdigit,
 	int sign)
 {
 	str[nbrdigit] = '\0';
@@ -46,7 +46,7 @@ static unsigned int	getdigit(long nbr, int sign)
 	return (nbrdigit);
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char			*str;
 	unsigned int	nbr;
@@ -62,7 +62,8 @@ char				*ft_itoa(int n)
 	else
 		nbr = n;
 	nbrdigit = getdigit(nbr, sign);
-	if (!(str = malloc(sizeof(char) * (nbrdigit + 1))))
+	str = malloc(sizeof(char) * (nbrdigit + 1));
+	if (!(str))
 		return (NULL);
 	conversion(str, nbr, nbrdigit, sign);
 	return (str);

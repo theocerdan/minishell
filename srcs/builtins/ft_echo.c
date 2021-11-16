@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 13:48:07 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 13:48:09 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	get_flag(char *each_cmd)
@@ -16,16 +28,21 @@ void	ft_echo(t_shell *shell, char *cmd)
 	int		i;
 
 	(void)(cmd);
+	if (ft_strlen(shell->command_line_clean) == 4)
+		shell->command_line_clean = lower_str(shell->command_line_clean);
 	if (ft_strcmp(shell->command_line_clean, "echo") == 0)
 	{
 		printf("\n");
 		return ;
 	}
 	n_flag = get_flag(shell->command_line_clean);
-	if (n_flag)
+	i = 5;
+	while (shell->command_line_clean[i] == '-' || shell->command_line_clean[i] == 'n')
+		i++;
+	/*if (n_flag)
 		i = 8;
 	else
-		i = 5;
+		i = 5;*/
 	while (shell->command_line_clean[i])
 		printf("%c", shell->command_line_clean[i++]);
 	if (n_flag == 0)

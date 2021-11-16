@@ -1,47 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 13:48:45 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 13:48:47 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
+
+int	non_digit_arg(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	exit_value(t_shell *shell, int ret, char *each_cmd)
 {
-	int	error;
+	int		count;
+	
+	count = count_spacing(' ', shell->command_line_clean);
+	ret = ft_atoi(shell->command_line_clean + ft_strlen(each_cmd) + 1) % 256;
 
-	error = 0;
-	ret = ft_atoi(each_cmd);
-	if (ret > 255)
+	 if (count > 2)
 	{
-		ft_total_clean(shell);
-		exit(ret - 1 - 255);
+		printf("minishell: exit: too many arguments\n");
+		return ;
 	}
-	else if (ret < 0)
+	else if (count > 1 && non_digit_arg(shell->command_line_clean + ft_strlen(each_cmd) + 1))
 	{
-		ft_total_clean(shell);
-		exit(256 + ret);
+		printf("minishell: exit: %s: numeric argument required\n", shell->command_line_clean + ft_strlen(each_cmd) + 1);
+		exit (1);
 	}
-	else
+	else {
+		write(2, "exit\n", 5);
 		exit(ret);
+	}
 }
 
 void	ft_exit(t_shell *shell, char *each_cmd)
 {
-	char	*first_arg;
-
-	write(2, "exit\n", 5);
-	first_arg = get_first_arg(each_cmd);
-	if (!first_arg)
-	{
-		ft_total_clean(shell);
-		exit(shell->error_return);
-	}
-	if (!ft_isnumber(first_arg))
-	{
-		printf("minishell: exit: %s : numeric argument required\n", first_arg);
-		ft_total_clean(shell);
-		exit(255);
-	}
-	if (get_argc(each_cmd) > 2)
-	{
-		printf("minishell: exit: too many arguments\n");
-		ft_total_clean(shell);
-		exit(1);
-	}
 	exit_value(shell, 0, each_cmd);
 }

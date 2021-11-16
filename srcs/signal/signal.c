@@ -1,4 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:36:55 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:36:57 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
+
+void	handle_sig_int(pid_t pid)
+{
+	if (pid == -1)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+		ft_putstr_fd("\n", 1);
+}
+
+void	handle_sig_quit(pid_t pid)
+{
+	if (pid == -1)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \b\b", 1);
+	}
+	else
+		ft_putstr_fd("Quit: 3\n", 1);
+}
 
 void	handle_signal(int sig)
 {
@@ -6,34 +45,10 @@ void	handle_signal(int sig)
 	int		status;
 
 	pid = waitpid(-1, &status, WNOHANG);
-	//-1 : attendre le processus enfant
-	//status : Lorsque le processus enfant se termine, la valeur pid enfant est affectée
-	//WNOHANG : Si le pid ne peut pas être récupéré car le processus enfant n'est pas terminé, 0 est renvoyé comme valeur de retour
 	if (sig == SIGINT)
-	{
-		if (pid == -1) //pid == -1 : S'il n'y a pas de processus fils
-		{
-			rl_on_new_line();
-			rl_redisplay();
-			ft_putstr_fd("  \n", 1);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
-		else
-			ft_putstr_fd("\n", 1);
-	}
-	else if(sig == SIGQUIT)
-	{
-		if (pid == -1)
-		{
-			rl_on_new_line();
-			rl_redisplay();
-			ft_putstr_fd("  \b\b", 1);
-		}
-		else
-			ft_putstr_fd("Quit: 3\n", 1);
-	}
+		handle_sig_int(pid);
+	else if (sig == SIGQUIT)
+		handle_sig_quit(pid);
 }
 
 void	define_input_signals(void)

@@ -20,7 +20,7 @@ static void	filter(int n, int fd)
 		ft_putchar_fd('0', fd);
 }
 
-void		ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	int		i;
 	char	str[10];

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:30:58 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:30:59 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int		has_two_type_quotes(char *str)
+int	has_two_type_quotes(char *str)
 {
-	int		i;
-	int		sql_qts;
-	int		dbl_qts;
+	int	i;
+	int	sql_qts;
+	int	dbl_qts;
 
 	i = 0;
 	sql_qts = 0;
@@ -25,31 +37,37 @@ int		has_two_type_quotes(char *str)
 char	*resolve_quote_issue(char *str)
 {
 	char	*result;
+	int		b;
 
+	b = 1;
 	result = str;
-	do
+	while (b)
 	{
 		result = operate_quotes(result);
-	} while (still_has_quote(result));
+		b = still_has_quote(result);
+	}
 	return (result);
 }
 
 char	*resolve_special_case_quotes(char *str)
 {
 	char	*result;
+	int		b;
 
 	result = str;
-	do
+	b = 1;
+	while (b)
 	{
 		result = special_case_quotes(result);
-	} while (has_two_type_quotes(result));
+		b = has_two_type_quotes(result);
+	}
 	return (result);
 }
 
-char    *check_if_quotes(char *each_cmd)
+char	*check_if_quotes(char *each_cmd)
 {
-	int     i;
-	char    *str;
+	int		i;
+	char	*str;
 
 	i = 0;
 	str = each_cmd;

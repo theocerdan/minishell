@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_utils1.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/14 14:33:09 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/14 14:33:10 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	is_quote(char c)
@@ -9,7 +21,7 @@ int	is_quote(char c)
 
 int	match(char *str, int i, char c)
 {
-	int     count;
+	int	count;
 
 	count = 0;
 	while (str[i])
@@ -20,14 +32,14 @@ int	match(char *str, int i, char c)
 	return (0);
 }
 
-int     is_between_quotes(char *str, int i, char c)
+int	is_between_quotes(char *str, int i, char c)
 {
 	if (is_quote(c) && match(str, i, c))
 		return (1);
 	return (0);
 }
 
-int		still_has_quote(char *str)
+int	still_has_quote(char *str)
 {
 	int		i;
 
@@ -41,7 +53,7 @@ int		still_has_quote(char *str)
 	return (0);
 }
 
-int		quote_hole(char *str, char c)
+int	quote_hole(char *str, char c)
 {
 	int		i;
 	int		count;
