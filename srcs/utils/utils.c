@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int ft_strcmp(char *s1, char *s2)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
@@ -22,9 +22,9 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int	get_size(char **array)
+int get_size(char **array)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (array[i])
@@ -32,16 +32,23 @@ int	get_size(char **array)
 	return (i);
 }
 
-int	ft_is_uppercase(char c)
+int ft_is_special(char c)
+{
+	if ((c >= 33 && c <= 47) || (c >= 123 && c <= 126) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96))
+		return (1);
+	return (0);
+}
+
+int ft_is_uppercase(char c)
 {
 	if (c >= 65 && c <= 90)
 		return (1);
 	return (0);
 }
 
-char	*lower_str(char *str)
+char *lower_str(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i])
@@ -53,9 +60,9 @@ char	*lower_str(char *str)
 	return (str);
 }
 
-int 	count_spacing(char c, char *text)
+int count_spacing(char c, char *text)
 {
-	char** malaga = ft_split(text, c);
+	char **malaga = ft_split(text, c);
 	int i = 0;
 	while (malaga[i])
 		i++;

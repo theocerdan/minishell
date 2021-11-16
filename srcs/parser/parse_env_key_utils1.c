@@ -23,7 +23,16 @@ int env_between_simple_quotes(t_shell *shell)
 	{
 		if (shell->command_line_clean[i] == '$' && next_word_env_key(shell))
 		{
-			if (shell->command_line_clean[i - 1] == '\'' && !is_quote(shell->command_line_clean[i - 2]))
+			if (shell->command_line_clean[i - 1] == '\'' && shell->command_line_clean[i - 2] == ' ')
+			{
+				j = i;
+				while (shell->command_line_clean[j - 2] == ' ')
+					j--;
+				if (shell->command_line_clean[j - 2] == 'o')
+					return (1);
+				return (0);
+			}
+			else if (shell->command_line_clean[i - 1] == '\'' && !is_quote(shell->command_line_clean[i - 2]))
 				return (1);
 			else if (shell->command_line_clean[i - 1] == ' ')
 			{
@@ -65,7 +74,9 @@ int get_count_to_split(t_shell *shell, int i)
 
 	j = i + 1;
 	count = 0;
-	while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_' || shell->command_line_clean[j] == '?')
+	if (shell->command_line_clean[j] == '?')
+		return (1);
+	while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_')
 	{
 		count++;
 		j++;

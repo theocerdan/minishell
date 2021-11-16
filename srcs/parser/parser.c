@@ -12,26 +12,26 @@
 
 #include "../includes/minishell.h"
 
-int	start_and_end_quotes(char *str)
+int start_and_end_quotes(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i])
-			i++;
+		i++;
 	if (is_quote(str[0]))
 		if (is_quote(str[i - 1]))
 			return (1);
 	return (0);
 }
 
-void	parse_command(t_shell *shell)
+void parse_command(t_shell *shell)
 {
-	int	*each_cmd_lenght;
-	int	i;
+	int *each_cmd_lenght;
+	int i;
 
 	if (shell->command_line_clean == NULL)
-		return ;
+		return;
 	if (have_vaguellette(shell))
 		resolve_vaguellette(shell);
 	if (have_env_variables(shell))
@@ -46,7 +46,7 @@ void	parse_command(t_shell *shell)
 		if (start_and_end_quotes(shell->tab_cmd[i]))
 		{
 			execute_cmd(shell, shell->tab_cmd[i]);
-			return ;
+			return;
 		}
 		i++;
 	}
@@ -54,7 +54,7 @@ void	parse_command(t_shell *shell)
 	execute(shell);
 }
 
-void	parser(t_shell *shell)
+void parser(t_shell *shell)
 {
 	shell->fd = 0;
 	parse_command(shell);
