@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-int	env_between_simple_quotes(t_shell *shell)
+int env_between_simple_quotes(t_shell *shell)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -23,7 +23,7 @@ int	env_between_simple_quotes(t_shell *shell)
 	{
 		if (shell->command_line_clean[i] == '$' && next_word_env_key(shell))
 		{
-			if (shell->command_line_clean[i - 1] == '\'')
+			if (shell->command_line_clean[i - 1] == '\'' && !is_quote(shell->command_line_clean[i - 2]))
 				return (1);
 			else if (shell->command_line_clean[i - 1] == ' ')
 			{
@@ -31,7 +31,7 @@ int	env_between_simple_quotes(t_shell *shell)
 				while (shell->command_line_clean[j - 1] == ' ')
 					j--;
 				j--;
-				if (shell->command_line_clean[j] == '\'')
+				if (shell->command_line_clean[j] == '\'' && !is_quote(shell->command_line_clean[j - 1]))
 					return (1);
 			}
 		}
@@ -40,35 +40,32 @@ int	env_between_simple_quotes(t_shell *shell)
 	return (0);
 }
 
-int	have_env_variables(t_shell *shell)
+int have_env_variables(t_shell *shell)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (shell->command_line_clean[i])
 	{
-		//if (env_between_simple_quotes(shell))
-		//	return (0);
+		if (env_between_simple_quotes(shell))
+			return (0);
 		if (shell->command_line_clean[i] == '$' && next_word_env_key(shell))
 			return (1);
-		else if (shell->command_line_clean[i] == '$'
-			&& shell->command_line_clean[i + 1] == '?')
+		else if (shell->command_line_clean[i] == '$' && shell->command_line_clean[i + 1] == '?')
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	get_count_to_split(t_shell *shell, int i)
+int get_count_to_split(t_shell *shell, int i)
 {
-	int	j;
-	int	count;
+	int j;
+	int count;
 
 	j = i + 1;
 	count = 0;
-	while (ft_is_uppercase(shell->command_line_clean[j])
-		|| shell->command_line_clean[j] == '_'
-		|| shell->command_line_clean[j] == '?')
+	while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_' || shell->command_line_clean[j] == '?')
 	{
 		count++;
 		j++;
@@ -76,13 +73,13 @@ int	get_count_to_split(t_shell *shell, int i)
 	return (count);
 }
 
-char	*get_env_key(t_shell *shell)
+char *get_env_key(t_shell *shell)
 {
-	int		i;
-	int		j;
-	int		count;
-	int		milestone;
-	char	*tmp;
+	int i;
+	int j;
+	int count;
+	int milestone;
+	char *tmp;
 
 	i = 0;
 	count = 0;
@@ -94,7 +91,7 @@ char	*get_env_key(t_shell *shell)
 			j = i + 1;
 			milestone = i + 1;
 			count = get_count_to_split(shell, i);
-			break ;
+			break;
 		}
 		i++;
 	}
@@ -102,11 +99,11 @@ char	*get_env_key(t_shell *shell)
 	return (tmp);
 }
 
-int	next_word_env_key(t_shell *shell)
+int next_word_env_key(t_shell *shell)
 {
-	char	*tmp;
-	t_list	*lst;
-	t_env	*env;
+	char *tmp;
+	t_list *lst;
+	t_env *env;
 
 	tmp = get_env_key(shell);
 	lst = shell->env_vars;
@@ -120,11 +117,11 @@ int	next_word_env_key(t_shell *shell)
 	return (0);
 }
 
-char	*get_replacement_env_key(t_shell *shell)
+char *get_replacement_env_key(t_shell *shell)
 {
-	char	*tmp;
-	t_list	*lst;
-	t_env	*env;
+	char *tmp;
+	t_list *lst;
+	t_env *env;
 
 	tmp = get_env_key(shell);
 	if (ft_strcmp(tmp, "?") == 0)
