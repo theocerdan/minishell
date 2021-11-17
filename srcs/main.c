@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-void	prompt(t_shell *shell)
+void prompt(t_shell *shell)
 {
-	char	*cmd;
+	char *cmd;
 
 	cmd = NULL;
 	define_input_signals();
@@ -32,9 +32,9 @@ void	prompt(t_shell *shell)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	t_shell	*shell;
+	t_shell *shell;
 
 	shell = NULL;
 	shell = ft_safe_malloc(sizeof(t_shell), shell);

@@ -185,7 +185,8 @@ void parse_command(t_shell *shell)
 void parser(t_shell *shell)
 {
 	shell->fd = 0;
-	parse_command(shell);
+	if (shell->command_line_clean != NULL)
+		parse_command(shell);
 	if (shell->fd != 0)
 		close(shell->fd);
 }

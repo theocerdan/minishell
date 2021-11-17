@@ -12,12 +12,12 @@
 
 #include "../includes/minishell.h"
 
-char	*check_and_insert_spaces(char *cmd)
+char *check_and_insert_spaces(char *cmd)
 {
-	char	*current;
-	char	*tmp;
-	char	*result;
-	int		i;
+	char *current;
+	char *tmp;
+	char *result;
+	int i;
 
 	i = 0;
 	current = cmd;
@@ -26,7 +26,7 @@ char	*check_and_insert_spaces(char *cmd)
 	while (current != NULL && current[i])
 	{
 		if (i > 0 && no_blanks_around_operator(current[i],
-				current[i + 1], current[i - 1]))
+											   current[i + 1], current[i - 1]))
 		{
 			result = " ";
 			tmp = insert_spaces(cmd, current[i], i);
@@ -39,9 +39,9 @@ char	*check_and_insert_spaces(char *cmd)
 	return (result);
 }
 
-int	toujours_mal_formate(char *cmd)
+int toujours_mal_formate(char *cmd)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	while (cmd[i])
@@ -53,10 +53,10 @@ int	toujours_mal_formate(char *cmd)
 	return (0);
 }
 
-char	*resolve_space_issue(char *cmd)
+char *resolve_space_issue(char *cmd)
 {
-	char	*result;
-	int		b;
+	char *result;
+	int b;
 
 	b = 1;
 	result = cmd;
@@ -68,10 +68,10 @@ char	*resolve_space_issue(char *cmd)
 	return (result);
 }
 
-void	tokenization(t_shell *shell, char *cmd)
+void tokenization(t_shell *shell, char *cmd)
 {
 	if (no_need_to_tokenization(cmd))
-		return ;
+		return;
 	cmd = resolve_space_issue(cmd);
 	shell->command_line_clean = cmd;
 	init_token(shell, cmd);
