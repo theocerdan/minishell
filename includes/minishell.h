@@ -243,6 +243,8 @@ char *get_replacement_env_key(t_shell *shell);
 
 /* parse_env_key.c */
 
+int dollar_plus_number(t_shell *shell);
+char *get_tmp2(t_shell *shell);
 void resolve_replace_key_to_value_env(t_shell *shell);
 
 /* parser_utils1.c */
@@ -250,5 +252,10 @@ void resolve_replace_key_to_value_env(t_shell *shell);
 int get_number_of_commands(t_shell *shell);
 int *get_each_cmd_lenght(t_shell *shell, int nbr_cmd);
 void fill_cmd_array(t_shell *shell, int *each_cmd_lenght);
+
+char *get_tmp2_dollar_plus_number(t_shell *shell);
+char *replace_dollar_plus_number(t_shell *shell);
+void resolve_dollar_plus_number(t_shell *shell);
+int dollar_plus_number(t_shell *shell);
 
 #endif

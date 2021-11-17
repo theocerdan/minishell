@@ -43,11 +43,6 @@ void ft_echo(t_shell *shell, char *cmd)
 		while (shell->command_line_clean[i] == '-' || shell->command_line_clean[i] == 'n' || shell->command_line_clean[i] == ' ')
 			i++;
 	}
-	// i++;
-	/*if (n_flag)
-		i = 8;
-	else
-		i = 5;*/
 	while (shell->command_line_clean[i])
 		printf("%c", shell->command_line_clean[i++]);
 	if (n_flag == 0)
