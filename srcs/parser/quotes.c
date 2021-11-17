@@ -15,17 +15,12 @@
 int has_two_type_quotes(char *str)
 {
 	int i;
-	// int sql_qts;
-	// int dbl_qts;
 
 	i = 0;
-	// sql_qts = 0;
-	// dbl_qts = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'')
 		{
-			// sql_qts++;
 			i++;
 			if (str[i] == '\"')
 				return (1);
@@ -41,7 +36,6 @@ int has_two_type_quotes(char *str)
 		}
 		if (str[i] == '\"')
 		{
-			// sql_qts++;
 			i++;
 			if (str[i] == '\'')
 				return (1);
@@ -55,12 +49,8 @@ int has_two_type_quotes(char *str)
 			else
 				return (0);
 		}
-		// else if (str[i] == '\"')
-		//	dbl_qts++;
 		i++;
 	}
-	// if (sql_qts != 0 && dbl_qts != 0 && sql_qts % 2 == 0 && dbl_qts % 2 == 0)
-	//	return (1);
 	return (0);
 }
 
