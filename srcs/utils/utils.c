@@ -46,6 +46,13 @@ int ft_is_uppercase(char c)
 	return (0);
 }
 
+int ft_is_lowercase(char c)
+{
+	if (c >= 97 && c <= 122)
+		return (1);
+	return (0);
+}
+
 char *lower_str(char *str)
 {
 	int i;
