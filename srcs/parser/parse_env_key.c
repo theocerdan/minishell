@@ -37,9 +37,11 @@ char *replace_key_to_value_env(t_shell *shell)
 	int lenght_rest;
 	char *tmp2;
 	char *tmp3;
+	int flag;
 
 	tmp2 = get_tmp2(shell);
 	i = 0;
+	flag = 0;
 	while (shell->command_line_clean[i])
 	{
 		if (shell->command_line_clean[i] == '$')
@@ -50,15 +52,22 @@ char *replace_key_to_value_env(t_shell *shell)
 				while (ft_is_uppercase(shell->command_line_clean[i]))
 				{
 					if (!ft_is_uppercase(shell->command_line_clean[i + 1]))
+					{
 						pos = i + 1;
+						flag = 1;
+						break;
+					}
 					i++;
 				}
 			}
 			else if (shell->command_line_clean[i] == '?' && shell->command_line_clean[i - 1] == '$')
 				pos = i + 1;
+			if (flag)
+				break;
 		}
 		i++;
 	}
+	i = pos;
 	lenght_rest = 1;
 	while (shell->command_line_clean[i++])
 		lenght_rest++;
