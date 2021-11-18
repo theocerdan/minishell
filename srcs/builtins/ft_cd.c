@@ -37,6 +37,7 @@ void	ft_cd(t_shell *shell, char *each_cmd)
 	char	**arg;
 	char	*old_pwdv;
 	char	*target_pwdv;
+	int 	ret;
 
 	(void)(each_cmd);
 	(void)(shell);
@@ -53,7 +54,11 @@ void	ft_cd(t_shell *shell, char *each_cmd)
 			target_pwdv = get_env_object("HOME", shell)->value;
 		else
 			target_pwdv = arg[1];
-		chdir(target_pwdv);
-		update_oldpwd_pwd_vars(shell, old_pwdv);
+		ret = chdir(target_pwdv);
+		if (ret == 0){
+			update_oldpwd_pwd_vars(shell, old_pwdv);
+		} else {
+			printf("cd: %s: No such file or directory\n", target_pwdv);
+		}
 	}
 }
