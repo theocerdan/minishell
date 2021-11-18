@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char *check_and_insert_spaces(char *cmd)
+char *check_and_insert_spaces(char *cmd, t_shell *shell)
 {
 	char *current;
 	char *tmp;
@@ -29,7 +29,7 @@ char *check_and_insert_spaces(char *cmd)
 											   current[i + 1], current[i - 1]))
 		{
 			result = " ";
-			tmp = insert_spaces(cmd, current[i], i);
+			tmp = insert_spaces(cmd, current[i], i, shell);
 			result = ft_strjoin(result, tmp);
 		}
 		else
@@ -53,7 +53,7 @@ int toujours_mal_formate(char *cmd)
 	return (0);
 }
 
-char *resolve_space_issue(char *cmd)
+char *resolve_space_issue(char *cmd, t_shell *shell)
 {
 	char *result;
 	int b;
@@ -62,7 +62,7 @@ char *resolve_space_issue(char *cmd)
 	result = cmd;
 	while (b)
 	{
-		result = check_and_insert_spaces(result);
+		result = check_and_insert_spaces(result, shell);
 		b = toujours_mal_formate(result);
 	}
 	return (result);
@@ -72,7 +72,7 @@ void tokenization(t_shell *shell, char *cmd)
 {
 	if (no_need_to_tokenization(cmd))
 		return;
-	cmd = resolve_space_issue(cmd);
+	cmd = resolve_space_issue(cmd, shell);
 	shell->command_line_clean = cmd;
 	init_token(shell, cmd);
 }

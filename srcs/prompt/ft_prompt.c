@@ -12,17 +12,22 @@
 
 #include "../includes/minishell.h"
 
-char *join_prompt_element(char *begin, char *pwd, char *end)
+char *join_prompt_element(char *begin, char *pwd, char *end, t_shell *shell)
 {
 	char *tmp;
 	char *prompt;
 
 	tmp = ft_strjoin(begin, pwd);
 	prompt = ft_strjoin(tmp, end);
-	free(tmp);
-	free(begin);
-	free(pwd);
-	free(end);
+	ft_add_to_garbage(tmp, shell);
+	ft_add_to_garbage(begin, shell);
+	ft_add_to_garbage(pwd, shell);
+	ft_add_to_garbage(end, shell);
+	ft_add_to_garbage(tmp, shell);
+	// free(tmp);
+	// free(begin);
+	// free(pwd);
+	// free(end);
 	return (prompt);
 }
 
@@ -39,7 +44,7 @@ char *create_prompt(t_shell *shell)
 	if (ft_strlen(pwd) >= ft_strlen(home_path))
 		pwd += ft_strlen(home_path);
 	result = join_prompt_element(ft_strdup("~"),
-								 ft_strdup(pwd), ft_strdup("$ "));
+								 ft_strdup(pwd), ft_strdup("$ "), shell);
 	return (result);
 }
 
@@ -53,6 +58,7 @@ char *start_prompt(t_shell *shell, char *cmd)
 	cmd = readline(prompt);
 	if (cmd == NULL)
 		exit(EXIT_SUCCESS);
-	free(prompt);
+	// free(prompt);
+	ft_add_to_garbage(prompt, shell);
 	return (cmd);
 }

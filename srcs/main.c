@@ -21,14 +21,15 @@ void prompt(t_shell *shell)
 	while (1)
 	{
 		cmd = start_prompt(shell, cmd);
+		printf("cmd:%s|\n", cmd);
 		if (cmd)
 			add_history(cmd);
 		tokenization(shell, cmd);
 		if (shell->command_line_clean)
 			parser(shell);
 		ft_lstclear(&(shell->token_list), &free);
-		if (cmd)
-			free(cmd);
+		// free(cmd);
+		ft_add_to_garbage(cmd, shell);
 	}
 }
 

@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-void	ft_pwd(t_shell *shell, char *cmd)
+void ft_pwd(t_shell *shell, char *cmd)
 {
-	char	*cwd;
-	char	*buffer;
+	char *cwd;
+	char *buffer;
 
 	(void)(shell);
 	(void)(cmd);
@@ -25,5 +25,6 @@ void	ft_pwd(t_shell *shell, char *cmd)
 		printf("%s\n", cwd);
 	else
 		ft_error("minishell: error pwd\n");
-	free(cwd);
+	// free(cwd);
+	ft_add_to_garbage(cwd, shell);
 }

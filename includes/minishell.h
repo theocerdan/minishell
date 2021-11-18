@@ -187,7 +187,7 @@ void init_token(t_shell *shell, char *cmd);
 /* tokenizer_utils4.c */
 
 int ft_isblank(int c);
-char *insert_spaces(char *line, char operator_pointer, int off_set);
+char *insert_spaces(char *line, char operator_pointer, int off_set, t_shell *shell);
 
 /* utils.c */
 
