@@ -68,11 +68,14 @@ char *resolve_space_issue(char *cmd, t_shell *shell)
 	return (result);
 }
 
-void tokenization(t_shell *shell, char *cmd)
+int tokenization(t_shell *shell, char *cmd)
 {
-	if (no_need_to_tokenization(cmd))
-		return;
+	if (no_need_to_tokenization(cmd)){
+		shell->command_line_clean = NULL;
+		return 0;
+	} 
 	cmd = resolve_space_issue(cmd, shell);
 	shell->command_line_clean = cmd;
 	init_token(shell, cmd);
+	return 1;
 }

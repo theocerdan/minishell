@@ -160,7 +160,7 @@ char *get_path(t_shell *shell, char *each_cmd);
 
 /* tokenizer.c */
 
-void tokenization(t_shell *shell, char *cmd);
+int tokenization(t_shell *shell, char *cmd);
 
 /* tokenizer_utils1.c */
 

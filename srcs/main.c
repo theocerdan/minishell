@@ -15,20 +15,20 @@
 void prompt(t_shell *shell)
 {
 	char *cmd;
+	int space_cmd;
 
 	cmd = NULL;
 	define_input_signals();
 	while (1)
 	{
 		cmd = start_prompt(shell, cmd);
-		printf("cmd:%s|\n", cmd);
-		if (cmd)
-			add_history(cmd);
-		tokenization(shell, cmd);
-		if (shell->command_line_clean)
+		add_history(cmd);
+		//printf("cmd:%s|\n", cmd);
+		space_cmd = tokenization(shell, cmd);
+		if (space_cmd)
 			parser(shell);
 		ft_lstclear(&(shell->token_list), &free);
-		// free(cmd);
+		//printf("clc:%s|\n", shell->command_line_clean);
 		ft_add_to_garbage(cmd, shell);
 	}
 }
