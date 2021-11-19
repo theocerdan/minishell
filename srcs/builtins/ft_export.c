@@ -137,6 +137,12 @@ void ft_export(t_shell *shell, char *each_cmd)
 		env->value = ft_substr(first_arg, i + 1,
 							   ft_strlen(first_arg) - ft_strlen(env->key));
 		env->visible = 1;
+		if (ft_strcmp(env->key, "0") == 0)
+		{
+			env->value = "/bin/zsh";
+			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
+			return ;
+		}
 		if (not_acceptable(env->key))
 		{
 			printf("minishell: export: not valid in this context: %s\n", env->key);

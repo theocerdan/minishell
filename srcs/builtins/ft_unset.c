@@ -39,6 +39,8 @@ int first_arg_ignore(char *str)
 	i = 0;
 	count_maj = 0;
 	spe_char = 0;
+	if (ft_strcmp(str, "0") == 0)
+		return (0);
 	while (str[i])
 	{
 		if (ft_is_uppercase(str[i]))
