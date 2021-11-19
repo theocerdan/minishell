@@ -149,6 +149,32 @@ void operate_extra_space(t_shell *shell)
 	shell->command_line_clean = ft_strjoin(tmp1, tmp2);
 }
 
+int	start_space(t_shell *shell)
+{
+	if (shell->command_line_clean[0] == ' ')
+		return (1);
+	return (0);
+}
+
+void	operate_start_space(t_shell *shell)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	while (shell->command_line_clean[i] == ' ')
+		i++;
+	count = i;
+	j = 0;
+	while (shell->command_line_clean[count])
+	{
+		count++;
+		j++;
+	}
+	shell->command_line_clean = ft_substr(shell->command_line_clean, i, j);
+}
+
 void parse_command(t_shell *shell)
 {
 	int *each_cmd_lenght;
@@ -156,6 +182,8 @@ void parse_command(t_shell *shell)
 
 	if (shell->command_line_clean == NULL)
 		return;
+	if (start_space(shell))
+		operate_start_space(shell);
 	if (extra_space(shell))
 		operate_extra_space(shell);
 	if (have_vaguellette(shell))
