@@ -19,6 +19,7 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	char	**exec_arg;
 	char	*path;
 
+	printf("->'%s'\n", shell->command_line_clean);
 	path = get_path(shell, each_cmd);
 	exec_arg = ft_split(each_cmd, ' ');
 	pid = fork();

@@ -117,7 +117,6 @@ int extra_space(t_shell *shell)
 	while (shell->command_line_clean[i++] != ' ')
 		if (shell->command_line_clean[i] == '\0')
 			return (0);
-	i++;
 	count = 1;
 	if (shell->command_line_clean[i] == ' ')
 		while (shell->command_line_clean[i++] == ' ')
