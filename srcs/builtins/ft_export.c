@@ -73,16 +73,17 @@ t_list *clone_env(t_shell *shell)
 
 static int get_i(char *first_arg)
 {
-	int i;
-
-	i = 0;
-	while (first_arg[i])
-	{
-		if (first_arg[i] == '=')
-			break;
-		i++;
-	}
-	return (i);
+    int i;
+    int res;
+    i = 0;
+    res = -1;
+    while (first_arg[i])
+    {
+        if (first_arg[i] == '=')
+            res = i;
+        i++;
+    }
+    return (res);
 }
 
 int not_acceptable(char *str)
@@ -116,51 +117,46 @@ int	first_arg_finish_equal(char *str)
 
 void ft_export(t_shell *shell, char *each_cmd)
 {
-	t_env *env;
-	t_list *new;
-	char *first_arg;
-	int i;
-
-	(void)(each_cmd);
-	env = NULL;
-	first_arg = get_first_arg(shell->command_line_clean);
-	if (first_arg[0] == '=')
-	{
-		printf("minishell: export: not valid in this context: %s\n", first_arg);
-		return;
-	}
-	if (ft_strlen(first_arg) > 0)
-	{
-		i = get_i(first_arg);
-		env = ft_safe_malloc(sizeof(t_env), shell);
-		env->key = ft_substr(first_arg, 0, i);
-		env->value = ft_substr(first_arg, i + 1,
-							   ft_strlen(first_arg) - ft_strlen(env->key));
-		env->visible = 1;
-		if (ft_strcmp(env->key, "0") == 0)
-		{
-			env->value = "/bin/zsh";
-			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
-			return ;
-		}
-		if (not_acceptable(env->key))
-		{
-			printf("minishell: export: not valid in this context: %s\n", env->key);
-			return;
-		}
-		if (first_arg_finish_equal(first_arg))
-		{
-			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
-			return ;
-		}
-		if (ft_strcmp(env->value, "") == 0)
-			return;
-		ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
-	}
-	else
-	{
-		new = clone_env(shell);
-		ft_sort_export_env(new);
-		print_all_env(new);
-	}
+    t_env *env;
+    t_list *new;
+    char *first_arg;
+    int i;
+    (void)(each_cmd);
+    env = NULL;
+    first_arg = get_first_arg(shell->command_line_clean);
+    if (first_arg[0] == '=')
+    {
+        printf("minishell: export: not valid in this context: %s\n", first_arg);
+        return;
+    }
+    if (ft_strlen(first_arg) > 0)
+    {
+        i = get_i(first_arg);
+        if (i == -1) //pas de =
+            return;
+        env = ft_safe_malloc(sizeof(t_env), shell);
+        env->key = ft_substr(first_arg, 0, i);
+        env->value = ft_substr(first_arg, i + 1,
+                               ft_strlen(first_arg) - ft_strlen(env->key));
+        env->visible = 1;
+        if (not_acceptable(env->key))
+        {
+            printf("minishell: export: not valid in this context: %s\n", env->key);
+            return;
+        }
+        if (first_arg_finish_equal(first_arg))
+        {
+            ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
+            return ;
+        }
+        if (ft_strcmp(env->value, "") == 0)
+            return;
+        ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
+    }
+    else
+    {
+        new = clone_env(shell);
+        ft_sort_export_env(new);
+        print_all_env(new);
+    }
 }
