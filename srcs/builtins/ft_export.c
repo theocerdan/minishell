@@ -92,12 +92,27 @@ int not_acceptable(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_is_special(str[i]) && str[i] != '_')
+		if (ft_is_special(str[i]) && str[i] != '_' )
+			return (1);
+		else if (ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}
 	return (0);
 }
+
+int	first_arg_finish_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	if (str[i - 1] == '=')
+		return (1);
+	return (0);
+}
+
 
 void ft_export(t_shell *shell, char *each_cmd)
 {
@@ -107,8 +122,13 @@ void ft_export(t_shell *shell, char *each_cmd)
 	int i;
 
 	(void)(each_cmd);
-	first_arg = get_first_arg(shell->command_line_clean);
 	env = NULL;
+	first_arg = get_first_arg(shell->command_line_clean);
+	if (first_arg[0] == '=')
+	{
+		printf("minishell: export: not valid in this context: %s\n", first_arg);
+		return;
+	}
 	if (ft_strlen(first_arg) > 0)
 	{
 		i = get_i(first_arg);
@@ -117,13 +137,18 @@ void ft_export(t_shell *shell, char *each_cmd)
 		env->value = ft_substr(first_arg, i + 1,
 							   ft_strlen(first_arg) - ft_strlen(env->key));
 		env->visible = 1;
-		if (ft_strcmp(env->value, "") == 0)
-			return;
 		if (not_acceptable(env->key))
 		{
 			printf("minishell: export: not valid in this context: %s\n", env->key);
 			return;
 		}
+		if (first_arg_finish_equal(first_arg))
+		{
+			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
+			return ;
+		}
+		if (ft_strcmp(env->value, "") == 0)
+			return;
 		ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
 	}
 	else

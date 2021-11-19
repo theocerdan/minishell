@@ -85,11 +85,11 @@ OBJS = $(patsubst %.c,%.o,$(SRCS))
 LIBDIR = ./libft/
 LIBFT = ./libft/libft.a
 
-READLINE_LIB = -lreadline -L/usr/local/opt/readline/lib
-READLINE_INC= -I/usr/local/opt/readline/include
+#READLINE_LIB = -lreadline -L/usr/local/opt/readline/lib
+#READLINE_INC= -I/usr/local/opt/readline/include
 
-#READLINE_LIB = -lreadline -L/Users/mbaurin/.brew/Cellar/readline/8.1.1/lib
-#READLINE_INC= -I/Users/mbaurin/.brew/Cellar/readline/8.1.1/include
+READLINE_LIB = -lreadline -L/Users/mbaurin/.brew/Cellar/readline/8.1.1/lib
+READLINE_INC= -I/Users/mbaurin/.brew/Cellar/readline/8.1.1/include
 
 # Optimization and Compiler flags and commands
 CC = gcc
