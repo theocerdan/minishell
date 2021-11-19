@@ -45,14 +45,13 @@ void    ft_cd(t_shell *shell, char *each_cmd)
     old_pwdv = get_env_object("PWD", shell)->value;
     while (arg[arg_len])
         arg_len++;
-        if (arg_len == 1)
-            target_pwdv = get_env_object("HOME", shell)->value;
-        else
-            target_pwdv = arg[1];
-        ret = chdir(target_pwdv);
-        if (ret == 0){
-            update_oldpwd_pwd_vars(shell, old_pwdv);
-        } else {
-            printf("cd: %s: No such file or directory\n", target_pwdv);
-        }
+    if (arg_len == 1)
+        target_pwdv = get_env_object("HOME", shell)->value;
+    else
+        target_pwdv = arg[1];
+    ret = chdir(target_pwdv);
+    if (ret == 0)
+        update_oldpwd_pwd_vars(shell, old_pwdv);
+    else
+        printf("cd: %s: No such file or directory\n", target_pwdv);
 }

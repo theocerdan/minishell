@@ -87,6 +87,7 @@ typedef struct s_built
 /* env_manager.c */
 
 t_env *get_env_object(char *target_key, t_shell *shell);
+int	env_value_exist(char *target_key, t_shell *shell);
 int env_key_exist(char *target_key, t_shell *shell);
 void ft_delete_var(char *target_key, t_shell *shell);
 void ft_create_var(char *key, char *value, t_shell *shell);

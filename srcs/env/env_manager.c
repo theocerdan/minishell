@@ -30,6 +30,24 @@ t_env	*get_env_object(char *target_key, t_shell *shell)
 	return (NULL);
 }
 
+int	env_value_exist(char *target_key, t_shell *shell)
+{
+	t_list	*lst;
+	t_env	*env;
+
+	lst = shell->env_vars;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		env = (t_env *)lst->content;
+		if (env->visible == 1 && ft_strcmp(env->value, target_key) == 0)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
 int	env_key_exist(char *target_key, t_shell *shell)
 {
 	t_list	*lst;
