@@ -157,8 +157,10 @@ void ft_export(t_shell *shell, char *each_cmd)
        			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
             return ;
         }
-		if (!env_value_exist(env->value, shell) || !env_key_exist(env->key, shell))
-       		ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
+		if (env_key_exist(env->key, shell))
+			get_env_object(env->key, shell)->value = env->value;
+		else
+			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
     }
     else
     {
