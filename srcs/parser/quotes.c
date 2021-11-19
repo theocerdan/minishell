@@ -102,9 +102,7 @@ char *resolve_special_case_quotes(char *str)
 	b = 1;
 	while (b)
 	{
-		// printf("->:%s\n", result);
 		result = special_case_quotes(result);
-		// printf("->:%s\n", result);
 		// if (only_one_type_of_quotes_remaining(result))
 		//	result = resolve_quote_issue(result);
 		b = has_two_type_quotes(result);

@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-void	ft_swap_env(t_env *a, t_env *b)
+void ft_swap_env(t_env *a, t_env *b)
 {
-	char	*tmp;
-	int		visible;
+	char *tmp;
+	int visible;
 
 	tmp = a->key;
 	a->key = b->key;
@@ -28,11 +28,11 @@ void	ft_swap_env(t_env *a, t_env *b)
 	b->visible = visible;
 }
 
-void	ft_sort_export_env(t_list *new)
+void ft_sort_export_env(t_list *new)
 {
-	t_list	*lst;
-	t_env	*env;
-	t_env	*next_env;
+	t_list *lst;
+	t_env *env;
+	t_env *next_env;
 
 	lst = new;
 	while (lst && lst->next)
@@ -49,12 +49,12 @@ void	ft_sort_export_env(t_list *new)
 	}
 }
 
-t_list	*clone_env(t_shell *shell)
+t_list *clone_env(t_shell *shell)
 {
-	t_list	*lst;
-	t_list	*new_lst;
-	t_env	*new;
-	t_env	*old;
+	t_list *lst;
+	t_list *new_lst;
+	t_env *new;
+	t_env *old;
 
 	new_lst = NULL;
 	lst = shell->env_vars;
@@ -71,26 +71,40 @@ t_list	*clone_env(t_shell *shell)
 	return (new_lst);
 }
 
-static int	get_i(char *first_arg)
+static int get_i(char *first_arg)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (first_arg[i])
 	{
 		if (first_arg[i] == '=')
-			break ;
+			break;
 		i++;
 	}
 	return (i);
 }
 
-void	ft_export(t_shell *shell, char *each_cmd)
+int not_acceptable(char *str)
 {
-	t_env	*env;
-	t_list	*new;
-	char	*first_arg;
-	int		i;
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_is_special(str[i]) && str[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void ft_export(t_shell *shell, char *each_cmd)
+{
+	t_env *env;
+	t_list *new;
+	char *first_arg;
+	int i;
 
 	(void)(each_cmd);
 	first_arg = get_first_arg(shell->command_line_clean);
@@ -101,8 +115,15 @@ void	ft_export(t_shell *shell, char *each_cmd)
 		env = ft_safe_malloc(sizeof(t_env), shell);
 		env->key = ft_substr(first_arg, 0, i);
 		env->value = ft_substr(first_arg, i + 1,
-				ft_strlen(first_arg) - ft_strlen(env->key));
+							   ft_strlen(first_arg) - ft_strlen(env->key));
 		env->visible = 1;
+		if (ft_strcmp(env->value, "") == 0)
+			return;
+		if (not_acceptable(env->key))
+		{
+			printf("minishell: export: not valid in this context: %s\n", env->key);
+			return;
+		}
 		ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
 	}
 	else

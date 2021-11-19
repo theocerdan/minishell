@@ -25,6 +25,5 @@ void ft_pwd(t_shell *shell, char *cmd)
 		printf("%s\n", cwd);
 	else
 		ft_error("minishell: error pwd\n");
-	// free(cwd);
 	ft_add_to_garbage(cwd, shell);
 }

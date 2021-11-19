@@ -23,12 +23,10 @@ void prompt(t_shell *shell)
 	{
 		cmd = start_prompt(shell, cmd);
 		add_history(cmd);
-		//printf("cmd:%s|\n", cmd);
 		space_cmd = tokenization(shell, cmd);
 		if (space_cmd)
 			parser(shell);
 		ft_lstclear(&(shell->token_list), &free);
-		//printf("clc:%s|\n", shell->command_line_clean);
 		ft_add_to_garbage(cmd, shell);
 	}
 }

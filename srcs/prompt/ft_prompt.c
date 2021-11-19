@@ -24,10 +24,6 @@ char *join_prompt_element(char *begin, char *pwd, char *end, t_shell *shell)
 	ft_add_to_garbage(pwd, shell);
 	ft_add_to_garbage(end, shell);
 	ft_add_to_garbage(tmp, shell);
-	// free(tmp);
-	// free(begin);
-	// free(pwd);
-	// free(end);
 	return (prompt);
 }
 
@@ -58,7 +54,6 @@ char *start_prompt(t_shell *shell, char *cmd)
 	cmd = readline(prompt);
 	if (cmd == NULL)
 		exit(EXIT_SUCCESS);
-	// free(prompt);
 	ft_add_to_garbage(prompt, shell);
 	return (cmd);
 }

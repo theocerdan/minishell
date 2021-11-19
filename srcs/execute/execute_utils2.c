@@ -59,7 +59,6 @@ char *get_correct_cmd_path(char *path_variables, char *each_cmd, t_shell *shell)
 		cmd_path = get_possible_path(all_paths[i], first_part_cmd);
 		if (is_executable(cmd_path))
 			break;
-		// free(cmd_path);
 		ft_add_to_garbage(cmd_path, shell);
 		cmd_path = NULL;
 		i++;

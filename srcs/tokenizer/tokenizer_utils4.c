@@ -26,10 +26,6 @@ void free_aux_strings(char **left, char **operator,
 	ft_add_to_garbage(operator, shell);
 	ft_add_to_garbage(right, shell);
 	ft_add_to_garbage(first_part, shell);
-	// free(*left);
-	// free(*operator);
-	// free(*right);
-	// free(*first_part);
 }
 
 char *set_operator(char *line, char operator_pointer, int off_set)
