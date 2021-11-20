@@ -174,6 +174,70 @@ void	operate_start_space(t_shell *shell)
 	shell->command_line_clean = ft_substr(shell->command_line_clean, i, j);
 }
 
+int	extra_space_outside_quotes(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->command_line_clean[i])
+	{
+		if (shell->command_line_clean[i] == ' ' && is_quote(shell->command_line_clean[i - 1]))
+			return (0);
+		if (shell->command_line_clean[i] == ' ' && shell->command_line_clean[i + 1] == ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	operate_extra_space_outside_quotes(t_shell *shell)
+{
+	int		i;
+	int		j;
+	int		start;
+	int		pos;
+	char	*tmp;
+	char	*tmp2;
+
+	i = 0;
+	j = 0;
+	start = 0;
+	pos = 0;
+	while (shell->command_line_clean[i])
+	{
+		if (shell->command_line_clean[i] == ' ' && shell->command_line_clean[i + 1] == ' ')
+		{
+			start = i;
+			while (shell->command_line_clean[i] == ' ')
+				i++;
+			pos = i;
+			while (shell->command_line_clean[i])
+			{
+				i++;
+				j++;
+			}
+			break ;
+		}
+		i++;
+	}
+	tmp = ft_substr(shell->command_line_clean, 0, start + 1);
+	tmp2 = ft_substr(shell->command_line_clean, pos, j);
+	shell->command_line_clean = ft_strjoin(tmp, tmp2);
+}
+
+void	loop_extra_space_outside_quotes(t_shell *shell)
+{
+	int b;
+
+	b = 1;
+	while (b)
+	{
+		operate_extra_space_outside_quotes(shell);
+		b = extra_space_outside_quotes(shell);
+	}
+
+}
+
 void parse_command(t_shell *shell)
 {
 	int *each_cmd_lenght;
@@ -181,6 +245,12 @@ void parse_command(t_shell *shell)
 
 	if (shell->command_line_clean == NULL)
 		return;
+	if (extra_space_outside_quotes(shell))
+	{
+		printf("->%s|\n", shell->command_line_clean);
+		loop_extra_space_outside_quotes(shell);
+		printf("->%s|\n", shell->command_line_clean);
+	}
 	if (start_space(shell))
 		operate_start_space(shell);
 	if (extra_space(shell))

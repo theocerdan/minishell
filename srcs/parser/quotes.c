@@ -103,8 +103,6 @@ char *resolve_special_case_quotes(char *str)
 	while (b)
 	{
 		result = special_case_quotes(result);
-		// if (only_one_type_of_quotes_remaining(result))
-		//	result = resolve_quote_issue(result);
 		b = has_two_type_quotes(result);
 	}
 	return (result);
