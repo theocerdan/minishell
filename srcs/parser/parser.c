@@ -205,6 +205,15 @@ void	operate_extra_space_outside_quotes(t_shell *shell)
 	pos = 0;
 	while (shell->command_line_clean[i])
 	{
+		if (is_quote(shell->command_line_clean[i]))
+		{
+			i++;
+			while (!is_quote(shell->command_line_clean[i]))
+			{
+				if (is_quote(shell->command_line_clean[i + 1]))
+					break;
+			}
+		}
 		if (shell->command_line_clean[i] == ' ' && shell->command_line_clean[i + 1] == ' ')
 		{
 			start = i;
