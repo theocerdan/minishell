@@ -174,77 +174,32 @@ void	operate_start_space(t_shell *shell)
 	shell->command_line_clean = ft_substr(shell->command_line_clean, i, j);
 }
 
-int	extra_space_outside_quotes(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->command_line_clean[i])
-	{
-		if (shell->command_line_clean[i] == ' ' && is_quote(shell->command_line_clean[i - 1]))
-			return (0);
-		if (shell->command_line_clean[i] == ' ' && shell->command_line_clean[i + 1] == ' ')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	operate_extra_space_outside_quotes(t_shell *shell)
-{
-	int		i;
-	int		j;
-	int		start;
-	int		pos;
-	char	*tmp;
-	char	*tmp2;
-
-	i = 0;
-	j = 0;
-	start = 0;
-	pos = 0;
-	while (shell->command_line_clean[i])
-	{
-		if (is_quote(shell->command_line_clean[i]))
-		{
-			i++;
-			while (!is_quote(shell->command_line_clean[i]))
-			{
-				if (is_quote(shell->command_line_clean[i + 1]))
-					break;
-			}
-		}
-		if (shell->command_line_clean[i] == ' ' && shell->command_line_clean[i + 1] == ' ')
-		{
-			start = i;
-			while (shell->command_line_clean[i] == ' ')
-				i++;
-			pos = i;
-			while (shell->command_line_clean[i])
-			{
-				i++;
-				j++;
-			}
-			break ;
-		}
-		i++;
-	}
-	tmp = ft_substr(shell->command_line_clean, 0, start + 1);
-	tmp2 = ft_substr(shell->command_line_clean, pos, j);
-	shell->command_line_clean = ft_strjoin(tmp, tmp2);
-}
-
 void	loop_extra_space_outside_quotes(t_shell *shell)
 {
-	int b;
+	int i;
+	int a;
+	char *phrase;
+	int bypass;
 
-	b = 1;
-	while (b)
+	bypass = 0;
+	i = 0;
+	phrase = shell->command_line_clean;
+	while (i < (int)ft_strlen(phrase))
 	{
-		operate_extra_space_outside_quotes(shell);
-		b = extra_space_outside_quotes(shell);
-	}
+		if (is_quote(phrase[i]))
+			bypass = !bypass;
 
+		a = i;
+		if (bypass == 0 && phrase[i] == ' ' && phrase[i + 1] == ' '){
+			while (phrase[a] == ' '){
+				a++;
+			}
+			phrase = ft_strjoin(ft_substr(phrase, 0, i + 1), ft_substr(phrase, a, (int)ft_strlen(phrase)));
+			i = 0;
+		}
+		i++;
+	}
+	shell->command_line_clean = phrase;
 }
 
 void parse_command(t_shell *shell)
@@ -254,16 +209,11 @@ void parse_command(t_shell *shell)
 
 	if (shell->command_line_clean == NULL)
 		return;
-	if (extra_space_outside_quotes(shell))
-	{
-		printf("->%s|\n", shell->command_line_clean);
-		loop_extra_space_outside_quotes(shell);
-		printf("->%s|\n", shell->command_line_clean);
-	}
+	loop_extra_space_outside_quotes(shell);
 	if (start_space(shell))
 		operate_start_space(shell);
-	if (extra_space(shell))
-		operate_extra_space(shell);
+	/*if (extra_space(shell))
+		operate_extra_space(shell);*/
 	if (have_vaguellette(shell))
 		resolve_vaguellette(shell);
 	if (dollar_plus_number(shell))
