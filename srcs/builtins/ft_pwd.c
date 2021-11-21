@@ -20,7 +20,7 @@ void ft_pwd(t_shell *shell, char *cmd)
 	(void)(shell);
 	(void)(cmd);
 	buffer = NULL;
-	cwd = getcwd(buffer, 0);
+	cwd = get_env_object("PWD", shell)->value;
 	if (cwd)
 		printf("%s\n", cwd);
 	else
