@@ -77,8 +77,10 @@ void	ft_delete_var(char *target_key, t_shell *shell)
 	while (lst)
 	{
 		env = (t_env *)lst->content;
-		if (ft_strcmp(env->key, target_key) == 0)
+		if (ft_strcmp(env->key, target_key) == 0){
 			env->visible = 0;
+			env->value = NULL;
+		}
 		lst = lst->next;
 	}
 }
