@@ -24,9 +24,9 @@ int has_two_type_quotes(char *str)
 			i++;
 			if (str[i] == '\"')
 				return (1);
-			else if (str[i] == ' ')
+			else if (!is_quote(str[i]))
 			{
-				while (str[i] == ' ')
+				while (!is_quote(str[i]))
 					i++;
 				if (str[i] == '\"')
 					return (1);
@@ -39,9 +39,9 @@ int has_two_type_quotes(char *str)
 			i++;
 			if (str[i] == '\'')
 				return (1);
-			else if (str[i] == ' ')
+			else if (!is_quote(str[i]))
 			{
-				while (str[i] == ' ')
+				while (!is_quote(str[i]))
 					i++;
 				if (str[i] == '\'')
 					return (1);
