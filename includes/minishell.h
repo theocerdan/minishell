@@ -91,6 +91,7 @@ int	env_value_exist(char *target_key, t_shell *shell);
 int env_key_exist(char *target_key, t_shell *shell);
 void ft_delete_var(char *target_key, t_shell *shell);
 void ft_create_var(char *key, char *value, t_shell *shell);
+int	env_len(t_shell *shell);
 
 /* ft_prompt.c */
 
@@ -100,6 +101,7 @@ char *start_prompt(t_shell *shell, char *cmd);
 
 void ft_env(t_shell *shell, char *cmd);
 void print_all_env(t_list *lst);
+char** convert_env_to_string_tab(t_shell *shell);
 
 /* parser.c */
 

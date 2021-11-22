@@ -15,6 +15,7 @@
 void	execute_cmd(t_shell *shell, char *each_cmd)
 {
 	int		pid;
+	int 	ret;
 	int		status;
 	char	**exec_arg;
 	char	*path;
@@ -32,7 +33,9 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	}
 	else
 	{
-		if (execve(path, exec_arg, shell->env_tab) == -1)
+		if (path == NULL)
+			path = exec_arg[0];
+		if ((ret = execve(path, exec_arg, convert_env_to_string_tab(shell))) == -1)
 			printf("minishell: %s: command not found\n", each_cmd);
 		exit(EXIT_FAILURE);
 	}
