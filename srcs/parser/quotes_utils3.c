@@ -31,7 +31,7 @@ char	get_quote_to_remove(char *str)
 			to_remove = '\"';
 			break ;
 		}
-		else if (str[i] == '\'' && str[i + 1] == ' ')
+		else if (str[i] == '\'' && !is_quote(str[i + 1]))
 		{
 			while (!is_quote(str[i + 1]))
 				i++;
@@ -42,7 +42,7 @@ char	get_quote_to_remove(char *str)
 				break ;
 			}
 		}
-		else if (str[i] == '\"' && str[i + 1] == ' ')
+		else if (str[i] == '\"' && !is_quote(str[i + 1]))
 		{
 			while (!is_quote(str[i + 1]))
 				i++;
