@@ -24,9 +24,9 @@ int has_two_type_quotes(char *str)
 			i++;
 			if (str[i] == '\"')
 				return (1);
-			else if (str[i] == ' ')
+			else if (!is_quote(str[i]))
 			{
-				while (str[i] == ' ')
+				while (!is_quote(str[i]))
 					i++;
 				if (str[i] == '\"')
 					return (1);
@@ -39,9 +39,9 @@ int has_two_type_quotes(char *str)
 			i++;
 			if (str[i] == '\'')
 				return (1);
-			else if (str[i] == ' ')
+			else if (!is_quote(str[i]))
 			{
-				while (str[i] == ' ')
+				while (!is_quote(str[i]))
 					i++;
 				if (str[i] == '\'')
 					return (1);
@@ -108,6 +108,67 @@ char *resolve_special_case_quotes(char *str)
 	return (result);
 }
 
+int	empty_quotes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' && str[i + 1] == '\"')
+			return (1);
+		if (str[i] == '\'' && str[i + 1] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*cut_empty_quotes(char *str)
+{
+	int		i;
+	int		start;
+	int		lenght;
+	char	*tmp1;
+	char	*tmp2;
+
+	i = 0;
+	start = 0;
+	lenght = 0;
+	while (str[i])
+	{
+		if  ((str[i] == '\"' && str[i + 1] == '\"') || (str[i] == '\'' && str[i + 1] == '\''))
+		{
+			start = i;
+			while (str[i])
+			{
+				lenght++;
+				i++;
+			}
+			break ;
+		}
+		i++;
+	}
+	tmp1 = ft_substr(str, 0, start);
+	tmp2 = ft_substr(str, start + 2, lenght);
+	return (ft_strjoin(tmp1, tmp2));
+}
+
+char	*resolve_cut_empty_quotes(char *str)
+{
+	char *result;
+	int b;
+
+	result = str;
+	b = 1;
+	while (b)
+	{
+		result = cut_empty_quotes(result);
+		b = empty_quotes(result);
+	}
+	return (result);
+}
+
 char *check_if_quotes(char *each_cmd)
 {
 	int i;
@@ -122,6 +183,8 @@ char *check_if_quotes(char *each_cmd)
 			printf("Error : need a quote to finish the line.\n");
 			exit(0);
 		}
+		else if (empty_quotes(str))
+			str = resolve_cut_empty_quotes(str);
 		else if (has_two_type_quotes(str))
 		{
 			str = resolve_special_case_quotes(str);

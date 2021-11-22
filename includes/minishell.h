@@ -260,5 +260,6 @@ char *get_tmp2_dollar_plus_number(t_shell *shell);
 char *replace_dollar_plus_number(t_shell *shell);
 void resolve_dollar_plus_number(t_shell *shell);
 int dollar_plus_number(t_shell *shell);
+int		is_index_is_between_quote(int index, t_shell *shell);
 
 #endif
