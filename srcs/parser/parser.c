@@ -202,6 +202,39 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 	shell->command_line_clean = phrase;
 }
 
+int		is_index_is_between_quote(int index, t_shell *shell)
+{
+	int i;
+	int a;
+	char *phrase;
+	int inside;
+	int f_i;
+
+	f_i = 0;
+	a = 0;
+	inside = 0;
+	i = 0;
+	phrase = shell->command_line_clean;
+	while (i < (int)ft_strlen(phrase))
+	{
+		if (is_quote(phrase[i])){
+			inside = !inside;
+			if (inside)
+				f_i = i;
+			if (index > f_i && index < (f_i + a)){
+				return (1);
+			}
+		}
+		if (inside)
+			a++;
+		else
+			a = 0;
+
+		i++;
+	}
+	return (0);
+}
+
 void parse_command(t_shell *shell)
 {
 	int *each_cmd_lenght;
