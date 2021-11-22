@@ -204,11 +204,11 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 
 int		is_index_is_between_quote(int index, t_shell *shell)
 {
-	int i;
-	int a;
 	char *phrase;
 	int inside;
 	int f_i;
+	int i;
+	int a;
 
 	f_i = 0;
 	a = 0;
@@ -217,19 +217,18 @@ int		is_index_is_between_quote(int index, t_shell *shell)
 	phrase = shell->command_line_clean;
 	while (i < (int)ft_strlen(phrase))
 	{
-		if (is_quote(phrase[i])){
+		if (is_quote(phrase[i]))
+		{
 			inside = !inside;
 			if (inside)
 				f_i = i;
-			if (index > f_i && index < (f_i + a)){
+			if (index > f_i && index < (f_i + a))
 				return (1);
-			}
 		}
 		if (inside)
 			a++;
 		else
 			a = 0;
-
 		i++;
 	}
 	return (0);
@@ -245,8 +244,6 @@ void parse_command(t_shell *shell)
 	loop_extra_space_outside_quotes(shell);
 	if (start_space(shell))
 		operate_start_space(shell);
-	/*if (extra_space(shell))
-		operate_extra_space(shell);*/
 	if (have_vaguellette(shell))
 		resolve_vaguellette(shell);
 	if (dollar_plus_number(shell))
