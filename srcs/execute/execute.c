@@ -16,7 +16,6 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 {
 	int		pid;
 	int 	ret;
-	int		status;
 	char	**exec_arg;
 	char	*path;
 
@@ -27,7 +26,7 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 		perror("fork");
 	else if (pid > 0)
 	{
-		waitpid(pid, &status, 0);
+		waitpid(pid, &(shell->error_return), 0);
 		kill(pid, SIGTERM);
 	}
 	else
