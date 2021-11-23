@@ -301,4 +301,6 @@ void replace_all_key(t_shell *shell);
 char* replaceWord(const char* s, const char* oldW,
                   const char* newW, t_shell *shell);
 int replace(t_shell *shell, int start, int end);
+int	is_index_is_between_single_quote(int index, t_shell *shell);
+int replace2(t_shell *shell, int start, int end);
 #endif
