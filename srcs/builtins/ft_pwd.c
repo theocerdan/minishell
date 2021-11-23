@@ -19,11 +19,13 @@ void ft_pwd(t_shell *shell, char *cmd)
 
 	(void)(shell);
 	(void)(cmd);
+	shell->error_return = 0;
 	buffer = NULL;
 	cwd = get_env_object("PWD", shell)->value;
 	if (cwd)
 		printf("%s\n", cwd);
-	else
+	else {
 		ft_error("minishell: error pwd\n");
+	}
 	ft_add_to_garbage(cwd, shell);
 }
