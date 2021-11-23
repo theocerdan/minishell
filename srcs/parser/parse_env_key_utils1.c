@@ -136,7 +136,7 @@ char *get_replacement_env_key(t_shell *shell)
 
 	tmp = get_env_key(shell);
 	if (ft_strcmp(tmp, "?") == 0){
-		return (ft_itoa(shell->error_return));
+		return (ft_itoa_clean(shell, shell->error_return));
 	}
 	lst = shell->env_vars;
 	while (lst)

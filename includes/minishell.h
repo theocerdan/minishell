@@ -266,4 +266,6 @@ char    *ft_strdup_clean(t_shell *shell, const char *s1);
 char    *ft_strjoin_clean(t_shell *shell, const char *s1, const char *s2);
 char    *ft_substr_clean(t_shell *shell, char const *s, unsigned int start, size_t len);
 char    **ft_split_clean(t_shell *shell, char const *s, char c);
+char	*ft_itoa_clean(t_shell *shell, int n);
+
 #endif

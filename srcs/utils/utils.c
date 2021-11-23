@@ -121,3 +121,13 @@ char    **ft_split_clean(t_shell *shell, char const *s, char c)
     ft_add_to_garbage(ret, shell);
     return (ret);
 }
+
+char    *ft_itoa_clean(t_shell *shell, int n)
+{
+    char *ret;
+
+    ret = ft_itoa(n);
+    ft_add_to_garbage(ret, shell);
+    return (ret);
+}
+
