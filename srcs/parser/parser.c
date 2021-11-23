@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int start_and_end_quotes(char *str)
+int	start_and_end_quotes(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -25,12 +25,12 @@ int start_and_end_quotes(char *str)
 	return (0);
 }
 
-char *get_tmp2_dollar_plus_number(t_shell *shell)
+char	*get_tmp2_dollar_plus_number(t_shell *shell)
 {
-	int i;
-	int pos;
-	int flag;
-	char *tmp1;
+	int		i;
+	int		pos;
+	int		flag;
+	char	*tmp1;
 
 	i = 0;
 	pos = 0;
@@ -46,21 +46,21 @@ char *get_tmp2_dollar_plus_number(t_shell *shell)
 			}
 		}
 		if (flag)
-			break;
+			break ;
 		i++;
 	}
 	tmp1 = ft_substr_clean(shell, shell->command_line_clean, 0, pos);
 	return (tmp1);
 }
 
-char *replace_dollar_plus_number(t_shell *shell)
+char	*replace_dollar_plus_number(t_shell *shell)
 {
-	int i;
-	int pos;
-	int flag;
-	int lenght_rest;
-	char *tmp2;
-	char *tmp3;
+	int		i;
+	int		pos;
+	int		flag;
+	int		lenght_rest;
+	char	*tmp2;
+	char	*tmp3;
 
 	tmp2 = get_tmp2_dollar_plus_number(shell);
 	i = 0;
@@ -78,13 +78,13 @@ char *replace_dollar_plus_number(t_shell *shell)
 					{
 						pos = i + 1;
 						flag = 1;
-						break;
+						break ;
 					}
 					i++;
 				}
 			}
 			if (flag)
-				break;
+				break ;
 		}
 		i++;
 	}
@@ -96,9 +96,9 @@ char *replace_dollar_plus_number(t_shell *shell)
 	return (ft_strjoin_clean(shell, tmp2, tmp3));
 }
 
-void resolve_dollar_plus_number(t_shell *shell)
+void	resolve_dollar_plus_number(t_shell *shell)
 {
-	int b;
+	int	b;
 
 	b = 1;
 	while (b)
@@ -108,10 +108,10 @@ void resolve_dollar_plus_number(t_shell *shell)
 	}
 }
 
-int extra_space(t_shell *shell)
+int	extra_space(t_shell *shell)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	while (shell->command_line_clean[i++] != ' ')
@@ -126,13 +126,13 @@ int extra_space(t_shell *shell)
 	return (0);
 }
 
-void operate_extra_space(t_shell *shell)
+void	operate_extra_space(t_shell *shell)
 {
-	int i;
-	int pos;
-	int lenght_rest;
-	char *tmp1;
-	char *tmp2;
+	int		i;
+	int		pos;
+	int		lenght_rest;
+	char	*tmp1;
+	char	*tmp2;
 
 	i = 0;
 	while (shell->command_line_clean[i] != ' ')
@@ -171,15 +171,16 @@ void	operate_start_space(t_shell *shell)
 		count++;
 		j++;
 	}
-	shell->command_line_clean = ft_substr_clean(shell, shell->command_line_clean, i, j);
+	shell->command_line_clean = ft_substr_clean(shell,
+			shell->command_line_clean, i, j);
 }
 
 void	loop_extra_space_outside_quotes(t_shell *shell)
 {
-	int i;
-	int a;
-	char *phrase;
-	int bypass;
+	int		i;
+	int		a;
+	char	*phrase;
+	int		bypass;
 
 	bypass = 0;
 	i = 0;
@@ -188,13 +189,14 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 	{
 		if (is_quote(phrase[i]))
 			bypass = !bypass;
-
 		a = i;
-		if (bypass == 0 && phrase[i] == ' ' && phrase[i + 1] == ' '){
-			while (phrase[a] == ' '){
+		if (bypass == 0 && phrase[i] == ' ' && phrase[i + 1] == ' ')
+		{
+			while (phrase[a] == ' ')
 				a++;
-			}
-			phrase = ft_strjoin_clean(shell, ft_substr_clean(shell, phrase, 0, i + 1), ft_substr_clean(shell, phrase, a, (int)ft_strlen(phrase)));
+			phrase = ft_strjoin_clean(shell, ft_substr_clean(shell, phrase, 0,
+						i + 1), ft_substr_clean(shell, phrase, a,
+						(int)ft_strlen(phrase)));
 			i = 0;
 		}
 		i++;
@@ -202,13 +204,13 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 	shell->command_line_clean = phrase;
 }
 
-int		is_index_is_between_quote(int index, t_shell *shell)
+int	is_index_is_between_quote(int index, t_shell *shell)
 {
-	char *phrase;
-	int inside;
-	int f_i;
-	int i;
-	int a;
+	char	*phrase;
+	int		inside;
+	int		f_i;
+	int		i;
+	int		a;
 
 	f_i = 0;
 	a = 0;
@@ -234,13 +236,13 @@ int		is_index_is_between_quote(int index, t_shell *shell)
 	return (0);
 }
 
-void parse_command(t_shell *shell)
+void	parse_command(t_shell *shell)
 {
-	int *each_cmd_lenght;
-	int i;
+	int	*each_cmd_lenght;
+	int	i;
 
 	if (shell->command_line_clean == NULL)
-		return;
+		return ;
 	loop_extra_space_outside_quotes(shell);
 	if (start_space(shell))
 		operate_start_space(shell);
@@ -252,7 +254,8 @@ void parse_command(t_shell *shell)
 		resolve_replace_key_to_value_env(shell);
 	shell->nbr_cmd = get_number_of_commands(shell);
 	each_cmd_lenght = get_each_cmd_lenght(shell, shell->nbr_cmd);
-	shell->tab_cmd = (char **)ft_safe_malloc((shell->nbr_cmd + 1) * sizeof(char *), shell);
+	shell->tab_cmd = (char **)ft_safe_malloc((shell->nbr_cmd + 1)
+			* sizeof(char *), shell);
 	fill_cmd_array(shell, each_cmd_lenght);
 	i = 0;
 	while (i < shell->nbr_cmd)
@@ -260,15 +263,16 @@ void parse_command(t_shell *shell)
 		if (start_and_end_quotes(shell->tab_cmd[i]))
 		{
 			execute_cmd(shell, shell->tab_cmd[i]);
-			return;
+			return ;
 		}
 		i++;
 	}
-	shell->command_line_clean = check_if_quotes(shell, shell->command_line_clean);
+	shell->command_line_clean = check_if_quotes(shell,
+			shell->command_line_clean);
 	execute(shell);
 }
 
-void parser(t_shell *shell)
+void	parser(t_shell *shell)
 {
 	shell->fd = 0;
 	if (shell->command_line_clean != NULL)

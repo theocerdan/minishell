@@ -21,7 +21,8 @@ int	get_number_of_commands(t_shell *shell)
 	nbr_cmd = 1;
 	while (shell->command_line_clean[i])
 	{
-		if (shell->command_line_clean[i] == '|' && !is_index_is_between_quote(i, shell))
+		if (shell->command_line_clean[i] == '|'
+			&& !is_index_is_between_quote(i, shell))
 			nbr_cmd++;
 		i++;
 	}
@@ -30,7 +31,10 @@ int	get_number_of_commands(t_shell *shell)
 
 int	check_chiant_norminette(t_shell *shell, int i)
 {
-	if ((shell->command_line_clean[i + 1] == ' ' && (shell->command_line_clean[i + 2] == '|' && !is_index_is_between_quote(i + 2, shell))) || shell->command_line_clean[i + 1] == '\0')
+	if ((shell->command_line_clean[i + 1] == ' '
+			&& (shell->command_line_clean[i + 2] == '|'
+				&& !is_index_is_between_quote(i + 2, shell)))
+		|| shell->command_line_clean[i + 1] == '\0')
 		return (1);
 	return (0);
 }
@@ -76,10 +80,12 @@ void	fill_cmd_array(t_shell *shell, int *each_cmd_lenght)
 	milestone = 0;
 	while (shell->command_line_clean[i])
 	{
-		if ((shell->command_line_clean[i + 1] == '|'  && !is_index_is_between_quote(i + 1, shell)) || shell->command_line_clean[i + 1] == '\0')
+		if ((shell->command_line_clean[i + 1] == '|'
+				&& !is_index_is_between_quote(i + 1, shell))
+			|| shell->command_line_clean[i + 1] == '\0')
 		{
-			shell->tab_cmd[j] = ft_substr_clean(shell, shell->command_line_clean,
-					milestone, each_cmd_lenght[j]);
+			shell->tab_cmd[j] = ft_substr_clean(shell,
+					shell->command_line_clean, milestone, each_cmd_lenght[j]);
 			milestone = i + 3;
 			j++;
 		}

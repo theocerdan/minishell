@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-void ft_pwd(t_shell *shell, char *cmd)
+void	ft_pwd(t_shell *shell, char *cmd)
 {
-	char *cwd;
-	char *buffer;
+	char	*cwd;
+	char	*buffer;
 
 	(void)(shell);
 	(void)(cmd);

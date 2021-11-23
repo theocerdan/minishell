@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-char *join_prompt_element(char *begin, char *pwd, char *end, t_shell *shell)
+char	*join_prompt_element(char *begin, char *pwd, char *end, t_shell *shell)
 {
-	char *tmp;
-	char *prompt;
+	char	*tmp;
+	char	*prompt;
 
 	tmp = ft_strjoin_clean(shell, begin, pwd);
 	prompt = ft_strjoin_clean(shell, tmp, end);
@@ -27,25 +27,26 @@ char *join_prompt_element(char *begin, char *pwd, char *end, t_shell *shell)
 	return (prompt);
 }
 
-char *create_prompt(t_shell *shell)
+char	*create_prompt(t_shell *shell)
 {
-	char *pwd;
-	char *result;
-	char *buffer;
-	char *home_path;
+	char	*pwd;
+	char	*result;
+	char	*buffer;
+	char	*home_path;
 
 	buffer = NULL;
 	home_path = get_env_object("HOME", shell)->value;
 	pwd = get_env_object("PWD", shell)->value;
 	if (ft_strlen(pwd) >= ft_strlen(home_path))
 		pwd += ft_strlen(home_path);
-	result = join_prompt_element(ft_strdup_clean(shell, "~"), ft_strdup_clean(shell, pwd), ft_strdup_clean(shell, "$ "), shell);
+	result = join_prompt_element(ft_strdup_clean(shell, "~"),
+			ft_strdup_clean(shell, pwd), ft_strdup_clean(shell, "$ "), shell);
 	return (result);
 }
 
-char *start_prompt(t_shell *shell, char *cmd)
+char	*start_prompt(t_shell *shell, char *cmd)
 {
-	char *prompt;
+	char	*prompt;
 
 	prompt = create_prompt(shell);
 	cmd = readline(prompt);

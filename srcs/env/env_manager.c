@@ -48,23 +48,6 @@ int	env_value_exist(char *target_key, t_shell *shell)
 	return (0);
 }
 
-int	env_len(t_shell *shell)
-{
-	t_list	*lst;
-	int 	ret;
-	
-	ret = 0;
-	lst = shell->env_vars;
-	if (!lst)
-		return (-1);
-	while (lst)
-	{
-		ret++;
-		lst = lst->next;
-	}
-	return (ret);
-}
-
 int	env_key_exist(char *target_key, t_shell *shell)
 {
 	t_list	*lst;
@@ -94,7 +77,8 @@ void	ft_delete_var(char *target_key, t_shell *shell)
 	while (lst)
 	{
 		env = (t_env *)lst->content;
-		if (ft_strcmp(env->key, target_key) == 0){
+		if (ft_strcmp(env->key, target_key) == 0)
+		{
 			env->visible = 0;
 			env->value = NULL;
 		}

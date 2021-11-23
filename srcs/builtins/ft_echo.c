@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int get_flag(char *each_cmd)
+int	get_flag(char *each_cmd)
 {
-	int n_flag;
+	int	n_flag;
 
 	n_flag = 0;
 	if (each_cmd[5] == '-' && each_cmd[6] == 'n')
@@ -22,10 +22,10 @@ int get_flag(char *each_cmd)
 	return (n_flag);
 }
 
-void ft_echo(t_shell *shell, char *cmd)
+void	ft_echo(t_shell *shell, char *cmd)
 {
-	int n_flag;
-	int i;
+	int	n_flag;
+	int	i;
 
 	(void)(cmd);
 	if (ft_strlen(shell->command_line_clean) == 4)
@@ -33,14 +33,16 @@ void ft_echo(t_shell *shell, char *cmd)
 	if (ft_strcmp(shell->command_line_clean, "echo") == 0)
 	{
 		printf("\n");
-		return;
+		return ;
 	}
 	n_flag = get_flag(shell->command_line_clean);
 	i = 5;
 	if (n_flag)
 	{
 		i++;
-		while (shell->command_line_clean[i] == '-' || shell->command_line_clean[i] == 'n' || shell->command_line_clean[i] == ' ')
+		while (shell->command_line_clean[i] == '-'
+			|| shell->command_line_clean[i] == 'n'
+			|| shell->command_line_clean[i] == ' ')
 			i++;
 	}
 	while (shell->command_line_clean[i])

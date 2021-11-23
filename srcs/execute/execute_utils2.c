@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int is_executable(char *cmd_path)
+int	is_executable(char *cmd_path)
 {
-	struct stat buffer;
+	struct stat	buffer;
 
 	if (stat(cmd_path, &buffer) != 0)
 		return (0);
@@ -25,10 +25,10 @@ int is_executable(char *cmd_path)
 	return (0);
 }
 
-char *get_possible_path(t_shell *shell, char *envpath, char *cmd)
+char	*get_possible_path(t_shell *shell, char *envpath, char *cmd)
 {
-	char *path;
-	char *first_part;
+	char	*path;
+	char	*first_part;
 
 	path = NULL;
 	first_part = NULL;
@@ -43,12 +43,13 @@ char *get_possible_path(t_shell *shell, char *envpath, char *cmd)
 	return (path);
 }
 
-char *get_correct_cmd_path(char *path_variables, char *each_cmd, t_shell *shell)
+char	*get_correct_cmd_path(char *path_variables, char *each_cmd,
+	t_shell *shell)
 {
-	char **all_paths;
-	char *cmd_path;
-	char *first_part_cmd;
-	int i;
+	char	**all_paths;
+	char	*cmd_path;
+	char	*first_part_cmd;
+	int		i;
 
 	i = 0;
 	cmd_path = NULL;
@@ -58,7 +59,7 @@ char *get_correct_cmd_path(char *path_variables, char *each_cmd, t_shell *shell)
 	{
 		cmd_path = get_possible_path(shell, all_paths[i], first_part_cmd);
 		if (is_executable(cmd_path))
-			break;
+			break ;
 		ft_add_to_garbage(cmd_path, shell);
 		cmd_path = NULL;
 		i++;
@@ -66,11 +67,11 @@ char *get_correct_cmd_path(char *path_variables, char *each_cmd, t_shell *shell)
 	return (cmd_path);
 }
 
-char *get_path_variable(t_shell *shell)
+char	*get_path_variable(t_shell *shell)
 {
-	t_list *start;
-	t_env *env;
-	char *path_variable;
+	t_list	*start;
+	t_env	*env;
+	char	*path_variable;
 
 	path_variable = NULL;
 	start = shell->env_vars;
@@ -85,10 +86,10 @@ char *get_path_variable(t_shell *shell)
 	return (path_variable);
 }
 
-char *get_path(t_shell *shell, char *each_cmd)
+char	*get_path(t_shell *shell, char *each_cmd)
 {
-	char *path_variables;
-	char *correct_cmd_path;
+	char	*path_variables;
+	char	*correct_cmd_path;
 
 	path_variables = get_path_variable(shell);
 	correct_cmd_path = get_correct_cmd_path(path_variables, each_cmd, shell);

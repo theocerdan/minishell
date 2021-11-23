@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-int first_arg_not_key(t_shell *shell, char *str)
+int	first_arg_not_key(t_shell *shell, char *str)
 {
-	t_list *lst;
-	t_env *env;
+	t_list	*lst;
+	t_env	*env;
 
 	lst = shell->env_vars;
 	if (!lst)
@@ -30,11 +30,11 @@ int first_arg_not_key(t_shell *shell, char *str)
 	return (1);
 }
 
-int first_arg_ignore(char *str)
+int	first_arg_ignore(char *str)
 {
-	int i;
-	int count_maj;
-	int spe_char;
+	int	i;
+	int	count_maj;
+	int	spe_char;
 
 	i = 0;
 	count_maj = 0;
@@ -56,23 +56,23 @@ int first_arg_ignore(char *str)
 	return (0);
 }
 
-void ft_unset(t_shell *shell, char *each_cmd)
+void	ft_unset(t_shell *shell, char *each_cmd)
 {
-	char *first_arg;
+	char	*first_arg;
 
 	(void)(each_cmd);
 	first_arg = get_first_arg(shell, shell->command_line_clean);
 	if ((int)ft_strlen(first_arg) == 0)
 	{
 		printf("minishell: unset: not enough arguments\n");
-		return;
+		return ;
 	}
 	if (first_arg_ignore(first_arg))
-		return;
+		return ;
 	else if (first_arg_not_key(shell, first_arg))
 	{
 		printf("minishell: unset: %s: invalid parameter name\n", first_arg);
-		return;
+		return ;
 	}
 	else if (ft_strlen(first_arg) > 0)
 		ft_delete_var(first_arg, shell);

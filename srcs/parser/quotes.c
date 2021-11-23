@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int has_two_type_quotes(char *str)
+int	has_two_type_quotes(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -54,10 +54,10 @@ int has_two_type_quotes(char *str)
 	return (0);
 }
 
-char *resolve_quote_issue(t_shell *shell, char *str)
+char	*resolve_quote_issue(t_shell *shell, char *str)
 {
-	char *result;
-	int b;
+	char	*result;
+	int		b;
 
 	b = 1;
 	result = str;
@@ -69,11 +69,11 @@ char *resolve_quote_issue(t_shell *shell, char *str)
 	return (result);
 }
 
-int only_one_type_of_quotes_remaining(char *str)
+int	only_one_type_of_quotes_remaining(char *str)
 {
-	int i;
-	int sql_qts;
-	int dbl_qts;
+	int	i;
+	int	sql_qts;
+	int	dbl_qts;
 
 	i = 0;
 	sql_qts = 0;
@@ -93,10 +93,10 @@ int only_one_type_of_quotes_remaining(char *str)
 	return (0);
 }
 
-char *resolve_special_case_quotes(t_shell *shell, char *str)
+char	*resolve_special_case_quotes(t_shell *shell, char *str)
 {
-	char *result;
-	int b;
+	char	*result;
+	int		b;
 
 	result = str;
 	b = 1;
@@ -137,7 +137,8 @@ char	*cut_empty_quotes(t_shell *shell, char *str)
 	lenght = 0;
 	while (str[i])
 	{
-		if  ((str[i] == '\"' && str[i + 1] == '\"') || (str[i] == '\'' && str[i + 1] == '\''))
+		if ((str[i] == '\"' && str[i + 1] == '\"')
+			|| (str[i] == '\'' && str[i + 1] == '\''))
 		{
 			start = i;
 			while (str[i])
@@ -156,8 +157,8 @@ char	*cut_empty_quotes(t_shell *shell, char *str)
 
 char	*resolve_cut_empty_quotes(t_shell *shell, char *str)
 {
-	char *result;
-	int b;
+	char	*result;
+	int		b;
 
 	result = str;
 	b = 1;
@@ -169,10 +170,10 @@ char	*resolve_cut_empty_quotes(t_shell *shell, char *str)
 	return (result);
 }
 
-char *check_if_quotes(t_shell *shell, char *each_cmd)
+char	*check_if_quotes(t_shell *shell, char *each_cmd)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 0;
 	str = each_cmd;
@@ -188,7 +189,7 @@ char *check_if_quotes(t_shell *shell, char *each_cmd)
 		else if (has_two_type_quotes(str))
 		{
 			str = resolve_special_case_quotes(shell, str);
-			break;
+			break ;
 		}
 		else if (is_between_quotes(str, i, str[i]))
 			str = resolve_quote_issue(shell, str);

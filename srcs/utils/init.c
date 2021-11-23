@@ -74,7 +74,7 @@ void	init_env_tab(t_shell *shell, char **envp)
 
 void	init_env(t_shell *shell, char **envp)
 {
-	static int shlvl;
+	static int	shlvl;
 
 	init_env_lst(shell, envp);
 	init_env_tab(shell, envp);

@@ -26,16 +26,17 @@ void	print_all_env(t_list *lst)
 	ft_lstiter((lst), &print_env);
 }
 
-char** convert_env_to_string_tab(t_shell *shell){
+char	**convert_env_to_string_tab(t_shell *shell)
+{
 	t_list	*lst;
 	t_env	*env;
-	char 	**ret_tab;
-	int 	i;
+	char	**ret_tab;
+	int		i;
 	int		s_len;
 
 	s_len = 0;
 	i = 0;
-	ret_tab = ft_safe_malloc(env_len(shell) * sizeof(char*), shell);
+	ret_tab = ft_safe_malloc(env_len(shell) * sizeof(char *), shell);
 	lst = shell->env_vars;
 	if (!lst)
 		return (NULL);
@@ -49,4 +50,21 @@ char** convert_env_to_string_tab(t_shell *shell){
 		i++;
 	}
 	return (ret_tab);
+}
+
+int	env_len(t_shell *shell)
+{
+	t_list	*lst;
+	int		ret;
+
+	ret = 0;
+	lst = shell->env_vars;
+	if (!lst)
+		return (-1);
+	while (lst)
+	{
+		ret++;
+		lst = lst->next;
+	}
+	return (ret);
 }

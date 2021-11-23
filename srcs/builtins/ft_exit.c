@@ -29,21 +29,23 @@ int	non_digit_arg(char *str)
 void	exit_value(t_shell *shell, int ret, char *each_cmd)
 {
 	int		count;
-	
+
 	count = count_spacing(shell, ' ', shell->command_line_clean);
 	ret = ft_atoi(shell->command_line_clean + ft_strlen(each_cmd) + 1) % 256;
-
-	 if (count > 2)
+	if (count > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
 		return ;
 	}
-	else if (count > 1 && non_digit_arg(shell->command_line_clean + ft_strlen(each_cmd) + 1))
+	else if (count > 1 && non_digit_arg(shell->command_line_clean
+			+ ft_strlen(each_cmd) + 1))
 	{
-		printf("minishell: exit: %s: numeric argument required\n", shell->command_line_clean + ft_strlen(each_cmd) + 1);
+		printf("minishell: exit: %s: numeric argument required\n",
+			shell->command_line_clean + ft_strlen(each_cmd) + 1);
 		exit (1);
 	}
-	else {
+	else
+	{
 		write(2, "exit\n", 5);
 		exit(ret);
 	}
