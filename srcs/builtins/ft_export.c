@@ -122,10 +122,12 @@ void ft_export(t_shell *shell, char *each_cmd)
     int i;
 
     (void)(each_cmd);
+	shell->error_return = 0;
     env = NULL;
     first_arg = get_first_arg(shell, shell->command_line_clean);
     if (first_arg[0] == '=')
     {
+		shell->error_return = 1;
         printf("minishell: export: not valid in this context: %s\n", first_arg);
         return;
     }
@@ -148,6 +150,7 @@ void ft_export(t_shell *shell, char *each_cmd)
             return ;
         if (not_acceptable(env->key))
         {
+			shell->error_return = 1;
             printf("minishell: export: not valid in this context: %s\n", env->key);
             return ;
         }
