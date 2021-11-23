@@ -62,7 +62,7 @@ static int	get_i(char *first_arg)
 
 	i = 0;
 	res = -1;
-	while (first_arg[i])
+	while ((int)ft_strlen(first_arg) > i)
 	{
 		if (first_arg[i] == '=')
 			res = i;
@@ -104,19 +104,27 @@ void	ft_export(t_shell *shell, char *each_cmd)
 	t_env	*env;
 	t_list	*new;
 	char	*first_arg;
+	char	**args;
 	int		i;
 
 	(void)(each_cmd);
 	i = 0;
 	env = NULL;
+
+	args = ft_split_clean(shell, shell->command_line_clean, ' ');
 	first_arg = get_first_arg(shell, shell->command_line_clean);
 	if (first_arg[0] == '=')
 	{
 		printf("minishell: export: not valid in this context: %s\n", first_arg);
 		return ;
 	}
-	if (ft_strlen(first_arg) > 0)
-		export_value(shell, i, env, first_arg);
+	if (ft_strlen(first_arg) > 0){
+		i = 1;
+		while (args[i]){
+			export_value(shell, 0, env, args[i]);
+			i++;
+		}
+	}
 	else
 	{
 		new = clone_env(shell);
