@@ -140,8 +140,9 @@ char	*get_replacement_env_key(t_shell *shell)
 	t_env	*env;
 
 	tmp = get_env_key(shell);
-	if (ft_strcmp(tmp, "?") == 0)
-		return ("0");
+	if (ft_strcmp(tmp, "?") == 0){
+		return (ft_itoa_clean(shell, shell->error_return));
+	}
 	lst = shell->env_vars;
 	while (lst)
 	{

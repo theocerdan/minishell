@@ -27,6 +27,7 @@ void	ft_echo(t_shell *shell, char *cmd)
 	int	n_flag;
 	int	i;
 
+	shell->error_return = 0;
 	(void)(cmd);
 	if (ft_strlen(shell->command_line_clean) == 4)
 		shell->command_line_clean = lower_str(shell->command_line_clean);

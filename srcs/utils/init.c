@@ -79,5 +79,5 @@ void	init_env(t_shell *shell, char **envp)
 	init_env_lst(shell, envp);
 	init_env_tab(shell, envp);
 	shlvl = ft_atoi(get_env_object("SHLVL", shell)->value);
-	ft_create_var("SHLVL", ft_itoa(shlvl + 1), shell);
+	ft_create_var("SHLVL", ft_itoa_clean(shell, shlvl + 1), shell);
 }
