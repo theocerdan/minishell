@@ -21,8 +21,6 @@ int	not_acceptable(char *str)
 	{
 		if (ft_is_special(str[i]) && str[i] != '_'  && str[i] != ' ')
 			return (1);
-		else if (ft_isdigit(str[i]))
-			return (1);
 		i++;
 	}
 	return (0);
@@ -70,7 +68,6 @@ t_env	*init_env_buitins(t_shell *shell, int i, t_env *env, char *first_arg)
 	env->key = ft_substr_clean(shell, first_arg, 0, i);
 	env->value = ft_substr_clean(shell, first_arg, i + 1,
 			ft_strlen(first_arg) - ft_strlen(env->key));
-	printf("-> |%s|\n", env->value);
 	env->visible = 1;
 	return (env);
 }
