@@ -82,8 +82,10 @@ void	export_value(t_shell *shell, int i, t_env *env, char *first_arg)
 			ft_lstadd_front(&(shell->env_vars), ft_lstnew(env));
 		return ;
 	}
-	if (i == -1)
+	if (i == -1 && ft_strlen(env->value) > 0)
+	{
 		return ;
+	}
 	if (not_acceptable(env->key))
 	{
 		printf("minishell: export: not valid in this context: %s\n",
