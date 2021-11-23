@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbaurin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/23 17:21:19 by mbaurin           #+#    #+#             */
+/*   Updated: 2021/11/23 17:21:20 by mbaurin          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	start_and_end_quotes(char *str)
@@ -40,20 +52,18 @@ int	start_space(t_shell *shell)
 
 int	is_index_is_between_quote(int index, t_shell *shell)
 {
-	char	*phrase;
 	int		inside;
 	int		f_i;
 	int		i;
 	int		a;
 
+	inside = 0;
 	f_i = 0;
 	a = 0;
-	inside = 0;
-	i = 0;
-	phrase = shell->command_line_clean;
-	while (i < (int)ft_strlen(phrase))
+	i = -1;
+	while (++i < (int)ft_strlen(shell->command_line_clean))
 	{
-		if (is_quote(phrase[i]))
+		if (is_quote(shell->command_line_clean[i]))
 		{
 			inside = !inside;
 			if (inside)
@@ -65,7 +75,6 @@ int	is_index_is_between_quote(int index, t_shell *shell)
 			a++;
 		else
 			a = 0;
-		i++;
 	}
 	return (0);
 }

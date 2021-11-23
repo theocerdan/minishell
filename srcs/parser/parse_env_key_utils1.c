@@ -12,46 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	env_between_simple_quotes(t_shell *shell)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (shell->command_line_clean[i])
-	{
-		if (shell->command_line_clean[i] == '$' && next_word_env_key(shell))
-		{
-			if (shell->command_line_clean[i - 1] == '\''
-				&& shell->command_line_clean[i - 2] == ' ')
-			{
-				j = i;
-				while (shell->command_line_clean[j - 2] == ' ')
-					j--;
-				if (shell->command_line_clean[j - 2] == 'o')
-					return (1);
-				return (0);
-			}
-			else if (shell->command_line_clean[i - 1] == '\''
-				&& !is_quote(shell->command_line_clean[i - 2]))
-				return (1);
-			else if (shell->command_line_clean[i - 1] == ' ')
-			{
-				j = i;
-				while (shell->command_line_clean[j - 1] == ' ')
-					j--;
-				j--;
-				if (shell->command_line_clean[j] == '\''
-					&& !is_quote(shell->command_line_clean[j - 1]))
-					return (1);
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
 int	have_env_variables(t_shell *shell)
 {
 	int	i;
@@ -140,9 +100,8 @@ char	*get_replacement_env_key(t_shell *shell)
 	t_env	*env;
 
 	tmp = get_env_key(shell);
-	if (ft_strcmp(tmp, "?") == 0){
+	if (ft_strcmp(tmp, "?") == 0)
 		return (ft_itoa_clean(shell, shell->error_return));
-	}
 	lst = shell->env_vars;
 	while (lst)
 	{

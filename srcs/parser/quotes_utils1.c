@@ -70,7 +70,7 @@ int	quote_hole(char *str)
 			dbl_qts++;
 		i++;
 	}
-	if (sql_qts % 2  == 0 && dbl_qts % 2 == 0)
+	if (sql_qts % 2 == 0 && dbl_qts % 2 == 0)
 		return (0);
 	return (1);
 }

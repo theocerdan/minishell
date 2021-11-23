@@ -244,9 +244,9 @@ char	get_quote_to_remove(char *str);
 
 /* quotes_utils3.c */
 
-int	empty_quotes(char *str);
-int	only_one_type_of_quotes_remaining(char *str);
-int	has_two_type_quotes(char *str);
+int		empty_quotes(char *str);
+int		only_one_type_of_quotes_remaining(char *str);
+int		has_two_type_quotes(char *str);
 
 /* vaguellette.c */
 
@@ -279,6 +279,10 @@ int		start_space(t_shell *shell);
 int		is_index_is_between_quote(int index, t_shell *shell);
 void	operate_start_space(t_shell *shell);
 
+/* parser_utils2.c */
+
+char	*replace_dollar_plus_number(t_shell *shell);
+
 char	*get_tmp2_dollar_plus_number(t_shell *shell);
 char	*replace_dollar_plus_number(t_shell *shell);
 void	resolve_dollar_plus_number(t_shell *shell);
@@ -291,4 +295,6 @@ char	*ft_substr_clean(t_shell *shell, char const *s,
 char	**ft_split_clean(t_shell *shell, char const *s, char c);
 char	*ft_itoa_clean(t_shell *shell, int n);
 
+int		env_between_simple_quotes(t_shell *shell);
+int		key_plus_numbers(t_shell *shell);
 #endif

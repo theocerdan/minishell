@@ -12,77 +12,6 @@
 
 #include "../includes/minishell.h"
 
-char	*get_tmp2_dollar_plus_number(t_shell *shell)
-{
-	int		i;
-	int		pos;
-	int		flag;
-	char	*tmp1;
-
-	i = 0;
-	pos = 0;
-	flag = 0;
-	while (shell->command_line_clean[i])
-	{
-		if (shell->command_line_clean[i] == '$')
-		{
-			if (ft_isdigit(shell->command_line_clean[i + 1]))
-			{
-				pos = i;
-				flag = 1;
-			}
-		}
-		if (flag)
-			break ;
-		i++;
-	}
-	tmp1 = ft_substr_clean(shell, shell->command_line_clean, 0, pos);
-	return (tmp1);
-}
-
-char	*replace_dollar_plus_number(t_shell *shell)
-{
-	int		i;
-	int		pos;
-	int		flag;
-	int		lenght_rest;
-	char	*tmp2;
-	char	*tmp3;
-
-	tmp2 = get_tmp2_dollar_plus_number(shell);
-	i = 0;
-	flag = 0;
-	while (shell->command_line_clean[i])
-	{
-		if (shell->command_line_clean[i] == '$')
-		{
-			i++;
-			if (ft_isdigit(shell->command_line_clean[i]))
-			{
-				while (shell->command_line_clean[i])
-				{
-					if (!ft_isdigit(shell->command_line_clean[i + 1]))
-					{
-						pos = i + 1;
-						flag = 1;
-						break ;
-					}
-					i++;
-				}
-			}
-			if (flag)
-				break ;
-		}
-		i++;
-	}
-	i = pos;
-	lenght_rest = 1;
-	while (shell->command_line_clean[i++])
-		lenght_rest++;
-	tmp3 = ft_substr_clean(shell, shell->command_line_clean, pos, lenght_rest);
-	return (ft_strjoin_clean(shell, tmp2, tmp3));
-}
-
 void	resolve_dollar_plus_number(t_shell *shell)
 {
 	int	b;
@@ -124,13 +53,8 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 	shell->command_line_clean = phrase;
 }
 
-void	parse_command(t_shell *shell)
+void	process_parse(t_shell *shell)
 {
-	int	*each_cmd_lenght;
-	int	i;
-
-	if (shell->command_line_clean == NULL)
-		return ;
 	loop_extra_space_outside_quotes(shell);
 	if (start_space(shell))
 		operate_start_space(shell);
@@ -140,6 +64,16 @@ void	parse_command(t_shell *shell)
 		resolve_dollar_plus_number(shell);
 	if (have_env_variables(shell))
 		resolve_replace_key_to_value_env(shell);
+}
+
+void	parse_command(t_shell *shell)
+{
+	int	*each_cmd_lenght;
+	int	i;
+
+	if (shell->command_line_clean == NULL)
+		return ;
+	process_parse(shell);
 	shell->nbr_cmd = get_number_of_commands(shell);
 	each_cmd_lenght = get_each_cmd_lenght(shell, shell->nbr_cmd);
 	shell->tab_cmd = (char **)ft_safe_malloc((shell->nbr_cmd + 1)
