@@ -25,7 +25,7 @@ int is_executable(char *cmd_path)
 	return (0);
 }
 
-char *get_possible_path(char *envpath, char *cmd)
+char *get_possible_path(t_shell *shell, char *envpath, char *cmd)
 {
 	char *path;
 	char *first_part;
@@ -34,7 +34,7 @@ char *get_possible_path(char *envpath, char *cmd)
 	first_part = NULL;
 	(void)(cmd);
 	if (ft_strncmp(envpath, cmd, ft_strlen(envpath)) == 0)
-		path = ft_strdup(cmd);
+		path = ft_strdup_clean(shell, cmd);
 	else
 	{
 		first_part = ft_strjoin(envpath, "/");
@@ -56,7 +56,7 @@ char *get_correct_cmd_path(char *path_variables, char *each_cmd, t_shell *shell)
 	first_part_cmd = get_first_word_cmd(each_cmd);
 	while (all_paths && all_paths[i])
 	{
-		cmd_path = get_possible_path(all_paths[i], first_part_cmd);
+		cmd_path = get_possible_path(shell, all_paths[i], first_part_cmd);
 		if (is_executable(cmd_path))
 			break;
 		ft_add_to_garbage(cmd_path, shell);

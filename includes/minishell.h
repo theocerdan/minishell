@@ -262,4 +262,8 @@ void resolve_dollar_plus_number(t_shell *shell);
 int dollar_plus_number(t_shell *shell);
 int		is_index_is_between_quote(int index, t_shell *shell);
 
+char    *ft_strdup_clean(t_shell *shell, const char *s1);
+char    *ft_strjoin_clean(t_shell *shell, const char *s1, const char *s2);
+char    *ft_substr_clean(t_shell *shell, char const *s, unsigned int start, size_t len);
+char    **ft_split_clean(t_shell *shell, char const *s, char c);
 #endif
