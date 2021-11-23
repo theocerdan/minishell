@@ -21,7 +21,7 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 	char	*path;
 
 	path = get_path(shell, each_cmd);
-	exec_arg = ft_split(each_cmd, ' ');
+	exec_arg = ft_split_clean(shell, each_cmd, ' ');
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -50,7 +50,7 @@ void	execute(t_shell *shell)
 	i = 0;
 	while (i < shell->nbr_cmd)
 	{
-		command_to_execute = get_executable(shell->tab_cmd[i]);
+		command_to_execute = get_executable(shell, shell->tab_cmd[i]);
 		cmd = get_command_type(command_to_execute);
 		if (cmd.id != EXEC)
 			cmd.process_ft(shell, command_to_execute);

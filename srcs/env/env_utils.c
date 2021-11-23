@@ -43,8 +43,8 @@ char** convert_env_to_string_tab(t_shell *shell){
 	{
 		env = (t_env *)lst->content;
 		s_len = 1 + ft_strlen(env->key) + ft_strlen(env->value);
-		ret_tab[i] = ft_strjoin(env->key, "=");
-		ret_tab[i] = ft_strjoin(ret_tab[i], env->value);
+		ret_tab[i] = ft_strjoin_clean(shell, env->key, "=");
+		ret_tab[i] = ft_strjoin_clean(shell, ret_tab[i], env->value);
 		lst = lst->next;
 		i++;
 	}

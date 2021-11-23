@@ -57,15 +57,15 @@ char	*treat_each_vaguellette(t_shell *shell)
 	i = 0;
 	while (shell->command_line_clean[i] != '~')
 		i++;
-	tmp1 = ft_strjoin(ft_substr(shell->command_line_clean, 0, i),
+	tmp1 = ft_strjoin_clean(shell, ft_substr_clean(shell, shell->command_line_clean, 0, i),
 			get_home(shell));
 	i++;
 	pos = i;
 	lenght_rest = 0;
 	while (shell->command_line_clean[i++])
 		lenght_rest++;
-	tmp2 = ft_substr(shell->command_line_clean, pos, lenght_rest);
-	return (ft_strjoin(tmp1, tmp2));
+	tmp2 = ft_substr_clean(shell, shell->command_line_clean, pos, lenght_rest);
+	return (ft_strjoin_clean(shell, tmp1, tmp2));
 }
 
 void	resolve_vaguellette(t_shell *shell)

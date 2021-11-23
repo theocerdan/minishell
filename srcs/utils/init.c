@@ -19,7 +19,7 @@ void	init_queue(t_shell *shell, char *command)
 	int		number_of_element;
 	t_cmd	*cmd;
 
-	splited_cmd = ft_split(command, '|');
+	splited_cmd = ft_split_clean(shell, command, '|');
 	number_of_element = get_size(splited_cmd);
 	shell->queue = ft_safe_malloc(sizeof(t_built) * number_of_element, shell);
 	i = 0;
@@ -43,7 +43,7 @@ void	init_env_lst(t_shell *shell, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		split = ft_split(envp[i], '=');
+		split = ft_split_clean(shell, envp[i], '=');
 		key = split[0];
 		value = split[1];
 		ft_create_var(key, value, shell);

@@ -41,7 +41,7 @@ void    ft_cd(t_shell *shell, char *each_cmd)
     (void)(each_cmd);
     (void)(shell);
     arg_len = 0;
-    arg = ft_split(shell->command_line_clean, ' ');
+    arg = ft_split_clean(shell, shell->command_line_clean, ' ');
     old_pwdv = get_env_object("PWD", shell)->value;
     while (arg[arg_len])
         arg_len++;

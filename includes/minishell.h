@@ -138,8 +138,8 @@ void init_env(t_shell *shell, char **envp);
 /* utils_builtins.c */
 
 int get_argc(char *str);
-char *get_first_arg(char *each_cmd);
-char *get_first_word_cmd(char *each_cmd);
+char *get_first_arg(t_shell *shell, char *each_cmd);
+char *get_first_word_cmd(t_shell *shell, char *each_cmd);
 int ft_isnumber(char *s);
 
 /* signal.c */
@@ -155,7 +155,7 @@ void execute(t_shell *shell);
 /* execute_utils1.c */
 
 t_built get_command_type(char *cmd);
-char *get_executable(char *str);
+char *get_executable(t_shell *shell, char *str);
 
 /* execute_utils2.c */
 
@@ -200,7 +200,7 @@ int ft_is_special(char c);
 int ft_is_lowercase(char c);
 int ft_is_uppercase(char c);
 char *lower_str(char *str);
-int count_spacing(char c, char *text);
+int count_spacing(t_shell *shell, char c, char *text);
 
 /* ft_error.c */
 
@@ -216,7 +216,7 @@ void *ft_safe_malloc(unsigned int size, t_shell *s);
 /* quotes.c */
 
 int is_quote(char c);
-char *check_if_quotes(char *each_cmd);
+char *check_if_quotes(t_shell *shell, char *each_cmd);
 
 /* quotes_utils1.c */
 
@@ -226,8 +226,8 @@ int quote_hole(char *str, char c);
 
 /* quotes_utils2.c */
 
-char *operate_quotes(char *str);
-char *special_case_quotes(char *str);
+char *operate_quotes(t_shell *shell, char *str);
+char *special_case_quotes(t_shell *shell, char *str);
 
 /* quotes_utils3.c */
 

@@ -54,7 +54,7 @@ int has_two_type_quotes(char *str)
 	return (0);
 }
 
-char *resolve_quote_issue(char *str)
+char *resolve_quote_issue(t_shell *shell, char *str)
 {
 	char *result;
 	int b;
@@ -63,7 +63,7 @@ char *resolve_quote_issue(char *str)
 	result = str;
 	while (b)
 	{
-		result = operate_quotes(result);
+		result = operate_quotes(shell, result);
 		b = still_has_quote(result);
 	}
 	return (result);
@@ -93,7 +93,7 @@ int only_one_type_of_quotes_remaining(char *str)
 	return (0);
 }
 
-char *resolve_special_case_quotes(char *str)
+char *resolve_special_case_quotes(t_shell *shell, char *str)
 {
 	char *result;
 	int b;
@@ -102,7 +102,7 @@ char *resolve_special_case_quotes(char *str)
 	b = 1;
 	while (b)
 	{
-		result = special_case_quotes(result);
+		result = special_case_quotes(shell, result);
 		b = has_two_type_quotes(result);
 	}
 	return (result);
@@ -124,7 +124,7 @@ int	empty_quotes(char *str)
 	return (0);
 }
 
-char	*cut_empty_quotes(char *str)
+char	*cut_empty_quotes(t_shell *shell, char *str)
 {
 	int		i;
 	int		start;
@@ -149,12 +149,12 @@ char	*cut_empty_quotes(char *str)
 		}
 		i++;
 	}
-	tmp1 = ft_substr(str, 0, start);
-	tmp2 = ft_substr(str, start + 2, lenght);
-	return (ft_strjoin(tmp1, tmp2));
+	tmp1 = ft_substr_clean(shell, str, 0, start);
+	tmp2 = ft_substr_clean(shell, str, start + 2, lenght);
+	return (ft_strjoin_clean(shell, tmp1, tmp2));
 }
 
-char	*resolve_cut_empty_quotes(char *str)
+char	*resolve_cut_empty_quotes(t_shell *shell, char *str)
 {
 	char *result;
 	int b;
@@ -163,13 +163,13 @@ char	*resolve_cut_empty_quotes(char *str)
 	b = 1;
 	while (b)
 	{
-		result = cut_empty_quotes(result);
+		result = cut_empty_quotes(shell, result);
 		b = empty_quotes(result);
 	}
 	return (result);
 }
 
-char *check_if_quotes(char *each_cmd)
+char *check_if_quotes(t_shell *shell, char *each_cmd)
 {
 	int i;
 	char *str;
@@ -184,14 +184,14 @@ char *check_if_quotes(char *each_cmd)
 			exit(0);
 		}
 		else if (empty_quotes(str))
-			str = resolve_cut_empty_quotes(str);
+			str = resolve_cut_empty_quotes(shell, str);
 		else if (has_two_type_quotes(str))
 		{
-			str = resolve_special_case_quotes(str);
+			str = resolve_special_case_quotes(shell, str);
 			break;
 		}
 		else if (is_between_quotes(str, i, str[i]))
-			str = resolve_quote_issue(str);
+			str = resolve_quote_issue(shell, str);
 		i++;
 	}
 	return (str);

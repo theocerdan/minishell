@@ -70,8 +70,8 @@ char *get_tmp2(t_shell *shell)
 			break;
 		i++;
 	}
-	tmp1 = ft_substr(shell->command_line_clean, 0, i);
-	return (ft_strjoin(tmp1, to_replace));
+	tmp1 = ft_substr_clean(shell, shell->command_line_clean, 0, i);
+	return (ft_strjoin_clean(shell, tmp1, to_replace));
 }
 
 int get_pos(t_shell *shell)
@@ -147,8 +147,8 @@ char *replace_key_to_value_env(t_shell *shell)
 		lenght_rest++;
 	if (key_plus_numbers(shell))
 		pos = get_pos(shell);
-	tmp3 = ft_substr(shell->command_line_clean, pos, lenght_rest);
-	return (ft_strjoin(tmp2, tmp3));
+	tmp3 = ft_substr_clean(shell, shell->command_line_clean, pos, lenght_rest);
+	return (ft_strjoin_clean(shell, tmp2, tmp3));
 }
 
 void resolve_replace_key_to_value_env(t_shell *shell)

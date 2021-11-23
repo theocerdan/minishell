@@ -93,7 +93,8 @@ READLINE_INC= -I/Users/mbaurin/.brew/Cellar/readline/8.1.1/include
 
 # Optimization and Compiler flags and commands
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+#CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
 
 # Main rule
 all: $(LIBFT) $(NAME)
@@ -104,7 +105,7 @@ all: $(LIBFT) $(NAME)
 
 # Project file rule
 $(NAME): $(OBJS)
-	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ -fsanitize=address $(READLINE_LIB) $(READLINE_INC)
+	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ $(READLINE_LIB) $(READLINE_INC)
 	@printf "\e[92mminishell compiled\e[0m\e[?25h\n"
 
 # Libft rule

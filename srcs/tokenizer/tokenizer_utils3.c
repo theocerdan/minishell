@@ -43,7 +43,7 @@ void	init_token(t_shell *shell, char *cmd)
 	char	**each_cmd;
 
 	i = 0;
-	each_cmd = ft_split(cmd, ' ');
+	each_cmd = ft_split_clean(shell, cmd, ' ');
 	while (each_cmd[i])
 	{
 		type = define_type(each_cmd[i]);

@@ -45,7 +45,7 @@ int	*get_each_cmd_lenght(t_shell *shell, int nbr_cmd)
 	i = 0;
 	j = 0;
 	count = 1;
-	each_cmd_lenght = (int *)malloc((nbr_cmd + 1) * sizeof(int));
+	each_cmd_lenght = (int *)ft_safe_malloc((nbr_cmd + 1) * sizeof(int), shell);
 	while (shell->command_line_clean[i])
 	{
 		if (check_chiant_norminette(shell, i))
@@ -78,7 +78,7 @@ void	fill_cmd_array(t_shell *shell, int *each_cmd_lenght)
 	{
 		if ((shell->command_line_clean[i + 1] == '|'  && !is_index_is_between_quote(i + 1, shell)) || shell->command_line_clean[i + 1] == '\0')
 		{
-			shell->tab_cmd[j] = ft_substr(shell->command_line_clean,
+			shell->tab_cmd[j] = ft_substr_clean(shell, shell->command_line_clean,
 					milestone, each_cmd_lenght[j]);
 			milestone = i + 3;
 			j++;

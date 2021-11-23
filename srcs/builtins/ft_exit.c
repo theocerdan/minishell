@@ -30,7 +30,7 @@ void	exit_value(t_shell *shell, int ret, char *each_cmd)
 {
 	int		count;
 	
-	count = count_spacing(' ', shell->command_line_clean);
+	count = count_spacing(shell, ' ', shell->command_line_clean);
 	ret = ft_atoi(shell->command_line_clean + ft_strlen(each_cmd) + 1) % 256;
 
 	 if (count > 2)

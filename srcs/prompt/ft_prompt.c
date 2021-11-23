@@ -17,8 +17,8 @@ char *join_prompt_element(char *begin, char *pwd, char *end, t_shell *shell)
 	char *tmp;
 	char *prompt;
 
-	tmp = ft_strjoin(begin, pwd);
-	prompt = ft_strjoin(tmp, end);
+	tmp = ft_strjoin_clean(shell, begin, pwd);
+	prompt = ft_strjoin_clean(shell, tmp, end);
 	ft_add_to_garbage(tmp, shell);
 	ft_add_to_garbage(begin, shell);
 	ft_add_to_garbage(pwd, shell);
@@ -39,8 +39,7 @@ char *create_prompt(t_shell *shell)
 	pwd = get_env_object("PWD", shell)->value;
 	if (ft_strlen(pwd) >= ft_strlen(home_path))
 		pwd += ft_strlen(home_path);
-	result = join_prompt_element(ft_strdup("~"),
-								 ft_strdup(pwd), ft_strdup("$ "), shell);
+	result = join_prompt_element(ft_strdup_clean(shell, "~"), ft_strdup_clean(shell, pwd), ft_strdup_clean(shell, "$ "), shell);
 	return (result);
 }
 

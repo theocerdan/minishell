@@ -54,7 +54,7 @@ t_built	get_command_type(char *cmd)
 	return (g_built[7]);
 }
 
-char	*get_executable(char *str)
+char	*get_executable(t_shell *shell, char *str)
 {
 	int		i;
 	char	*tmp;
@@ -62,6 +62,6 @@ char	*get_executable(char *str)
 	i = 0;
 	while (str && str[i] != ' ' && str[i] != '\0')
 		i++;
-	tmp = ft_substr(str, 0, i);
+	tmp = ft_substr_clean(shell, str, 0, i);
 	return (tmp);
 }

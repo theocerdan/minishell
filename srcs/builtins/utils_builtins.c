@@ -28,7 +28,7 @@ int	get_argc(char *str)
 	return (count);
 }
 
-char	*get_first_arg(char *each_cmd)
+char	*get_first_arg(t_shell *shell, char *each_cmd)
 {
 	char	*tmp;
 	char	*res;
@@ -43,13 +43,13 @@ char	*get_first_arg(char *each_cmd)
 	}
 	i++;
 	res = NULL;
-	tmp = ft_substr(each_cmd, i, ft_strlen(each_cmd) - i);
+	tmp = ft_substr_clean(shell, each_cmd, i, ft_strlen(each_cmd) - i);
 	i = 0;
 	while (tmp[i])
 	{
 		if (tmp[i] == ' ')
 		{
-			res = ft_substr(tmp, 0, i);
+			res = ft_substr_clean(shell, tmp, 0, i);
 			break ;
 		}
 		i++;
@@ -57,7 +57,7 @@ char	*get_first_arg(char *each_cmd)
 	return (tmp);
 }
 
-char	*get_first_word_cmd(char *each_cmd)
+char	*get_first_word_cmd(t_shell *shell, char *each_cmd)
 {
 	char	*tmp;
 	int		i;
@@ -69,7 +69,7 @@ char	*get_first_word_cmd(char *each_cmd)
 			break ;
 		i++;
 	}
-	tmp = ft_substr(each_cmd, 0, i);
+	tmp = ft_substr_clean(shell, each_cmd, 0, i);
 	return (tmp);
 }
 

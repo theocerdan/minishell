@@ -123,7 +123,7 @@ void ft_export(t_shell *shell, char *each_cmd)
 
     (void)(each_cmd);
     env = NULL;
-    first_arg = get_first_arg(shell->command_line_clean);
+    first_arg = get_first_arg(shell, shell->command_line_clean);
     if (first_arg[0] == '=')
     {
         printf("minishell: export: not valid in this context: %s\n", first_arg);
@@ -133,8 +133,8 @@ void ft_export(t_shell *shell, char *each_cmd)
     {
         i = get_i(first_arg);
         env = ft_safe_malloc(sizeof(t_env), shell);
-        env->key = ft_substr(first_arg, 0, i);
-        env->value = ft_substr(first_arg, i + 1,
+        env->key = ft_substr_clean(shell, first_arg, 0, i);
+        env->value = ft_substr_clean(shell, first_arg, i + 1,
                                ft_strlen(first_arg) - ft_strlen(env->key));
         env->visible = 1;
 		if (ft_strcmp(env->key, "0") == 0)

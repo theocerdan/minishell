@@ -49,7 +49,7 @@ char *get_tmp2_dollar_plus_number(t_shell *shell)
 			break;
 		i++;
 	}
-	tmp1 = ft_substr(shell->command_line_clean, 0, pos);
+	tmp1 = ft_substr_clean(shell, shell->command_line_clean, 0, pos);
 	return (tmp1);
 }
 
@@ -92,8 +92,8 @@ char *replace_dollar_plus_number(t_shell *shell)
 	lenght_rest = 1;
 	while (shell->command_line_clean[i++])
 		lenght_rest++;
-	tmp3 = ft_substr(shell->command_line_clean, pos, lenght_rest);
-	return (ft_strjoin(tmp2, tmp3));
+	tmp3 = ft_substr_clean(shell, shell->command_line_clean, pos, lenght_rest);
+	return (ft_strjoin_clean(shell, tmp2, tmp3));
 }
 
 void resolve_dollar_plus_number(t_shell *shell)
@@ -137,15 +137,15 @@ void operate_extra_space(t_shell *shell)
 	i = 0;
 	while (shell->command_line_clean[i] != ' ')
 		i++;
-	tmp1 = ft_substr(shell->command_line_clean, 0, i + 1);
+	tmp1 = ft_substr_clean(shell, shell->command_line_clean, 0, i + 1);
 	while (shell->command_line_clean[i] == ' ')
 		i++;
 	lenght_rest = 0;
 	pos = i;
 	while (shell->command_line_clean[i++])
 		lenght_rest++;
-	tmp2 = ft_substr(shell->command_line_clean, pos, lenght_rest);
-	shell->command_line_clean = ft_strjoin(tmp1, tmp2);
+	tmp2 = ft_substr_clean(shell, shell->command_line_clean, pos, lenght_rest);
+	shell->command_line_clean = ft_strjoin_clean(shell, tmp1, tmp2);
 }
 
 int	start_space(t_shell *shell)
@@ -171,7 +171,7 @@ void	operate_start_space(t_shell *shell)
 		count++;
 		j++;
 	}
-	shell->command_line_clean = ft_substr(shell->command_line_clean, i, j);
+	shell->command_line_clean = ft_substr_clean(shell, shell->command_line_clean, i, j);
 }
 
 void	loop_extra_space_outside_quotes(t_shell *shell)
@@ -194,7 +194,7 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 			while (phrase[a] == ' '){
 				a++;
 			}
-			phrase = ft_strjoin(ft_substr(phrase, 0, i + 1), ft_substr(phrase, a, (int)ft_strlen(phrase)));
+			phrase = ft_strjoin_clean(shell, ft_substr_clean(shell, phrase, 0, i + 1), ft_substr_clean(shell, phrase, a, (int)ft_strlen(phrase)));
 			i = 0;
 		}
 		i++;
@@ -252,7 +252,7 @@ void parse_command(t_shell *shell)
 		resolve_replace_key_to_value_env(shell);
 	shell->nbr_cmd = get_number_of_commands(shell);
 	each_cmd_lenght = get_each_cmd_lenght(shell, shell->nbr_cmd);
-	shell->tab_cmd = (char **)malloc((shell->nbr_cmd + 1) * sizeof(char *));
+	shell->tab_cmd = (char **)ft_safe_malloc((shell->nbr_cmd + 1) * sizeof(char *), shell);
 	fill_cmd_array(shell, each_cmd_lenght);
 	i = 0;
 	while (i < shell->nbr_cmd)
@@ -264,7 +264,7 @@ void parse_command(t_shell *shell)
 		}
 		i++;
 	}
-	shell->command_line_clean = check_if_quotes(shell->command_line_clean);
+	shell->command_line_clean = check_if_quotes(shell, shell->command_line_clean);
 	execute(shell);
 }
 

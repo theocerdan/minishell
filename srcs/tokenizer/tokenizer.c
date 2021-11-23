@@ -30,7 +30,7 @@ char *check_and_insert_spaces(char *cmd, t_shell *shell)
 		{
 			result = " ";
 			tmp = insert_spaces(cmd, current[i], i, shell);
-			result = ft_strjoin(result, tmp);
+			result = ft_strjoin_clean(shell, result, tmp);
 		}
 		else
 			result = tmp;

@@ -37,8 +37,8 @@ char *get_possible_path(t_shell *shell, char *envpath, char *cmd)
 		path = ft_strdup_clean(shell, cmd);
 	else
 	{
-		first_part = ft_strjoin(envpath, "/");
-		path = ft_strjoin(first_part, cmd);
+		first_part = ft_strjoin_clean(shell, envpath, "/");
+		path = ft_strjoin_clean(shell, first_part, cmd);
 	}
 	return (path);
 }
@@ -52,8 +52,8 @@ char *get_correct_cmd_path(char *path_variables, char *each_cmd, t_shell *shell)
 
 	i = 0;
 	cmd_path = NULL;
-	all_paths = ft_split(path_variables, ':');
-	first_part_cmd = get_first_word_cmd(each_cmd);
+	all_paths = ft_split_clean(shell, path_variables, ':');
+	first_part_cmd = get_first_word_cmd(shell, each_cmd);
 	while (all_paths && all_paths[i])
 	{
 		cmd_path = get_possible_path(shell, all_paths[i], first_part_cmd);

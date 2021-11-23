@@ -61,7 +61,7 @@ void ft_unset(t_shell *shell, char *each_cmd)
 	char *first_arg;
 
 	(void)(each_cmd);
-	first_arg = get_first_arg(shell->command_line_clean);
+	first_arg = get_first_arg(shell, shell->command_line_clean);
 	if ((int)ft_strlen(first_arg) == 0)
 	{
 		printf("minishell: unset: not enough arguments\n");

@@ -26,7 +26,7 @@ static int	get_i(char *str)
 	return (i);
 }
 
-char	*operate_quotes(char *str)
+char	*operate_quotes(t_shell *shell, char *str)
 {
 	char	*tmp1;
 	char	*tmp2;
@@ -45,12 +45,12 @@ char	*operate_quotes(char *str)
 		j++;
 		i++;
 	}
-	tmp1 = ft_substr(str, 0, pos);
-	tmp2 = ft_substr(str, pos + 1, j);
-	return (ft_strjoin(tmp1, tmp2));
+	tmp1 = ft_substr_clean(shell, str, 0, pos);
+	tmp2 = ft_substr_clean(shell, str, pos + 1, j);
+	return (ft_strjoin_clean(shell, tmp1, tmp2));
 }
 
-char	*get_tmp_zero(char *str)
+char	*get_tmp_zero(t_shell *shell, char *str)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ char	*get_tmp_zero(char *str)
 			break ;
 		i++;
 	}
-	return (ft_substr(str, 0, i));
+	return (ft_substr_clean(shell, str, 0, i));
 }
 
 int	get_first_i(char *str)
@@ -78,7 +78,7 @@ int	get_first_i(char *str)
 	return (i);
 }
 
-char	*special_case_quotes(char *str)
+char	*special_case_quotes(t_shell *shell, char *str)
 {
 	int		lenght_rest;
 	int		pos;
@@ -86,7 +86,7 @@ char	*special_case_quotes(char *str)
 	int		j;
 	char	*tmp[2];
 
-	tmp[0] = get_tmp_zero(str);
+	tmp[0] = get_tmp_zero(shell, str);
 	i = get_first_i(str);
 	i++;
 	pos = i;
@@ -98,11 +98,11 @@ char	*special_case_quotes(char *str)
 		i++;
 		j++;
 	}
-	tmp[1] = ft_substr(str, pos, j);
+	tmp[1] = ft_substr_clean(shell, str, pos, j);
 	pos = i + 1;
 	lenght_rest = 0;
 	while (str[i++])
 		lenght_rest++;
-	return (ft_strjoin(ft_strjoin(tmp[0], tmp[1]),
-			ft_substr(str, pos, lenght_rest)));
+	return (ft_strjoin_clean(shell, ft_strjoin_clean(shell, tmp[0], tmp[1]),
+			ft_substr_clean(shell, str, pos, lenght_rest)));
 }

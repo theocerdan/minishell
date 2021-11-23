@@ -106,7 +106,7 @@ char *get_env_key(t_shell *shell)
 		}
 		i++;
 	}
-	tmp = ft_substr(shell->command_line_clean, milestone, count);
+	tmp = ft_substr_clean(shell, shell->command_line_clean, milestone, count);
 	return (tmp);
 }
 
