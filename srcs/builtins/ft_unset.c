@@ -43,7 +43,7 @@ int	first_arg_ignore(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (ft_is_uppercase(str[i]))
+		if (ft_is_uppercase(str[i]) || ft_is_lowercase(str[i]))
 			count_maj++;
 		else if (ft_is_special(str[i]))
 			spe_char++;
@@ -51,7 +51,7 @@ int	first_arg_ignore(char *str)
 	}
 	if (count_maj == (int)ft_strlen(str))
 		return (0);
-	else if (spe_char == 0)
+	else if (spe_char)
 		return (1);
 	return (0);
 }
@@ -59,24 +59,32 @@ int	first_arg_ignore(char *str)
 void	ft_unset(t_shell *shell, char *each_cmd)
 {
 	char	*first_arg;
+	char	**args;
+	int 	i;
 
 	(void)(each_cmd);
+	i = 1;
 	shell->error_return = 0;
-	first_arg = get_first_arg(shell, shell->command_line_clean);
-	if ((int)ft_strlen(first_arg) == 0)
+	args = ft_split_clean(shell, shell->command_line_clean, ' ');
+	if ((int)ft_strlen(args[i]) == 0)
 	{
 		shell->error_return = 1;
 		printf("minishell: unset: not enough arguments\n");
 		return ;
 	}
-	if (first_arg_ignore(first_arg))
-		return ;
-	else if (first_arg_not_key(shell, first_arg))
-	{
-		shell->error_return = 1;
-		printf("minishell: unset: %s: invalid parameter name\n", first_arg);
+	if (first_arg_ignore(args[i])){
 		return ;
 	}
-	else if (ft_strlen(first_arg) > 0)
-		ft_delete_var(first_arg, shell);
+	else if (first_arg_not_key(shell, args[i]))
+	{
+		shell->error_return = 1;
+		printf("minishell: unset: %s: invalid parameter name\n", args[i]);
+		return ;
+	}
+	else if (ft_strlen(first_arg) > 0){
+		while (args[i]){
+			ft_delete_var(args[i], shell);
+			i++;
+		}
+	}
 }
