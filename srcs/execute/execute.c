@@ -15,7 +15,7 @@
 void	execute_cmd(t_shell *shell, char *each_cmd)
 {
 	int		pid;
-	int 	ret;
+	int		ret;
 	char	**exec_arg;
 	char	*path;
 

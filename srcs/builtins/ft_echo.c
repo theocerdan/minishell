@@ -22,6 +22,15 @@ int	get_flag(char *each_cmd)
 	return (n_flag);
 }
 
+static int	get_i(t_shell *shell, int i)
+{
+	while (shell->command_line_clean[i] == '-'
+		|| shell->command_line_clean[i] == 'n'
+		|| shell->command_line_clean[i] == ' ')
+			i++;
+	return (i);
+}
+
 void	ft_echo(t_shell *shell, char *cmd)
 {
 	int	n_flag;
@@ -41,10 +50,7 @@ void	ft_echo(t_shell *shell, char *cmd)
 	if (n_flag)
 	{
 		i++;
-		while (shell->command_line_clean[i] == '-'
-			|| shell->command_line_clean[i] == 'n'
-			|| shell->command_line_clean[i] == ' ')
-			i++;
+		i = get_i(shell, i);
 	}
 	while (shell->command_line_clean[i])
 		printf("%c", shell->command_line_clean[i++]);

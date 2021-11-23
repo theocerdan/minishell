@@ -19,11 +19,14 @@ int	ft_isblank(int c)
 	return (0);
 }
 
-void	free_aux_strings(char **left, char **operator,
-	char **right, char **first_part, t_shell *shell)
+void	free_aux_strings_1(char **left, char **operator, t_shell *shell)
 {
 	ft_add_to_garbage(left, shell);
 	ft_add_to_garbage(operator, shell);
+}
+
+void	free_aux_strings_2(char **right, char **first_part, t_shell *shell)
+{
 	ft_add_to_garbage(right, shell);
 	ft_add_to_garbage(first_part, shell);
 }
@@ -67,6 +70,7 @@ char	*insert_spaces(char *line, char operator_pointer,
 	right = ft_substr_clean(shell, line, off_set + 1, ft_strlen(line));
 	first_part = ft_strjoin_clean(shell, left, operator);
 	final_part = ft_strjoin_clean(shell, first_part, right);
-	free_aux_strings(&left, &operator, & right, &first_part, shell);
+	free_aux_strings_1(&left, &operator, shell);
+	free_aux_strings_2(&right, &first_part, shell);
 	return (final_part);
 }
