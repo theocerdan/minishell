@@ -40,8 +40,7 @@ int	get_count_to_split(t_shell *shell, int i)
 	count = 0;
 	if (shell->command_line_clean[j] == '?')
 		return (1);
-	while (ft_is_uppercase(shell->command_line_clean[j])
-		|| shell->command_line_clean[j] == '_')
+	while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_')
 	{
 		count++;
 		j++;
@@ -60,9 +59,9 @@ char	*get_env_key(t_shell *shell)
 	i = 0;
 	count = 0;
 	milestone = 0;
-	while (shell->command_line_clean[i])
+	while ((int)ft_strlen(shell->command_line_clean) > i)
 	{
-		if (shell->command_line_clean[i] == '$')
+		if (shell->command_line_clean[i] && shell->command_line_clean[i] == '$')
 		{
 			j = i + 1;
 			milestone = i + 1;

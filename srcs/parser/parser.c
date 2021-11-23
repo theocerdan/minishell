@@ -62,8 +62,7 @@ void	process_parse(t_shell *shell)
 		resolve_vaguellette(shell);
 	if (dollar_plus_number(shell))
 		resolve_dollar_plus_number(shell);
-	if (have_env_variables(shell))
-		resolve_replace_key_to_value_env(shell);
+	replace_all_key(shell);
 }
 
 void	parse_command(t_shell *shell)

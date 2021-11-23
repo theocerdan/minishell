@@ -297,4 +297,8 @@ char	*ft_itoa_clean(t_shell *shell, int n);
 
 int		env_between_simple_quotes(t_shell *shell);
 int		key_plus_numbers(t_shell *shell);
+void replace_all_key(t_shell *shell);
+char* replaceWord(const char* s, const char* oldW,
+                  const char* newW, t_shell *shell);
+int replace(t_shell *shell, int start, int end);
 #endif
