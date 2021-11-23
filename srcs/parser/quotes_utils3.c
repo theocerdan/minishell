@@ -12,13 +12,34 @@
 
 #include "../includes/minishell.h"
 
-char	get_quote_to_remove(char *str)
+char	get_to_remove_single_quote(char *str, int i)
 {
-	int		i;
 	char	to_remove;
 
-	i = 0;
-	to_remove = 0;
+	to_remove = '\0';
+	while (!is_quote(str[i + 1]))
+		i++;
+	i++;
+	if (str[i] == '\"')
+		to_remove = '\'';
+	return (to_remove);
+}
+
+char	get_to_remove_double_quote(char *str, int i)
+{
+	char	to_remove;
+
+	to_remove = '\0';
+	while (!is_quote(str[i + 1]))
+		i++;
+	i++;
+	if (str[i] == '\'')
+		to_remove = '\"';
+	return (to_remove);
+}
+
+char	get_to_remove(char *str, int i, char to_remove)
+{
 	while (str[i])
 	{
 		if (str[i] == '\'' && str[i + 1] == '\"')
@@ -33,27 +54,26 @@ char	get_quote_to_remove(char *str)
 		}
 		else if (str[i] == '\'' && !is_quote(str[i + 1]))
 		{
-			while (!is_quote(str[i + 1]))
-				i++;
-			i++;
-			if (str[i] == '\"')
-			{
-				to_remove = '\'';
-				break ;
-			}
+			to_remove = get_to_remove_single_quote(str, i);
+			break ;
 		}
 		else if (str[i] == '\"' && !is_quote(str[i + 1]))
 		{
-			while (!is_quote(str[i + 1]))
-				i++;
-			i++;
-			if (str[i] == '\'')
-			{
-				to_remove = '\"';
-				break ;
-			}
+			to_remove = get_to_remove_double_quote(str, i);
+			break ;
 		}
 		i++;
 	}
+	return (to_remove);
+}
+
+char	get_quote_to_remove(char *str)
+{
+	int		i;
+	char	to_remove;
+
+	i = 0;
+	to_remove = 0;
+	to_remove = get_to_remove(str, i, to_remove);
 	return (to_remove);
 }

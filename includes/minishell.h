@@ -231,7 +231,7 @@ char	*check_if_quotes(t_shell *shell, char *each_cmd);
 
 int		is_between_quotes(char *str, int i, char c);
 int		still_has_quote(char *str);
-int		quote_hole(char *str, char c);
+int		quote_hole(char *str);
 
 /* quotes_utils2.c */
 
@@ -241,6 +241,12 @@ char	*special_case_quotes(t_shell *shell, char *str);
 /* quotes_utils3.c */
 
 char	get_quote_to_remove(char *str);
+
+/* quotes_utils3.c */
+
+int	empty_quotes(char *str);
+int	only_one_type_of_quotes_remaining(char *str);
+int	has_two_type_quotes(char *str);
 
 /* vaguellette.c */
 
@@ -265,11 +271,18 @@ int		get_number_of_commands(t_shell *shell);
 int		*get_each_cmd_lenght(t_shell *shell, int nbr_cmd);
 void	fill_cmd_array(t_shell *shell, int *each_cmd_lenght);
 
+/* parser_utils2.c */
+
+int		start_and_end_quotes(char *str);
+int		extra_space(t_shell *shell);
+int		start_space(t_shell *shell);
+int		is_index_is_between_quote(int index, t_shell *shell);
+void	operate_start_space(t_shell *shell);
+
 char	*get_tmp2_dollar_plus_number(t_shell *shell);
 char	*replace_dollar_plus_number(t_shell *shell);
 void	resolve_dollar_plus_number(t_shell *shell);
 int		dollar_plus_number(t_shell *shell);
-int		is_index_is_between_quote(int index, t_shell *shell);
 
 char	*ft_strdup_clean(t_shell *shell, const char *s1);
 char	*ft_strjoin_clean(t_shell *shell, const char *s1, const char *s2);

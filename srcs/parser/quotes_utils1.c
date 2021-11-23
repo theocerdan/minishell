@@ -53,20 +53,24 @@ int	still_has_quote(char *str)
 	return (0);
 }
 
-int	quote_hole(char *str, char c)
+int	quote_hole(char *str)
 {
 	int		i;
-	int		count;
+	int		sql_qts;
+	int		dbl_qts;
 
 	i = 0;
-	count = 0;
+	sql_qts = 0;
+	dbl_qts = 0;
 	while (str[i])
 	{
-		if (is_quote(str[i]) && str[i] == c)
-			count++;
+		if (str[i] == '\'')
+			sql_qts++;
+		else if (str[i] == '\"')
+			dbl_qts++;
 		i++;
 	}
-	if (count % 2 == 0)
+	if (sql_qts % 2  == 0 && dbl_qts % 2 == 0)
 		return (0);
 	return (1);
 }

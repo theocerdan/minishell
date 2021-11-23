@@ -39,6 +39,16 @@ int	check_chiant_norminette(t_shell *shell, int i)
 	return (0);
 }
 
+static int	check_chiant_norminette2(t_shell *shell, int i)
+{
+	if (shell->command_line_clean[i] == ' '
+		&& shell->command_line_clean[i + 1] == '|'
+		&& shell->command_line_clean[i + 2] == ' '
+		&& !is_index_is_between_quote(i + 1, shell))
+		return (1);
+	return (0);
+}
+
 int	*get_each_cmd_lenght(t_shell *shell, int nbr_cmd)
 {
 	int		*each_cmd_lenght;
@@ -58,10 +68,7 @@ int	*get_each_cmd_lenght(t_shell *shell, int nbr_cmd)
 			count = 0;
 			j++;
 		}
-		if (shell->command_line_clean[i] == ' '
-			&& shell->command_line_clean[i + 1] == '|'
-			&& shell->command_line_clean[i + 2] == ' '
-			&& !is_index_is_between_quote(i + 1, shell))
+		if (check_chiant_norminette2(shell, i))
 			i = i + 3;
 		count++;
 		i++;

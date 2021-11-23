@@ -12,48 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	has_two_type_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-		{
-			i++;
-			if (str[i] == '\"')
-				return (1);
-			else if (!is_quote(str[i]))
-			{
-				while (!is_quote(str[i]))
-					i++;
-				if (str[i] == '\"')
-					return (1);
-			}
-			else
-				return (0);
-		}
-		if (str[i] == '\"')
-		{
-			i++;
-			if (str[i] == '\'')
-				return (1);
-			else if (!is_quote(str[i]))
-			{
-				while (!is_quote(str[i]))
-					i++;
-				if (str[i] == '\'')
-					return (1);
-			}
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (0);
-}
-
 char	*resolve_quote_issue(t_shell *shell, char *str)
 {
 	char	*result;
@@ -69,30 +27,6 @@ char	*resolve_quote_issue(t_shell *shell, char *str)
 	return (result);
 }
 
-int	only_one_type_of_quotes_remaining(char *str)
-{
-	int	i;
-	int	sql_qts;
-	int	dbl_qts;
-
-	i = 0;
-	sql_qts = 0;
-	dbl_qts = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-			sql_qts++;
-		else if (str[i] == '\"')
-			dbl_qts++;
-		i++;
-	}
-	if (sql_qts == 0 && dbl_qts != 0)
-		return (1);
-	else if (sql_qts != 0 && dbl_qts == 0)
-		return (1);
-	return (0);
-}
-
 char	*resolve_special_case_quotes(t_shell *shell, char *str)
 {
 	char	*result;
@@ -106,22 +40,6 @@ char	*resolve_special_case_quotes(t_shell *shell, char *str)
 		b = has_two_type_quotes(result);
 	}
 	return (result);
-}
-
-int	empty_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"' && str[i + 1] == '\"')
-			return (1);
-		if (str[i] == '\'' && str[i + 1] == '\'')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 char	*cut_empty_quotes(t_shell *shell, char *str)
@@ -141,11 +59,8 @@ char	*cut_empty_quotes(t_shell *shell, char *str)
 			|| (str[i] == '\'' && str[i + 1] == '\''))
 		{
 			start = i;
-			while (str[i])
-			{
+			while (str[i++])
 				lenght++;
-				i++;
-			}
 			break ;
 		}
 		i++;
@@ -179,7 +94,7 @@ char	*check_if_quotes(t_shell *shell, char *each_cmd)
 	str = each_cmd;
 	while (str[i])
 	{
-		if (quote_hole(str, str[i]))
+		if (quote_hole(str))
 		{
 			printf("Error : need a quote to finish the line.\n");
 			exit(0);

@@ -12,19 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	start_and_end_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	if (is_quote(str[0]))
-		if (is_quote(str[i - 1]))
-			return (1);
-	return (0);
-}
-
 char	*get_tmp2_dollar_plus_number(t_shell *shell)
 {
 	int		i;
@@ -108,73 +95,6 @@ void	resolve_dollar_plus_number(t_shell *shell)
 	}
 }
 
-int	extra_space(t_shell *shell)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	while (shell->command_line_clean[i++] != ' ')
-		if (shell->command_line_clean[i] == '\0')
-			return (0);
-	count = 1;
-	if (shell->command_line_clean[i] == ' ')
-		while (shell->command_line_clean[i++] == ' ')
-			count++;
-	if (count >= 2)
-		return (1);
-	return (0);
-}
-
-void	operate_extra_space(t_shell *shell)
-{
-	int		i;
-	int		pos;
-	int		lenght_rest;
-	char	*tmp1;
-	char	*tmp2;
-
-	i = 0;
-	while (shell->command_line_clean[i] != ' ')
-		i++;
-	tmp1 = ft_substr_clean(shell, shell->command_line_clean, 0, i + 1);
-	while (shell->command_line_clean[i] == ' ')
-		i++;
-	lenght_rest = 0;
-	pos = i;
-	while (shell->command_line_clean[i++])
-		lenght_rest++;
-	tmp2 = ft_substr_clean(shell, shell->command_line_clean, pos, lenght_rest);
-	shell->command_line_clean = ft_strjoin_clean(shell, tmp1, tmp2);
-}
-
-int	start_space(t_shell *shell)
-{
-	if (shell->command_line_clean[0] == ' ')
-		return (1);
-	return (0);
-}
-
-void	operate_start_space(t_shell *shell)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	while (shell->command_line_clean[i] == ' ')
-		i++;
-	count = i;
-	j = 0;
-	while (shell->command_line_clean[count])
-	{
-		count++;
-		j++;
-	}
-	shell->command_line_clean = ft_substr_clean(shell,
-			shell->command_line_clean, i, j);
-}
-
 void	loop_extra_space_outside_quotes(t_shell *shell)
 {
 	int		i;
@@ -202,38 +122,6 @@ void	loop_extra_space_outside_quotes(t_shell *shell)
 		i++;
 	}
 	shell->command_line_clean = phrase;
-}
-
-int	is_index_is_between_quote(int index, t_shell *shell)
-{
-	char	*phrase;
-	int		inside;
-	int		f_i;
-	int		i;
-	int		a;
-
-	f_i = 0;
-	a = 0;
-	inside = 0;
-	i = 0;
-	phrase = shell->command_line_clean;
-	while (i < (int)ft_strlen(phrase))
-	{
-		if (is_quote(phrase[i]))
-		{
-			inside = !inside;
-			if (inside)
-				f_i = i;
-			if (index > f_i && index < (f_i + a))
-				return (1);
-		}
-		if (inside)
-			a++;
-		else
-			a = 0;
-		i++;
-	}
-	return (0);
 }
 
 void	parse_command(t_shell *shell)
