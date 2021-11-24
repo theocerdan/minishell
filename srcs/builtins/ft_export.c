@@ -33,28 +33,6 @@ void	ft_sort_export_env(t_list *new)
 	}
 }
 
-t_list	*clone_env(t_shell *shell)
-{
-	t_list	*lst;
-	t_list	*new_lst;
-	t_env	*new;
-	t_env	*old;
-
-	new_lst = NULL;
-	lst = shell->env_vars;
-	while (lst && lst->next)
-	{
-		old = (t_env *)lst->content;
-		new = ft_safe_malloc(sizeof(t_env), shell);
-		new->key = old->key;
-		new->value = old->value;
-		new->visible = old->visible;
-		ft_lstadd_front(&(new_lst), ft_lstnew(new));
-		lst = lst->next;
-	}
-	return (new_lst);
-}
-
 static int	get_i(char *first_arg)
 {
 	int	i;
@@ -83,9 +61,7 @@ void	export_value(t_shell *shell, int i, t_env *env, char *first_arg)
 		return ;
 	}
 	if (i == -1 && ft_strlen(env->value) > 0)
-	{
 		return ;
-	}
 	if (not_acceptable(env->key))
 	{
 		printf("minishell: export: not valid in this context: %s\n",
@@ -101,6 +77,18 @@ void	export_value(t_shell *shell, int i, t_env *env, char *first_arg)
 	continue_export_value(shell, env);
 }
 
+void	export_export_value(t_shell *shell, t_env *env, char **args)
+{
+	int	i;
+
+	i = 1;
+	while (args[i])
+	{
+		export_value(shell, 0, env, args[i]);
+		i++;
+	}
+}
+
 void	ft_export(t_shell *shell, char *each_cmd)
 {
 	t_env	*env;
@@ -112,7 +100,6 @@ void	ft_export(t_shell *shell, char *each_cmd)
 	(void)(each_cmd);
 	i = 0;
 	env = NULL;
-
 	args = ft_split_clean(shell, shell->command_line_clean, ' ');
 	first_arg = get_first_arg(shell, shell->command_line_clean);
 	if (first_arg[0] == '=')
@@ -120,13 +107,8 @@ void	ft_export(t_shell *shell, char *each_cmd)
 		printf("minishell: export: not valid in this context: %s\n", first_arg);
 		return ;
 	}
-	if (ft_strlen(first_arg) > 0){
-		i = 1;
-		while (args[i]){
-			export_value(shell, 0, env, args[i]);
-			i++;
-		}
-	}
+	if (ft_strlen(first_arg) > 0)
+		export_export_value(shell, env, args);
 	else
 	{
 		new = clone_env(shell);

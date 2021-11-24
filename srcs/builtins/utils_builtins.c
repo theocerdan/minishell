@@ -97,3 +97,25 @@ int	ft_isnumber(char *s)
 		return (0);
 	return (1);
 }
+
+t_list	*clone_env(t_shell *shell)
+{
+	t_list	*lst;
+	t_list	*new_lst;
+	t_env	*new;
+	t_env	*old;
+
+	new_lst = NULL;
+	lst = shell->env_vars;
+	while (lst && lst->next)
+	{
+		old = (t_env *)lst->content;
+		new = ft_safe_malloc(sizeof(t_env), shell);
+		new->key = old->key;
+		new->value = old->value;
+		new->visible = old->visible;
+		ft_lstadd_front(&(new_lst), ft_lstnew(new));
+		lst = lst->next;
+	}
+	return (new_lst);
+}

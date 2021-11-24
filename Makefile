@@ -68,8 +68,11 @@ SRC_PRS = parser.c \
 			vaguellette.c \
 			parser_utils1.c \
 			parser_utils2.c \
+			parser_utils3.c \
 			parse_env_key.c \
 			parse_env_key_utils1.c \
+			parse_env_key_utils2.c \
+			parser_vars.c 
 
 SRCS = $(addprefix $(MAIN_DIR),$(SRCS_FILES)) \
 		$(addprefix $(MAIN_DIR),$(addprefix $(BLTIN_DIR),$(SRC_BLTIN))) \
@@ -98,7 +101,7 @@ READLINE_INC= -I/Users/mbaurin/.brew/Cellar/readline/8.1.1/include
 
 # Optimization and Compiler flags and commands
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 #CFLAGS = -Wall -Wextra -Werror -g3
 
 # Main rule
@@ -110,7 +113,7 @@ all: $(LIBFT) $(NAME)
 
 # Project file rule
 $(NAME): $(OBJS)
-	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ -fsanitize=address $(READLINE_LIB) $(READLINE_INC)
+	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ $(READLINE_LIB) $(READLINE_INC)
 	@printf "\e[92mminishell compiled\e[0m\e[?25h\n"
 
 # Libft rule

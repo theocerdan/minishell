@@ -56,11 +56,20 @@ int	first_arg_ignore(char *str)
 	return (0);
 }
 
+void	delete_env_value(t_shell *shell, char **args, int i)
+{
+	while (args[i])
+	{
+		ft_delete_var(args[i], shell);
+		i++;
+	}
+}
+
 void	ft_unset(t_shell *shell, char *each_cmd)
 {
 	char	*first_arg;
 	char	**args;
-	int 	i;
+	int		i;
 
 	(void)(each_cmd);
 	i = 1;
@@ -72,19 +81,14 @@ void	ft_unset(t_shell *shell, char *each_cmd)
 		printf("minishell: unset: not enough arguments\n");
 		return ;
 	}
-	if (first_arg_ignore(args[i])){
+	if (first_arg_ignore(args[i]))
 		return ;
-	}
 	else if (first_arg_not_key(shell, args[i]))
 	{
 		shell->error_return = 1;
 		printf("minishell: unset: %s: invalid parameter name\n", args[i]);
 		return ;
 	}
-	else if (ft_strlen(first_arg) > 0){
-		while (args[i]){
-			ft_delete_var(args[i], shell);
-			i++;
-		}
-	}
+	else if (ft_strlen(first_arg) > 0)
+		delete_env_value(shell, args, i);
 }

@@ -19,7 +19,7 @@ int	not_acceptable(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_is_special(str[i]) && str[i] != '_'  && str[i] != ' ')
+		if (ft_is_special(str[i]) && str[i] != '_' && str[i] != ' ')
 			return (1);
 		i++;
 	}

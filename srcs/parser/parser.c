@@ -62,7 +62,7 @@ void	process_parse(t_shell *shell)
 		resolve_vaguellette(shell);
 	if (dollar_plus_number(shell))
 		resolve_dollar_plus_number(shell);
-	replace_all_key(shell);
+	replace_all_key(shell, 0, -1, -1);
 }
 
 void	parse_command(t_shell *shell)

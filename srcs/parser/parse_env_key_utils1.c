@@ -40,7 +40,8 @@ int	get_count_to_split(t_shell *shell, int i)
 	count = 0;
 	if (shell->command_line_clean[j] == '?')
 		return (1);
-	while (ft_is_uppercase(shell->command_line_clean[j]) || shell->command_line_clean[j] == '_')
+	while (ft_is_uppercase(shell->command_line_clean[j])
+		|| shell->command_line_clean[j] == '_')
 	{
 		count++;
 		j++;

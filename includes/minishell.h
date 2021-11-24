@@ -84,6 +84,17 @@ typedef struct s_built
 	void		(*process_ft)(t_shell *shell, char *cmd);
 }				t_built;
 
+typedef struct s_replace_struct
+{
+	char		*phrase;
+	char		*oldw;
+	char		*neww;
+	int			nlen;
+	int			olen;
+	int			cnt;
+	int			i;
+}				t_replace_struct;
+
 /* env_manager.c */
 
 t_env	*get_env_object(char *target_key, t_shell *shell);
@@ -297,10 +308,13 @@ char	*ft_itoa_clean(t_shell *shell, int n);
 
 int		env_between_simple_quotes(t_shell *shell);
 int		key_plus_numbers(t_shell *shell);
-void replace_all_key(t_shell *shell);
-char* replaceWord(const char* s, const char* oldW,
-                  const char* newW, t_shell *shell);
-int replace(t_shell *shell, int start, int end);
-int	is_index_is_between_single_quote(int index, t_shell *shell);
-int replace2(t_shell *shell, int start, int end);
+void	replace_all_key(t_shell *shell, int found, int start, int end);
+int		replace_all_key_2(t_shell *shell, int i, int *found, int *start);
+char	*replaceword(t_replace_struct *replace, t_shell *shell);
+int		replace(t_shell *shell, int start, int end);
+int		is_index_is_between_single_quote(int index, t_shell *shell);
+int		replace2(t_shell *shell, int start, int end);
+t_list	*clone_env(t_shell *shell);
+char	*init_replace(int *i, char *oldw, char neww, t_shell *shell);
+
 #endif
