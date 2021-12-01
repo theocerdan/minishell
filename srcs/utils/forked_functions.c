@@ -47,12 +47,14 @@ char	**ft_split_clean(t_shell *shell, char const *s, char c)
 
 	i = 0;
 	ret = ft_split(s, c);
-	while (ret[i])
-	{
-		ft_add_to_garbage(ret[i], shell);
-		i++;
+	if (ret != NULL){
+		while (ret[i])
+		{
+			ft_add_to_garbage(ret[i], shell);
+			i++;
+		}
+		ft_add_to_garbage(ret, shell);
 	}
-	ft_add_to_garbage(ret, shell);
 	return (ret);
 }
 

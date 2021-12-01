@@ -58,8 +58,8 @@ void	process_parse(t_shell *shell)
 	loop_extra_space_outside_quotes(shell);
 	if (start_space(shell))
 		operate_start_space(shell);
-	if (have_vaguellette(shell))
-		resolve_vaguellette(shell);
+	//if (have_vaguellette(shell))
+		//resolve_vaguellette(shell);
 	if (dollar_plus_number(shell))
 		resolve_dollar_plus_number(shell);
 	replace_all_key(shell, 0, -1, -1);

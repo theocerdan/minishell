@@ -67,31 +67,12 @@ char	*get_correct_cmd_path(char *path_variables, char *each_cmd,
 	return (cmd_path);
 }
 
-char	*get_path_variable(t_shell *shell)
-{
-	t_list	*start;
-	t_env	*env;
-	char	*path_variable;
-
-	path_variable = NULL;
-	start = shell->env_vars;
-	while (shell->env_vars)
-	{
-		env = (t_env *)shell->env_vars->content;
-		if (ft_strcmp(env->key, "PATH") == 0)
-			path_variable = env->value;
-		shell->env_vars = shell->env_vars->next;
-	}
-	shell->env_vars = start;
-	return (path_variable);
-}
-
 char	*get_path(t_shell *shell, char *each_cmd)
 {
 	char	*path_variables;
 	char	*correct_cmd_path;
 
-	path_variables = get_path_variable(shell);
+	path_variables = get_env_object("PATH", shell)->value;
 	correct_cmd_path = get_correct_cmd_path(path_variables, each_cmd, shell);
 	return (correct_cmd_path);
 }
