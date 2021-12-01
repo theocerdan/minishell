@@ -96,30 +96,29 @@ LIBFT = ./libft/libft.a
 #READLINE_LIB = -lreadline -L/usr/local/opt/readline/lib
 #READLINE_INC= -I/usr/local/opt/readline/include
 
-READLINE_LIB = -lreadline -L/Users/mbaurin/.brew/Cellar/readline/8.1.1/lib
-READLINE_INC= -I/Users/mbaurin/.brew/Cellar/readline/8.1.1/include
+READLINE_LIB = -lreadline -L/Users/tcerdan/.brew/Cellar/readline/8.1.1/lib
+READLINE_INC= -I/Users/tcerdan/.brew/Cellar/readline/8.1.1/include
 
 # Optimization and Compiler flags and commands
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
-#CFLAGS = -Wall -Wextra -Werror -g3
+#CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
 
 # Main rule
-all: $(LIBFT) $(NAME)
+all: libft $(NAME)
 
 # Objects rule
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC) $(READLINE_INC)
 
 # Project file rule
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(INC) $(OBJS) $(LIBFT) -o $@ $(READLINE_LIB) $(READLINE_INC)
 	@printf "\e[92mminishell compiled\e[0m\e[?25h\n"
 
 # Libft rule
-$(LIBFT):
+libft:
 	@make -C $(LIBDIR)
-	@printf "\e[92mlibft compiled\e[0m\e[?25h\n"
 	
 # Cleaning up the build files
 clean:
@@ -137,4 +136,4 @@ fclean:	clean
 re:	fclean all
 
 # Just in case those files exist in the root dir
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re libft

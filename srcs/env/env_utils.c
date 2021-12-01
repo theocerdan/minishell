@@ -32,9 +32,7 @@ char	**convert_env_to_string_tab(t_shell *shell)
 	t_env	*env;
 	char	**ret_tab;
 	int		i;
-	int		s_len;
 
-	s_len = 0;
 	i = 0;
 	ret_tab = ft_safe_malloc((env_len(shell) + 1) * sizeof(char *), shell);
 	lst = shell->env_vars;
@@ -45,9 +43,8 @@ char	**convert_env_to_string_tab(t_shell *shell)
 		env = (t_env *)lst->content;
 		if (env->visible == 1)
 		{
-			s_len = 1 + ft_strlen(env->key) + ft_strlen(env->value);
 			ret_tab[i] = ft_strjoin_clean(shell, env->key, "=");
-			ret_tab[i] = ft_strjoin_clean(shell, ret_tab[i], env->value);	
+			ret_tab[i] = ft_strjoin_clean(shell, ret_tab[i], env->value);
 		}
 		lst = lst->next;
 		i++;

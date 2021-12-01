@@ -47,7 +47,8 @@ char	**ft_split_clean(t_shell *shell, char const *s, char c)
 
 	i = 0;
 	ret = ft_split(s, c);
-	if (ret != NULL){
+	if (ret != NULL)
+	{
 		while (ret[i])
 		{
 			ft_add_to_garbage(ret[i], shell);
