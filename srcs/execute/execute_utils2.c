@@ -72,7 +72,11 @@ char	*get_path(t_shell *shell, char *each_cmd)
 	char	*path_variables;
 	char	*correct_cmd_path;
 
-	path_variables = get_env_object("PATH", shell)->value;
+	if (env_key_exist("PATH", shell))
+		path_variables = get_env_object("PATH", shell)->value;
+	else
+		path_variables = ft_strdup_clean(shell, "");
+
 	correct_cmd_path = get_correct_cmd_path(path_variables, each_cmd, shell);
 	return (correct_cmd_path);
 }

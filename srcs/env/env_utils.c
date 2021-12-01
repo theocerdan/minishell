@@ -36,19 +36,23 @@ char	**convert_env_to_string_tab(t_shell *shell)
 
 	s_len = 0;
 	i = 0;
-	ret_tab = ft_safe_malloc(env_len(shell) * sizeof(char *), shell);
+	ret_tab = ft_safe_malloc((env_len(shell) + 1) * sizeof(char *), shell);
 	lst = shell->env_vars;
 	if (!lst)
 		return (NULL);
 	while (lst)
 	{
 		env = (t_env *)lst->content;
-		s_len = 1 + ft_strlen(env->key) + ft_strlen(env->value);
-		ret_tab[i] = ft_strjoin_clean(shell, env->key, "=");
-		ret_tab[i] = ft_strjoin_clean(shell, ret_tab[i], env->value);
+		if (env->visible == 1)
+		{
+			s_len = 1 + ft_strlen(env->key) + ft_strlen(env->value);
+			ret_tab[i] = ft_strjoin_clean(shell, env->key, "=");
+			ret_tab[i] = ft_strjoin_clean(shell, ret_tab[i], env->value);	
+		}
 		lst = lst->next;
 		i++;
 	}
+	ret_tab[i] = NULL;
 	return (ret_tab);
 }
 

@@ -21,18 +21,16 @@ void	execute_cmd(t_shell *shell, char *each_cmd)
 
 	path = get_path(shell, each_cmd);
 	exec_arg = ft_split_clean(shell, each_cmd, ' ');
-	printf("path -> %s\n", path);
 	int i = 0;
 	while (exec_arg[i]){
-		printf("exec arg -> %s\n", exec_arg[i]);
 		i++;
 	}
+	char **tab = convert_env_to_string_tab(shell);
 	i = 0;
-	while (each_cmd[i]){
-		printf("each cmd -> %c\n", each_cmd[i]);
-		i++;
-	}
-
+		while (tab[i])
+		{
+			i++;
+		}
 	pid = fork();
 	if (pid == -1){
 		perror("fork");
@@ -67,13 +65,7 @@ void	execute(t_shell *shell)
 		if (cmd.id != EXEC)
 			cmd.process_ft(shell, command_to_execute);
 		else {
-			if (env_key_exist("PATH", shell)){
-				printf("y'a un path\n");
-				execute_cmd(shell, shell->tab_cmd[i]);
-			}
-			else {
-				printf("pas de path\n");
-			}
+			execute_cmd(shell, shell->tab_cmd[i]);
 		}
 		i++;
 	}

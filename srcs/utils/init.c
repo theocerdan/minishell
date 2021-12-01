@@ -51,33 +51,11 @@ void	init_env_lst(t_shell *shell, char **envp)
 	}
 }
 
-void	init_env_tab(t_shell *shell, char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-		i++;
-	shell->env_tab = ft_safe_malloc(sizeof(char *) * (i + 2), shell);
-	if (!(shell->env_tab))
-		exit(0);
-	i = -1;
-	while (envp[++i])
-	{
-		shell->env_tab[i] = ft_safe_malloc(ft_strlen(envp[i]) + 100, shell);
-		if (!(shell->env_tab[i]))
-			exit(0);
-		shell->env_tab[i] = envp[i];
-	}
-	shell->env_tab[i] = NULL;
-}
-
 void	init_env(t_shell *shell, char **envp)
 {
 	static int	shlvl;
 
 	init_env_lst(shell, envp);
-	init_env_tab(shell, envp);
 	shlvl = ft_atoi(get_env_object("SHLVL", shell)->value);
 	ft_create_var("SHLVL", ft_itoa_clean(shell, shlvl + 1), shell);
 }

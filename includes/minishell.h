@@ -67,7 +67,6 @@ typedef struct s_shell
 {
 	t_list		*ptrs;
 	t_list		*env_vars;
-	char		**env_tab;
 	t_cmd		**queue;
 	t_list		*token_list;
 	int			fd;
