@@ -114,5 +114,7 @@ void	ft_export(t_shell *shell, char *each_cmd)
 		new = clone_env(shell);
 		ft_sort_export_env(new);
 		print_all_env(new);
+		ft_lstclear(&(new), &ft_clean);
+		ft_clean(new);
 	}
 }
